@@ -1,7 +1,7 @@
 import mongoose,{ Schema,Types,model} from "mongoose";
 import { IStatus } from "./status.model";
 // 1. Create an interface representing a document in MongoDB.
-export interface IFileInfo {
+export interface IFileContent {
     name: string,
     status: IStatus,
     createdAt :number,
@@ -10,7 +10,7 @@ export interface IFileInfo {
 
 }
 //Create a Schema corresponding to the document interface.
-const fileInfoSchema = new Schema<IFileInfo>({
+const fileContentSchema = new Schema<IFileContent>({
     name: { type: String, required: true },
     status: {
         type: Types.ObjectId,
@@ -22,7 +22,7 @@ const fileInfoSchema = new Schema<IFileInfo>({
     path:{type : String, required:true}
   });
 
-  export default model.call(require('mongoose'), 'FileInfo', fileInfoSchema);
+  export default model.call(require('mongoose'), 'FileContent', fileContentSchema);
 
  //export default mongoose.model<IFileInfo>("FileInfo", fileInfoSchema)
 

@@ -1,5 +1,5 @@
-import FileContentListHandler from "../handler/fileInfoList.handler";
-import { IFileInfo } from "../model/fileInfo.model";
+import FileContentListHandler from "../handler/fileContentList.handler";
+import { IFileContent } from "../model/fileContent.model";
 
 class FileContentService {
     private static fileContentService: FileContentService;
@@ -15,14 +15,15 @@ class FileContentService {
         return this.fileContentService;
     }
 
-    public async getList(): Promise<IFileInfo[]> {
+    public async getList(): Promise<IFileContent[]> {
         return await this.fileContentListHandler.getList();
         //console.log("testing..........hello get list")
         //return null;
     }
 
-    public async create(filesInfo:IFileInfo[]): Promise<IFileInfo[]> {
-        return await this.fileContentListHandler.create(filesInfo);
+    public async create(fContent:IFileContent[]): Promise<IFileContent[]> {
+        console.log("this is service")
+        return await this.fileContentListHandler.create(fContent);
     
     }
     
