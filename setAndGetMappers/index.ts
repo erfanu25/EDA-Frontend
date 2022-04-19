@@ -14,7 +14,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
           case "GET":
             if (req?.query || (req?.body && req?.body?.id)) {
               console.log(req.query);
-              console.log("testing.....")
               response = {
                 documentResponse: await mapperService.getMapperNames(req.query)
               };
@@ -22,7 +21,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
               // allows empty query to return all items
               const dbQuery =
                 req?.query?.dbQuery || (req?.body && req?.body?.dbQuery);
-              console.log(process.env["CosmosDbConnectionString"]);
               response = {
                documentResponse: await mapperService.getTables(),
               };
