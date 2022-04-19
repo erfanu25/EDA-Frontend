@@ -7,8 +7,7 @@
       "name": "req",
       "methods": [
         "get",
-        "post",
-        "delete"
+        "post"
       ]
     },
     {
@@ -17,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/templates/index.js"
+  "scriptFile": "../dist/fileContent/index.js"
 }
