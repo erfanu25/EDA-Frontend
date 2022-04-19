@@ -1,5 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import * as db from "../lib/flex-max-cosmosdb-mongodb";
+import FileInfoService from "../service/fileInfo.service";
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
@@ -7,6 +8,7 @@ const httpTrigger: AzureFunction = async function (
 ): Promise<void> {
   try {
     let response = null;
+    let fileInfoService:FileInfoService = FileInfoService.getServiceInstance();
 
     // create 1 db connection for all functions
     await db.init();
@@ -14,23 +16,24 @@ const httpTrigger: AzureFunction = async function (
     switch (req.method) {
       case "GET":
         if (req?.query.id || (req?.body && req?.body?.id)) {
+          console.log("testing.....")
           response = {
-            documentResponse: await db.findItemById(req?.body?.id),
+           // documentResponse: await db.findItemById(req?.body?.id),
           };
         } else {
           // allows empty query to return all items
           const dbQuery =
             req?.query?.dbQuery || (req?.body && req?.body?.dbQuery);
           response = {
-            documentResponse: await db.findItems(dbQuery),
+            documentResponse: await fileInfoService.getList(),
           };
         }
         break;
       case "POST":
         if (req?.body?.document) {
-          const insertOneResponse = await db.addItem(req?.body?.document);
+         // const insertOneResponse = await db.addItem(req?.body?.document);
           response = {
-            documentResponse: insertOneResponse,
+           // documentResponse: insertOneResponse,
           };
         } else {
           throw Error("No document found");
@@ -40,7 +43,7 @@ const httpTrigger: AzureFunction = async function (
       case "DELETE":
         if (req?.query?.id || (req?.body && req?.body?.id)) {
           response = {
-            documentResponse: await db.deleteItemById(req?.body?.id),
+          //  documentResponse: await db.deleteItemById(req?.body?.id),
           };
         } else {
           throw Error("No id found");

@@ -1,30 +1,32 @@
-import { Schema, model, connect } from "mongoose";
+import { Schema, model, connect,Types } from "mongoose";
 
 let db=null;
-
-const CategorySchema = new Schema(
-  { categoryName: String },
-  { timestamps: true }
-);
-const CategoryModel = model("Category", CategorySchema, "Bookstore");
 
 export const init = async () => {
   if(!db) {
     db = await connect(process.env["CosmosDbConnectionString"]);
   }
 };
-export const addItem = async (doc) => {
-  const modelToInsert = new CategoryModel();
-  modelToInsert["categoryName"] = doc.name;
 
-  return await modelToInsert.save();
-};
-export const findItemById = async (id) => {
-  return await CategoryModel.findById(id);
-};
-export const findItems = async (query = {}) => {
-  return await CategoryModel.find({});
-};
-export const deleteItemById = async (id) => {
-  return await CategoryModel.findByIdAndDelete(id);
-};
+// export const addItem = async (doc) => {
+//   const modelToInsert = new CategoryModel();
+//   modelToInsert["name"] = doc.name;
+//   modelToInsert["path"] = doc.path;
+//   modelToInsert["status"] = doc.status;
+//   modelToInsert["createdAt"] = doc.createdAt;
+//   modelToInsert["scheduleAt"] = doc.scheduleAt;
+
+//   return await modelToInsert.save();
+// };
+// export const findItemById = async (id) => {
+//   return await CategoryModel.findById(id);
+// };
+// export const findItems = async (query = {}) => {
+//   return await CategoryModel.find()
+//   .populate("status");
+//   // .then(p=>console.log(p))
+//   // .catch(error=>console.log(error));
+// };
+// export const deleteItemById = async (id) => {
+//   return await CategoryModel.findByIdAndDelete(id);
+// };
