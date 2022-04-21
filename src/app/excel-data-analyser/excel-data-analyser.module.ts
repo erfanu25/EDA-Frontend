@@ -3,7 +3,6 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
 import { MatCardModule } from '@angular/material/card';
 import {TableModule} from "primeng/table";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {FileUploadComponent} from "./fileUpload/file-upload.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {HttpClientModule} from "@angular/common/http";
@@ -87,7 +86,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
   ],
   declarations: [
-    FileUploadComponent,
     DataIngestionComponent,
     DataMappingComponent,
     DataAnalysisComponent],
