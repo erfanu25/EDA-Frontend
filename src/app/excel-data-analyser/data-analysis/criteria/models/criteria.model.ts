@@ -1,7 +1,6 @@
 
  
 export interface Criteria {
-    column: string;
-    operator: string;
-    value: string;
+    name: string;
+    content: string;
 }
