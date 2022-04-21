@@ -12,11 +12,11 @@ export class AppComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute) { }
-    
+
   navigateToDataMapping() {
     this.router.navigate(['dataMapping'], { relativeTo: this.route });
   }
   navigateToDataAnalysis() {
-    this.router.navigate(['dataAnalysis'], { relativeTo: this.route });
+    this.router.navigate(['']);
   }
 }

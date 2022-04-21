@@ -1,5 +1,15 @@
 /**/
-.table-header{
-  margin-left: 980px;
-  height: 20px;
+/*.flex{*/
+/*  float: right;*/
+/*  !*margin-left: 980px;*!*/
+/*  !*height: 10px;*!*/
+/*}*/
+
+.p-input-icon-left{
+  width: 150px;
 }
+/*p-input-icon-left {*/
+/*  width: 10px;*/
+/*  height: 10px;*/
+
+/*}*/

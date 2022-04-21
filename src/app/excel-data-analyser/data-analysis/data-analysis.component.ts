@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MenuItem, SelectItem} from "primeng/api";
 import {ThemePalette} from "@angular/material/core";
@@ -17,6 +17,9 @@ export class DataAnalysisComponent implements OnInit {
   tableType: SelectItem[] = TableType;
   details: EmpDetails[]=[];
   loading: boolean = true;
+  cols: any[];
+
+  _selectedColumns: any[];
   constructor(
     private router: Router,
     private route: ActivatedRoute
@@ -39,6 +42,22 @@ export class DataAnalysisComponent implements OnInit {
 
 
     ];
+    this.cols = [
+      // { field: 'name', header: 'Name' },
+      { field: 'age', header: 'Age' },
+      { field: 'address', header: 'Address' },
+      { field: 'email', header: 'Email' }
+    ];
+  }
+
+
+  @Input() get selectedColumns(): any[] {
+    return this._selectedColumns;
+  }
+
+  set selectedColumns(val: any[]) {
+    //restore original order
+    this._selectedColumns = this.cols.filter(col => val.includes(col));
   }
 
   navigateToDataMapping(){

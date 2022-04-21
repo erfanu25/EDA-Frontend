@@ -63,5 +63,10 @@ export class DataIngestionComponent implements OnInit, AfterViewInit {
   }
 
 
-
+  navigateToDataMapping() {
+    this.router.navigate(['dataMapping'], { relativeTo: this.route });
+  }
+  navigateToDataAnalysis() {
+    this.router.navigate(['dataAnalysis'], { relativeTo: this.route });
+  }
 }
