@@ -41,6 +41,8 @@ import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import {TabMenuModule} from "primeng/tabmenu";
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CriteriaAddComponent } from "./data-analysis/criteria/components/criteria-add/criteria-add.component";
+import { CriteriaComponent } from "./data-analysis/criteria/components/criteria-view/criteria.component";
 
 @NgModule({
   imports: [
@@ -88,7 +90,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   declarations: [
     DataIngestionComponent,
     DataMappingComponent,
-    DataAnalysisComponent],
+    DataAnalysisComponent,
+    CriteriaAddComponent,
+    CriteriaComponent
+  ],
   exports: [
     RouterModule
   ],
