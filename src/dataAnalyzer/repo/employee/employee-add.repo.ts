@@ -15,13 +15,12 @@ class EmployeeAddRepo {
 
     public async Add(employee :IEmployee) : Promise<any>{
         const employeeModel = new EmployeeModel({
+            email: employee.email,
             name: employee.name,
             address: employee.address,
             age: employee.age
         });
         var result= await employeeModel.save();
-        console.log("resutl:");
-        console.log(result);
         return result
     }
     

@@ -13,6 +13,7 @@ class CriteriaOperationService {
 
     private criteriaGetSingleHandler:CriteriaGetSingleHandler = CriteriaGetSingleHandler
     .getHandlerInstance();  
+    
     private constructor() {
     }
 
@@ -32,7 +33,6 @@ class CriteriaOperationService {
             return await this.criteriaOperationHandler.add(criteria);
         }
         return "Criteria Already Existed";
-        
     }
     public async GetList(){
         return await this.criteriaListHandler.getList();

@@ -8,6 +8,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
       name: "Istiaq Hossain",
       address: "Dhaka",
       age: "13",
+      email:"hossain.ict@gmail.com"
   };
     await db.init();
     response = {
