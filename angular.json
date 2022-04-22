@@ -26,6 +26,20 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "allowedCommonJsDependencies": [
+              "assign-deep",
+              "excel-builder-webpacker",
+              "crypto",
+              "stream",
+              "util",
+              "https",
+              "http",
+              "url",
+              "zlib",
+              "assert",
+              "path",
+              "os"
+            ],
             "styles": [
               "src/custom-theme.scss",
               "src/styles.css"
