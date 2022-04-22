@@ -6,9 +6,7 @@ const getCriteriaView: AzureFunction = async function (context: Context, req: Ht
     let response = null;
     try {
         await db.init();
-        response = {
-            Result: await CriteriaOperationService.getServiceInstance().GetList(),
-        };
+        response=await CriteriaOperationService.getServiceInstance().GetList()
         context.res = { status: 200, body: JSON.parse(JSON.stringify(response)) }; ;
       } catch (error) {
         context.res = { status: error.status, body: JSON.parse(JSON.stringify(error)) }; ;
