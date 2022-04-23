@@ -1,5 +1,6 @@
 import { EmployeeDto } from "../dto/employee.dto";
 import EmployeeGetSingleHandler from "../handler/employee/employee-get-single.handler";
+import EmployeeListHandler from "../handler/employee/employee-list.handler";
 import EmployeeOperationHandler from "../handler/employee/employee-operation.handler";
 
 class EmployeeOperationService {
@@ -7,6 +8,8 @@ class EmployeeOperationService {
     private employeeOperationHandler:EmployeeOperationHandler = EmployeeOperationHandler
                                                            .getHandlerInstance();
     private employeeGetSingleHandler:EmployeeGetSingleHandler = EmployeeGetSingleHandler
+    .getHandlerInstance();  
+    private employeeListleHandler:EmployeeListHandler = EmployeeListHandler
     .getHandlerInstance();  
 
     private constructor() {
@@ -23,7 +26,10 @@ class EmployeeOperationService {
         if(existData.length == 0){
             return await this.employeeOperationHandler.add(employee);
         }
-        return "Employee Email Already Existed";
+        return "Employee Email Already Exist.";
+    }
+    public async GetList(){
+        return await this.employeeListleHandler.getList();
     }
 }
 
