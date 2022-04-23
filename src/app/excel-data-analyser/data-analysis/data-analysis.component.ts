@@ -1,9 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MenuItem, SelectItem} from "primeng/api";
 import {ThemePalette} from "@angular/material/core";
 import {EmpDetails, TableType} from "./domain/data-analysis.domain";
-
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -20,11 +19,12 @@ export class DataAnalysisComponent implements OnInit {
   cols: any[];
 
   _selectedColumns: any[];
+  displayCriteriaAddComponents: boolean;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute
   ) { }
-
   ngOnInit(): void {
     this.loading = false;
     this.items = [
@@ -48,6 +48,7 @@ export class DataAnalysisComponent implements OnInit {
       { field: 'address', header: 'Address' },
       { field: 'email', header: 'Email' }
     ];
+    this.displayCriteriaAddComponents=false;
   }
 
 
@@ -66,5 +67,12 @@ export class DataAnalysisComponent implements OnInit {
   navigateToDataIngestion(){
     this.router.navigate(['']);
   }
+  selectedCriteria(criteriaViews) {  
+    console.log(criteriaViews);
+  }
+  onCriteriaViewClick() {  
+    this.displayCriteriaAddComponents=true;
+  }
+
 
 }

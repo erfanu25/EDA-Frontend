@@ -7,7 +7,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatTableModule} from "@angular/material/table";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {DialogModule} from "primeng/dialog";
@@ -19,6 +19,12 @@ import {AccordionModule} from 'primeng/accordion';     //accordion and accordion
 import {MenuItem} from 'primeng/api';
 import {RouterModule} from "@angular/router";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { AnalysisHttpHandler } from './excel-data-analyser/data-analysis/service-api/analysis-http.handler';
+import { HttpHandler } from './excel-data-analyser/data-analysis/service-api/http.handler';
+import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CriteriaAddService } from './excel-data-analyser/data-analysis/criteria/services/criteria-add.service';
+import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteria/services/criteria-view.service';
 
 @NgModule({
   declarations: [
@@ -28,9 +34,14 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule
   ],
-  providers: [],
+  providers: [ AnalysisHttpHandler,CriteriaAddService,CriteriaViewService, 
+    HttpHandler,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,6 +13,8 @@
 <div class="card" style="margin-top: 5px">
   <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
   <!--  <h5>Single Column</h5>-->
+  <app-criteria (selectedCriteriaOutput)='selectedCriteria($event)' ></app-criteria>
+  <p-button  (click)="onCriteriaViewClick()"  type="button"   class="pt-2">Save Criteria As View</p-button>
   <p-table #dt [value]="details" [columns]="selectedColumns" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [rowHover]="true"
     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll" [lazy]="false"
     [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
@@ -116,3 +118,11 @@
     </ng-template>
   </p-table>
 </div>
+
+
+
+<p-dialog header="Criteria View Name" 
+    [(visible)]="displayCriteriaAddComponents" [modal]="true" 
+    [draggable]="true" [resizable]="true">
+    <app-criteria-add  ></app-criteria-add>
+</p-dialog>

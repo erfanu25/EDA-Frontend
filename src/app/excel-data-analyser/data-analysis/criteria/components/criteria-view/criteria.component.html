@@ -1,0 +1,4 @@
+<div class="btn-group" role="group" aria-label="Basic example">
+    <button (click)="onClick('DEFAULT')"    type="button" class="btn btn-light">Default</button>
+    <button (click)="onClick(view)" *ngFor="let view of criteriaViews"  type="button" class="btn btn-light">{{view.name}}</button>
+</div>    

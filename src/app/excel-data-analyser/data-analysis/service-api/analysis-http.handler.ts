@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 @Injectable()
-export class AppHttpService extends HttpHandler {
+export class AnalysisHttpHandler extends HttpHandler {
 
-  private readonly baseUrl = 'http://localhost:8080/';
+  private readonly baseUrl = 'http://localhost:7071/api/';
 
   constructor(protected override httpClient: HttpClient,
   ) {
