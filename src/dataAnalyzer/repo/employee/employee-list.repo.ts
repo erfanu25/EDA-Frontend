@@ -14,9 +14,7 @@ class EmployeeListRepo {
     }
 
     public async getList(): Promise<EmployeeDto[]> {
-        return await employeeModel.find({});
-        // .then(p=>console.log(p))
-        // .catch(error=>console.log(error));;
+        return await employeeModel.find();
     }
     
 }
