@@ -25,8 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CriteriaAddService } from './excel-data-analyser/data-analysis/criteria/services/criteria-add.service';
 import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteria/services/criteria-view.service';
-import { TopbarComponent } from './excel-data-analyser/topbar/topbar.component';
-import { TopbarComponent } from './excel-data-analyser/topbar/topbar.component';
+
 
 @NgModule({
   declarations: [
