@@ -19,6 +19,7 @@
   <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
 
   <!--  <h5>Single Column</h5>-->
+  <p-table #dt [value]="details" (onFilter)="onFilter($event, dt)" [columns]="selectedColumns" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
   <app-criteria (selectedCriteriaOutput)='selectedCriteria($event)' ></app-criteria>
   <p-button  (click)="onCriteriaViewClick()"  type="button"   class="pt-2">Save Criteria As View</p-button>
   <p-table #dt [value]="details" [columns]="selectedColumns" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [rowHover]="true"

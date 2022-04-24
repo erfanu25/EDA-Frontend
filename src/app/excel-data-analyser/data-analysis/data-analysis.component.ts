@@ -1,5 +1,6 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MenuItem, SelectItem} from "primeng/api";
 import {ThemePalette} from "@angular/material/core";
@@ -26,6 +27,8 @@ export class DataAnalysisComponent implements OnInit {
   _selectedColumns: any[];
   displayCriteriaAddComponents: boolean;
 
+  filteredValues: any[];
+  path: string;
   filteredValues: any[];
   path: string;
   constructor(
@@ -57,6 +60,9 @@ export class DataAnalysisComponent implements OnInit {
       { field: 'address', header: 'Address' },
       { field: 'email', header: 'Email' }
     ];
+    this.path = this.route.snapshot.routeConfig.path;
+
+
     this.path = this.route.snapshot.routeConfig.path;
 
 
@@ -97,6 +103,12 @@ export class DataAnalysisComponent implements OnInit {
     this.displayCriteriaAddComponents=true;
   }
 
+  // navigateToDataMapping(){
+  //   this.router.navigate(['dataMapping'], { relativeTo: this.route });
+  // }
+  // navigateToDataIngestion(){
+  //   this.router.navigate(['']);
+  // }
   // navigateToDataMapping(){
   //   this.router.navigate(['dataMapping'], { relativeTo: this.route });
   // }

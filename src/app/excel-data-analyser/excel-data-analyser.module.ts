@@ -46,6 +46,10 @@ import {AppModule} from "../app.module";
 import {TopbarComponent} from "./topbar/topbar.component";
 import { CriteriaAddComponent } from "./data-analysis/criteria/components/criteria-add/criteria-add.component";
 import { CriteriaComponent } from "./data-analysis/criteria/components/criteria-view/criteria.component";
+import {CheckboxModule} from "primeng/checkbox";
+import {TagModule} from "primeng/tag";
+import {AppModule} from "../app.module";
+import {TopbarComponent} from "./topbar/topbar.component";
 
 @NgModule({
   imports: [
@@ -103,7 +107,7 @@ import { CriteriaComponent } from "./data-analysis/criteria/components/criteria-
     TopbarComponent,
 
     DataAnalysisComponent,
-    TopbarComponent
+    TopbarComponent,
   ],
   exports: [
     RouterModule
