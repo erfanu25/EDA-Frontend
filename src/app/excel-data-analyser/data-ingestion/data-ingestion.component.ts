@@ -14,8 +14,9 @@ export class DataIngestionComponent implements OnInit, AfterViewInit {
   representatives!: any[];
   activityValues: number[] = [0, 100];
   totalRecords: number = 5;
+  path: string;
   displayedColumns: string[] = ['date', 'fileName', 'status', 'schedule', 'action'];
-  dataSource = new MatTableDataSource<FileData>(this.fileData);
+  // dataSource = new MatTableDataSource<FileData>(this.fileData);
   constructor(
     private router: Router,
     private route: ActivatedRoute) { }
@@ -28,7 +29,7 @@ export class DataIngestionComponent implements OnInit, AfterViewInit {
       { date: '12/02/2022', fileName: 'Erfan', status: 'mapped', schedule: '14/12/2021', action: 'Inject Now' },
 
     ];
-
+    this.path = this.route.snapshot.routeConfig.path;
 
   }
 
