@@ -16,7 +16,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SpreadsheetAllModule} from "@syncfusion/ej2-angular-spreadsheet";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
-import {MenuItem} from 'primeng/api';
+import {MenuItem, SharedModule} from 'primeng/api';
 import {RouterModule} from "@angular/router";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { AnalysisHttpHandler } from './excel-data-analyser/data-analysis/service-api/analysis-http.handler';
@@ -25,6 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CriteriaAddService } from './excel-data-analyser/data-analysis/criteria/services/criteria-add.service';
 import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteria/services/criteria-view.service';
+import { TopbarComponent } from './excel-data-analyser/topbar/topbar.component';
+import { TopbarComponent } from './excel-data-analyser/topbar/topbar.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,7 @@ import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteri
     ReactiveFormsModule,
     NgbModule
   ],
-  providers: [ AnalysisHttpHandler,CriteriaAddService,CriteriaViewService, 
+  providers: [ AnalysisHttpHandler,CriteriaAddService,CriteriaViewService,
     HttpHandler,],
   bootstrap: [AppComponent]
 })

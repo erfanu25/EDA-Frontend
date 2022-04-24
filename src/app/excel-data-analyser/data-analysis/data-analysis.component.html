@@ -1,4 +1,6 @@
 
+<app-topbar [topBarData]="path"></app-topbar>
+
 <div class="card">
   <p-card header="Data Analysis">
     <h3>Select Table</h3>
@@ -7,110 +9,65 @@
   </p-card>
 </div>
 
-
+<div class="card" style="margin-top: 5px">
+  <h3>Filters:</h3>
+  <p-table #ft [value]="filteredValues" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"></p-table>
+</div>
 
 
 <div class="card" style="margin-top: 5px">
   <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
+
   <!--  <h5>Single Column</h5>-->
+  <p-table #dt [value]="details" (onFilter)="onFilter($event, dt)" [columns]="selectedColumns" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
   <app-criteria (selectedCriteriaOutput)='selectedCriteria($event)' ></app-criteria>
   <p-button  (click)="onCriteriaViewClick()"  type="button"   class="pt-2">Save Criteria As View</p-button>
   <p-table #dt [value]="details" [columns]="selectedColumns" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [rowHover]="true"
+  <p-table #dt [value]="details" (onFilter)="onFilter($event, dt)" [columns]="selectedColumns" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll" [lazy]="false"
     [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
     [globalFilterFields]="['name','age','address','email']">
 
 
-
     <ng-template pTemplate="caption">
 
       <div class="flex">
-<!--        <button pButton pRipple  type="button" label="Apply"  class="p-button-raised p-button-text p-button-plain"></button>-->
-<!--        <button pButton pRipple type="button" label="Save criteria as view" class="p-button-raised p-button-text p-button-plain"></button>-->
-<!--        <button pButton pRipple type="button" label="Export as xlxs" class="p-button-raised p-button-text p-button-plain"></button>-->
-<!--        <button pButton pRipple type="button" label="Group By" class="p-button-raised p-button-text p-button-plain"></button>-->
 
+        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+          <p-multiSelect [ngModel]="value" [options]="cols" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+            <ng-template let-option pTemplate="item">
+              <div class="p-multiselect-representative-option">
+                <span class="p-ml-1">{{option.name}}</span>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+        </ng-template>
 
-<!--        <div >-->
+          <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                         selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
+<!--        <span class="p-input-icon-left">-->
 
-
-<!--          &lt;!&ndash;            <p-multiSelect [defaultLabel]="dt.filters[col.field]?.value || 'All'"></p-multiSelect>&ndash;&gt;-->
-<!--        </div>-->
-        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                       selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
-<!--        <button pButton pRipple type="button" label="Add formula" class="p-button-raised p-button-text p-button-plain"></button>-->
-        <span class="p-input-icon-left">
-
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" pInputText (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
-        </span>
+<!--          <i class="pi pi-search"></i>-->
+<!--          <input pInputText type="text" pInputText (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />-->
+<!--        </span>-->
       </div>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
-      <tr *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
-        <input pInputText
-               type="text"
-               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
-               [value]="dt.filters[col.field]?.value">
-      </tr>
+
 
       <tr>
-      <th pSortableColumn="name" >
-        <div class="flex justify-content-between align-items-center" style="margin-left: 10px">
-          Name
-          <p-sortIcon field="name"></p-sortIcon>
-          <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
-        </div>
-      </th>
         <th *ngFor="let col of columns" pSortableColumn="{{col.header}}">
           <div class="flex justify-content-between align-items-center" style="margin-left: 10px">
           {{col.header}}
             <p-sortIcon field="name"></p-sortIcon>
-            <p-columnFilter type="text" field="{{col.header}}" display="menu" class="ml-auto"></p-columnFilter>
+            <p-columnFilter  type="text" field="{{col.header}}"  display="menu" class="ml-auto"></p-columnFilter>
 
           </div>
         </th>
       </tr>
-<!--      <th pSortableColumn="age">-->
-<!--        <div class="flex justify-content-between align-items-center">-->
-<!--          Age-->
-<!--          <p-sortIcon field="age"></p-sortIcon>-->
-<!--          <p-columnFilter type="numeric" field="age" display="menu" class="ml-auto"></p-columnFilter>-->
-<!--        </div>-->
-<!--      </th>-->
-<!--      <th pSortableColumn="address">-->
-<!--        <div class="flex justify-content-between align-items-center" style="margin-left: 10px">-->
-<!--          Address-->
-<!--          <p-sortIcon field="address"></p-sortIcon>-->
-<!--          <p-columnFilter type="text" field="address" display="menu" class="ml-auto"></p-columnFilter>-->
-<!--        </div>-->
-<!--      </th>-->
-<!--      <th pSortableColumn="email">-->
-<!--        <div class="flex justify-content-between align-items-center" style="margin-left: 10px">-->
-<!--          Email-->
-<!--          <p-sortIcon field="email"></p-sortIcon>-->
-<!--          <p-columnFilter type="text" field="email" display="menu" class="ml-auto"></p-columnFilter>-->
-<!--        </div>-->
-<!--      </th>-->
-
-
-<!--      <tr>-->
-<!--        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>-->
-<!--        </th>-->
-<!--        <th pSortableColumn="age">Age <p-sortIcon field="category"></p-sortIcon>-->
-<!--        </th>-->
-<!--        <th pSortableColumn="address">Address <p-sortIcon field="quantity"></p-sortIcon>-->
-<!--        </th>-->
-<!--        <th pSortableColumn="email">Email <p-sortIcon field="quantity"></p-sortIcon>-->
-<!--        </th>-->
-<!--      </tr>-->
     </ng-template>
     <ng-template pTemplate="body" let-product let-columns="columns">
       <tr>
-        <td>{{product.name}}</td>
-<!--        <td>{{product.age}}</td>-->
-<!--        <td>{{product.address}}</td>-->
-<!--        <td>{{product.email}}</td>-->
         <td *ngFor="let col of columns">
           {{product[col.field]}}
         </td>
@@ -121,8 +78,8 @@
 
 
 
-<p-dialog header="Criteria View Name" 
-    [(visible)]="displayCriteriaAddComponents" [modal]="true" 
+<p-dialog header="Criteria View Name"
+    [(visible)]="displayCriteriaAddComponents" [modal]="true"
     [draggable]="true" [resizable]="true">
     <app-criteria-add  ></app-criteria-add>
 </p-dialog>
