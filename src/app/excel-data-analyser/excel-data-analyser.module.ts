@@ -22,7 +22,6 @@ import { DataMappingComponent } from './data-mapping/data-mapping.component';
 import { DataAnalysisComponent } from './data-analysis/data-analysis.component';
 import {routes} from "./excel-data-analyser.routes";
 import {ButtonModule} from "primeng/button";
-import {BrowserModule} from "@angular/platform-browser";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -42,6 +41,10 @@ import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import {TabMenuModule} from "primeng/tabmenu";
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {CheckboxModule} from "primeng/checkbox";
+import {TagModule} from "primeng/tag";
+import {AppModule} from "../app.module";
+import {TopbarComponent} from "./topbar/topbar.component";
 
 @NgModule({
   imports: [
@@ -83,14 +86,20 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     CalendarModule,
     CardModule,
     TabMenuModule,
-    DragDropModule
+    DragDropModule,
+    CheckboxModule,
+    TagModule,
+    // AppModule,
+
 
   ],
   declarations: [
     FileUploadComponent,
     DataIngestionComponent,
     DataMappingComponent,
-    DataAnalysisComponent],
+    DataAnalysisComponent,
+    TopbarComponent
+  ],
   exports: [
     RouterModule
   ],

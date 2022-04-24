@@ -2,13 +2,14 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { companyMapper, companyTableProperties, employeeMapper, empTableProperties, excelHeaders, Mapper, Table, tableListData } from './services/domain/tableMapper.domain';
+import {ActivatedRoute} from "@angular/router";
 
 export interface PeriodicElement {
     name: string;
     address: string;
     age: number;
   }
-  
+
   const ELEMENT_DATA: PeriodicElement[] = [
     {name: 'Erfan', address: 'Dhaka', age: 25},
     {name: 'Iftekhar', address: 'Dhaka', age: 30},
@@ -16,7 +17,7 @@ export interface PeriodicElement {
     {name: 'Istiaq', address: 'Dhaka', age: 30},
     {name: 'Galib', address: 'Dhaka', age: 30},
   ];
-  
+
 @Component({
   selector: 'app-data-mapping',
   templateUrl: './data-mapping.component.html',
@@ -24,13 +25,14 @@ export interface PeriodicElement {
 })
 export class DataMappingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   showTable: boolean;
   displayDialog: boolean;
 
   displayedColumns: string[] = ['name', 'address', 'age'];
   dataSource = ELEMENT_DATA;
+  path: string;
 
   tables: Table[] = tableListData;
 
@@ -49,6 +51,7 @@ export class DataMappingComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.path = this.route.snapshot.routeConfig.path;
   }
 
   reorderList(event: CdkDragDrop<string[]>) {
@@ -65,7 +68,7 @@ export class DataMappingComponent implements OnInit {
         event.currentIndex);
     }
   }
-  
+
   onTableChange(event) {
     this.showTable = false;
      this.mappers = [{id: 0, name: 'Custom Mapper'}].concat(event.mapper);
