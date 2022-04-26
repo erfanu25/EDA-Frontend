@@ -1,18 +1,16 @@
 import { DataMappingService } from '../services/data-mapping.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { excelHeaders, Mapper, Table, tableListData } from '../domain/tableMapper.domain';
-import IMapperName from '../domain/mapper-name.domain';
+import { excelHeaders } from '../domain/tableMapper.domain';
 // import { EventEmitter } from 'stream';
 
 
 @Component({
-  selector: 'table',
-  templateUrl: './table.component.html',
+  selector: 'table-data-mapper',
+  templateUrl: './table-data-mapper.component.html',
   styleUrls: ['../data-mapping.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableMapperComponent implements OnInit {
   //private tableList: string[] = []
 
   @Input("dbColumns") public  dbColumns: string[] = []; 
@@ -26,16 +24,18 @@ export class TableComponent implements OnInit {
 
   }
 
+  excelHeaderList: string[] = [];
+
+  mappedTableColumns: string[] = [];
+
   ngOnInit(): void {
     console.log(this.dbColumns);
   
   }
 
+  getExcelHeaderList(fileId) {
 
-
-  excelHeaderList: string[] = ["Name", "Address", "Age"];
-
-  mappedTableColumns: string[] = [];
+  }
 
   dropItem(event: CdkDragDrop<string[]>) {
     console.log("current " + event.container);
@@ -71,7 +71,9 @@ export class TableComponent implements OnInit {
     this.saveMappingEvent.emit(this.mappedCol);
   }
 
+  showMappedTable() {
 
+  }
 
   processMapperData(mapperData) {
     this.excelHeaderList = excelHeaders;

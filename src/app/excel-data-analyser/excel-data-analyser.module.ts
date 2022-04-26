@@ -47,9 +47,10 @@ import {AppModule} from "../app.module";
 import {TopbarComponent} from "./topbar/topbar.component";
 import { DataMappingComponent } from "./data-mapping/component/data-mapping.component";
 import { DialogComponent } from "./data-mapping/component/dialog.component";
-import { TableComponent } from "./data-mapping/component/table.component";
+import { TableMapperComponent } from "./data-mapping/component/table-data-mapper.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { DataMappingService } from "./data-mapping/services/data-mapping.service";
+import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapper.component";
 
 @NgModule({
   imports: [
@@ -102,12 +103,13 @@ import { DataMappingService } from "./data-mapping/services/data-mapping.service
   declarations: [
     DataIngestionComponent,
     DataMappingComponent,
+    ViewDataMapperComponent,
     DataAnalysisComponent,
     CriteriaAddComponent,
     CriteriaComponent,
     TopbarComponent,
     DialogComponent,
-    TableComponent,
+    TableMapperComponent,
     DataAnalysisComponent,
     TopbarComponent,
   ],

@@ -23,15 +23,11 @@ export class DataMappingComponent implements OnInit {
   }
 
   path: string;
+  dataMaps: any;
 
   ngOnInit(): void {
-    this.mappingService.getTableList()
-      .subscribe(tables => {
-        console.log(tables);
-        this.tables = tables;
-      });
-
-      this.path = this.route.snapshot.routeConfig.path;
+    this.getTableList();
+    this.path = this.route.snapshot.routeConfig.path;
   }
 
   showTable: boolean = false;
@@ -42,6 +38,14 @@ export class DataMappingComponent implements OnInit {
   modelName: string;
   mapperName: string;
 
+
+  getTableList() {
+    this.mappingService.getTableList()
+      .subscribe(tables => {
+        console.log(tables);
+        this.tables = tables;
+      });
+  }
 
   getMapperNames(collectionName) {
     let queryParam = { "modelName": collectionName };
