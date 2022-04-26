@@ -1,12 +1,10 @@
 import { DialogComponent } from './dialog.component';
 import { DataMappingService } from '../services/data-mapping.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { companyMapper, companyTableProperties, employeeMapper, empTableProperties, excelHeaders, Mapper, Table, tableListData } from '../domain/tableMapper.domain';
 import IMapperName from '../domain/mapper-name.domain';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import IMapper from '../domain/data-mapping.domain';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -16,17 +14,20 @@ import IMapper from '../domain/data-mapping.domain';
 })
 export class DataMappingComponent implements OnInit {
 
-  constructor(private mappingService: DataMappingService, public dialog: MatDialog) {
+  constructor(
+    private mappingService: DataMappingService,
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute) {
 
   }
 
+  path: string;
+  dataMaps: any;
 
   ngOnInit(): void {
-    this.mappingService.getTableList()
-      .subscribe(tables => {
-        console.log(tables);
-        this.tables = tables;
-      });
+    this.getTableList();
+    this.path = this.route.snapshot.routeConfig.path;
   }
 
   showTable: boolean = false;
@@ -38,6 +39,14 @@ export class DataMappingComponent implements OnInit {
   mapperName: string;
 
 
+  getTableList() {
+    this.mappingService.getTableList()
+      .subscribe(tables => {
+        console.log(tables);
+        this.tables = tables;
+      });
+  }
+
   getMapperNames(collectionName) {
     let queryParam = { "modelName": collectionName };
     this.mappingService.getMapperNames(queryParam)
@@ -47,7 +56,7 @@ export class DataMappingComponent implements OnInit {
   }
 
   onTableChange(event) {
-    let queryParam = { "collectionName": "Employee" };
+    let queryParam = { "collectionName": event.value };
     this.mappingService.getTableColumns(queryParam)
       .subscribe(columns => {
         this.showTable = true;

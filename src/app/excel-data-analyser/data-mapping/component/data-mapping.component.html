@@ -1,4 +1,5 @@
 <div class="row margin25">
+<app-topbar [topBarData]="path"></app-topbar>
   <div class="col-md-6">
     <h3><b>Data Mapping</b></h3>
   </div>
@@ -35,16 +36,18 @@
       </div>
 
 
-      <table *ngIf="showTable" [dbColumns] = "dbColumnList" 
+      <table *ngIf="showTable" [dbColumns] = "dbColumnList"
             (saveMappingEvent)="onSaveMapping($event)"></table>
+      <table-data-mapper [dbColumns] = "dbColumnList"
+            (saveMappingEvent)="onSaveMapping($event)"></table-data-mapper>
     </div>
   </mat-card-content>
-   
+
 
 </mat-card>
 <!-- <mat-card style="margin-top: 10px;" *ngIf="showTable">
     <table mat-table [dataSource]="dataSource" style="width: 100%;">
-  
+
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name (empName)</th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
@@ -54,21 +57,23 @@
         <th mat-header-cell *matHeaderCellDef> Address (empAddress)</th>
         <td mat-cell *matCellDef="let element"> {{element.address}} </td>
       </ng-container>
-    
+
       <ng-container matColumnDef="age">
         <th mat-header-cell *matHeaderCellDef> Age (empAge)</th>
         <td mat-cell *matCellDef="let element"> {{element.age}} </td>
       </ng-container>
-    
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    
-    
+
+
   </mat-card> -->
+
+<view-data-mapper [dataMapping]="dataMaps"></view-data-mapper>
 
 <!-- <p-dialog header="Title" [(visible)]="displayDialog" [style]="{width: '50vw'}">
     <mat-card>
-  
+
     </mat-card>
   </p-dialog> -->
