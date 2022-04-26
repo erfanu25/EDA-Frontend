@@ -3,7 +3,7 @@ import {ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/c
 import {ActivatedRoute, Router} from "@angular/router";
 import {MenuItem, SelectItem} from "primeng/api";
 import {ThemePalette} from "@angular/material/core";
-import {EmpDetails, TableType} from "./domain/data-analysis.domain";
+import {DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria} from "./domain/data-analysis.domain";
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -11,10 +11,14 @@ import {EmpDetails, TableType} from "./domain/data-analysis.domain";
 })
 export class DataAnalysisComponent implements OnInit {
 
-  value!: any;
+  value: string;
   items!: MenuItem[];
   activeItem!: MenuItem;
+  arrayLength: number;
   tableType: SelectItem[] = TableType;
+  textCriteria: SelectItem[] = TextCriteria;
+  dateCriteria: SelectItem[] = DateCriteria;
+  numberCriteria: SelectItem[] = NumberCriteria;
   details: EmpDetails[]=[];
   loading: boolean = true;
   cols: any[];
@@ -24,6 +28,7 @@ export class DataAnalysisComponent implements OnInit {
   isDataIngestion: boolean;
   isDataMapping: boolean;
   _selectedColumns: any[];
+
   displayCriteriaAddComponents: boolean;
 
   filteredValues: any[];
@@ -44,18 +49,17 @@ export class DataAnalysisComponent implements OnInit {
     ];
     this.activeItem = this.items[0];
    this.details= [
-      { name: 'Galib', age: 29,address:'gsdhasdshg', email: 'abcd&nnnc.com' },
-      { name: 'Arif', age: 28,address:'gsgs' , email: 'sfsf&nnnc.com' },
-      { name: 'Rakib', age: 27,address:'gsdtw363hasdshg' , email: 'uyuf&nnnc.com' },
-      { name: 'Hannan', age: 26,address:'gsdhe455asdshg' , email: 'abacd&nnnadfc.com' },
+      { name: 'Galib', age: 29,address:'gsdhasdshg' },
+      { name: 'Arif', age: 28,address:'gsgs'  },
+      { name: 'Rakib', age: 27,address:'gsdtw363hasdshg'  },
+      { name: 'Hannan', age: 26,address:'gsdhe455asdshg' },
 
 
     ];
     this.cols = [
-      { field: 'name', header: 'Name' },
-      { field: 'age', header: 'Age' },
-      { field: 'address', header: 'Address' },
-      { field: 'email', header: 'Email' }
+      { field: 'name', header: 'Name', type: 'text' },
+      { field: 'age', header: 'Age' , type: 'number'},
+      { field: 'address', header: 'Address', type: 'text' }
     ];
     this.path = this.route.snapshot.routeConfig.path;
 
@@ -68,8 +72,11 @@ export class DataAnalysisComponent implements OnInit {
 
 
   @Input() get selectedColumns(): any[] {
+    // this.arrayLength = this._selectedColumns.length;
     return this._selectedColumns;
   }
+
+
   @ViewChild('dt') set dt(dt: any) {
     if(dt != undefined) {
       let filters = dt.filters['status'];
@@ -99,18 +106,13 @@ export class DataAnalysisComponent implements OnInit {
   onCriteriaViewClick() {
     this.displayCriteriaAddComponents=true;
   }
+  showAdvanceFilters(){
+    if(this._selectedColumns.length != 0){
+      this.arrayLength = this._selectedColumns.length;
+    }else {
+      this.arrayLength = null;
+    }
 
-  // navigateToDataMapping(){
-  //   this.router.navigate(['dataMapping'], { relativeTo: this.route });
-  // }
-  // navigateToDataIngestion(){
-  //   this.router.navigate(['']);
-  // }
-  // navigateToDataMapping(){
-  //   this.router.navigate(['dataMapping'], { relativeTo: this.route });
-  // }
-  // navigateToDataIngestion(){
-  //   this.router.navigate(['']);
-  // }
+  }
 
 }

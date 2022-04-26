@@ -5,11 +5,43 @@
 /*  !*height: 10px;*!*/
 /*}*/
 
-.p-input-icon-left{
-  width: 150px;
-}
+/*.p-input-icon-left{*/
+/*  width: 50%;*/
+/*}*/
+
 /*p-input-icon-left {*/
 /*  width: 10px;*/
 /*  height: 10px;*/
 
 /*}*/
+.parent {
+  display: flex;
+  width: 100%;
+}
+.child {
+  flex: 1;
+  border: 1px solid black;
+  margin: 5px;
+}
+.child:first-child {
+  /*margin-right: 20px;*/
+  width: 70%;
+}
+
+
+.button-group {
+  display: flex;
+  width: 100%;
+}
+.b-child{
+  flex: 1;
+  margin: 5px;
+}
+.b-child:first-child{
+  margin-top: 25px;
+  margin-left: 10%;
+}
+.b-child:nth-child(even){
+  margin-top: 25px;
+  margin-left: -40%;
+}
