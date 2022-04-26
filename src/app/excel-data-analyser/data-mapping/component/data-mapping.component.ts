@@ -56,7 +56,7 @@ export class DataMappingComponent implements OnInit {
   }
 
   onTableChange(event) {
-    let queryParam = { "collectionName": "Employee" };
+    let queryParam = { "collectionName": event.value };
     this.mappingService.getTableColumns(queryParam)
       .subscribe(columns => {
         this.showTable = true;
