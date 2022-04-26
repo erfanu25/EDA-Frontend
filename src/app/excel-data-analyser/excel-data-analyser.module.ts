@@ -17,7 +17,7 @@ import {SharedModule} from "primeng/api";
 
 import {AutoCompleteModule} from "primeng/autocomplete";
 import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
-import { DataMappingComponent } from './data-mapping/data-mapping.component';
+import { DataMappingComponent } from './data-mapping/component/data-mapping.component';
 import { DataAnalysisComponent } from './data-analysis/data-analysis.component';
 import {routes} from "./excel-data-analyser.routes";
 import {ButtonModule} from "primeng/button";

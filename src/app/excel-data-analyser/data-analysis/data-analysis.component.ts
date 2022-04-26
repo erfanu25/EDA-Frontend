@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MenuItem, SelectItem} from "primeng/api";
 import {ThemePalette} from "@angular/material/core";
 import {DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria} from "./domain/data-analysis.domain";
+import {DataAnalysisService} from "./service-api/data-analysis.service";
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -19,7 +20,7 @@ export class DataAnalysisComponent implements OnInit {
   textCriteria: SelectItem[] = TextCriteria;
   dateCriteria: SelectItem[] = DateCriteria;
   numberCriteria: SelectItem[] = NumberCriteria;
-  details: EmpDetails[]=[];
+  details: unknown=[];
   loading: boolean = true;
   cols: any[];
   showFooTable: boolean  = true;
@@ -36,7 +37,8 @@ export class DataAnalysisComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private dataAnalysisService: DataAnalysisService,
   ) { }
   ngOnInit(): void {
     this.loading = false;
@@ -48,14 +50,8 @@ export class DataAnalysisComponent implements OnInit {
       // {label: 'Custom Queries', icon: 'pi pi-fw pi-key'}
     ];
     this.activeItem = this.items[0];
-   this.details= [
-      { name: 'Galib', age: 29,address:'gsdhasdshg' },
-      { name: 'Arif', age: 28,address:'gsgs'  },
-      { name: 'Rakib', age: 27,address:'gsdtw363hasdshg'  },
-      { name: 'Hannan', age: 26,address:'gsdhe455asdshg' },
 
-
-    ];
+    this.fetchEmplyeeList();
     this.cols = [
       { field: 'name', header: 'Name', type: 'text' },
       { field: 'age', header: 'Age' , type: 'number'},
@@ -92,6 +88,13 @@ export class DataAnalysisComponent implements OnInit {
   set selectedColumns(val: any[]) {
     //restore original order
     this._selectedColumns = this.cols.filter(col => val.includes(col));
+  }
+
+  fetchEmplyeeList(){
+    this.dataAnalysisService.getStudentList('getStudentData' )
+      .subscribe(data => {
+        this.details= data;
+      });
   }
 
   navigateToDataMapping(){
