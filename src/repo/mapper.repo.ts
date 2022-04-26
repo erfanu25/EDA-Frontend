@@ -1,6 +1,9 @@
 import { MapperModel } from './../model/Mapper.model';
 import mongoose from 'mongoose';
-import  { IMapper } from "../model/Mapper.model";
+import { IMapper } from "../model/Mapper.model";
+
+const mongo = require("mongoose");
+
 
 class MapperRepo {
     static mapperRep: MapperRepo;
@@ -16,35 +19,97 @@ class MapperRepo {
     }
 
     public async saveMapping(mapper): Promise<IMapper> {
+        await mongoose.connect("mongodb://localhost/test");
         mapper.save();
         return mapper;
     }
 
     public async getMappers(): Promise<IMapper[]> {
-      
+
         return null;
     }
 
-    public async getMapperNames(searchParam): Promise<String[]> {
+    public async getMapperNames(searchParam): Promise<any> {
+        console.log("search param");
+        console.log(searchParam);
         const modelNames = await MapperModel.find(searchParam)
-                .select({modelName : 1});
+            .select({ mapperName: 1, _id: 1 });
+        
+        console.log(modelNames);
+        const customMap = { _id: "customId", mapperName: "Custom_Mapping" }
+        //const dto1:MapperNameDto = {_id : "123",mapperName : "Employee_Mapping"};
+        //const dto2:MapperNameDto = {_id : "456",mapperName : "Companny_Mapping"};
+        modelNames.unshift(customMap);
+
+        console.log(modelNames);
+
         return modelNames;
-    }
+    } l̥
 
-    public async getTables(): Promise<String[]> {
-       let collectionNames = [];
-       await mongoose.connection.on('open', function (ref) {
-            console.log('Connected to mongo server.');
-            //trying to get collection names
-            mongoose.connection.db.listCollections().toArray(function (err, names) {
-                console.log(names); // [{ name: 'dbname.myCollection' }]
-                collectionNames = names;
-            });
+    public getTables(): Promise<String[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let collectionNames = [];
+                const connection = await mongoose.connect("mongodb://localhost/test");
+                mongoose.connection.db.listCollections().toArray(function (err, tables) {
+                    tables.forEach(element => {
+                        collectionNames.push(element["name"]);
+                    });
+                    mongoose.connection.close();
+                    resolve(collectionNames);
+                });
+            } catch (e) {
+                reject(e);
+            }
+
         })
-
-        return collectionNames;
-      
     }
+
+
+    public getTableColumns(collectionName): Promise<String[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let fieldNames = [];
+                const connection = await mongoose.connect("mongodb://localhost/test");
+                const schema = mongoose.model("Employee").schema;
+
+                Object.entries(schema.paths)
+                    .filter(([key, value]) => key != "__v" && key != "_id")
+                    .forEach(([key, value]) => fieldNames.push(key));
+
+
+                // var SongSchema = mongoose.model(collectionName).schema;
+                //console.log(SongSchema);
+
+
+                resolve(fieldNames);
+            } catch (e) {
+                console.log(e);
+                reject(e);
+            }
+
+        })
+    }
+
+    // public async getTables(): Promise<String[]> {
+    //     let collectionNames = [];
+    //     //const connection = await mongoose.connect(process.env["CosmosDbConnectionString"]);
+    //     const connection =  await mongoose.connect("mongodb://localhost/test");
+    //     const dbConnection = await mongoose.connection;
+    //  //   dbConnection.on('open',  function () {
+    //     await dbConnection.db.listCollections().toArray(async function (err, tables) {
+    //            await tables.forEach(element => {
+    //                 collectionNames.push(element["name"]);
+    //             });
+    //            await console.log(collectionNames);
+
+    //             dbConnection.close();
+    //         });
+    //  //   });
+    //  console.log("tt " + collectionNames);
+    //     return collectionNames;
+
+    // }
 
 
 }

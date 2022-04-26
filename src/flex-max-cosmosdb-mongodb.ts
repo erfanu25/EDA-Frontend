@@ -3,7 +3,7 @@ let db = null;
 export const init = async () => {
   if (!db) {
     db = await connect(process.env["CosmosDbConnectionString"]);
-    // console.log("Database Connection:");
-    // console.log(db);
+    console.log("Database Connection:");
+    console.log(db);
   }
 };

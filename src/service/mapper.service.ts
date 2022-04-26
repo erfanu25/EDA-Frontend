@@ -1,11 +1,14 @@
 import MapperHandler from "../handler/mapping.handler";
 import { IMapper } from "../model/Mapper.model";
 import  MapperDto  from "../dto/mapper.dto";
+import DbTableHandler from "../handler/dbTable.handler";
 
 
 class MapperService {
     private static mapperService: MapperService;
     private mappingHandler:MapperHandler = MapperHandler.getHandlerInstance();
+    private dbTable:DbTableHandler = DbTableHandler.getHandlerInstance();
+    
     private constructor() {
     }
 
@@ -16,16 +19,20 @@ class MapperService {
         return this.mapperService;
     }
 
-    public async getTables(): Promise<String[]> {
-        return this.mappingHandler.getTables();
-        //return await this.mappingHandler.getTables();
+    public async getTableColumns(collectionName): Promise<String[]> {
+        return this.dbTable.getTableColumns(collectionName);
     }
+
+    public async getTables(): Promise<String[]> {
+        return this.dbTable.getTables();
+    }
+
 
     public async saveMapping(mappingBody): Promise<MapperDto> {
         return this.mappingHandler.saveMapping(mappingBody);
     }
 
-    public async getMapperNames(searchParams): Promise<String[]> {
+    public async getMapperNames(searchParams): Promise<MapperNameDto[]> {
         return this.mappingHandler.getMapperNames(searchParams);
     }
     
