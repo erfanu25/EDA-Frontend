@@ -1,4 +1,3 @@
-import {DataMappingComponent} from "../../../data-mapping/data-mapping.component";
 
 export interface FileData {
   date: string;
@@ -6,7 +5,4 @@ export interface FileData {
   status: string;
   schedule: string;
   action: string
-
-
-
 }

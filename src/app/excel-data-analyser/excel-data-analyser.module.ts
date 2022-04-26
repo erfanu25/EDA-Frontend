@@ -17,7 +17,6 @@ import {SharedModule} from "primeng/api";
 
 import {AutoCompleteModule} from "primeng/autocomplete";
 import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
-import { DataMappingComponent } from './data-mapping/data-mapping.component';
 import { DataAnalysisComponent } from './data-analysis/data-analysis.component';
 import {routes} from "./excel-data-analyser.routes";
 import {ButtonModule} from "primeng/button";
@@ -46,6 +45,11 @@ import {CheckboxModule} from "primeng/checkbox";
 import {TagModule} from "primeng/tag";
 import {AppModule} from "../app.module";
 import {TopbarComponent} from "./topbar/topbar.component";
+import { DataMappingComponent } from "./data-mapping/component/data-mapping.component";
+import { DialogComponent } from "./data-mapping/component/dialog.component";
+import { TableComponent } from "./data-mapping/component/table.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { DataMappingService } from "./data-mapping/services/data-mapping.service";
 
 @NgModule({
   imports: [
@@ -90,6 +94,7 @@ import {TopbarComponent} from "./topbar/topbar.component";
     DragDropModule,
     CheckboxModule,
     TagModule,
+    MatDialogModule
     // AppModule,
 
 
@@ -101,9 +106,13 @@ import {TopbarComponent} from "./topbar/topbar.component";
     CriteriaAddComponent,
     CriteriaComponent,
     TopbarComponent,
-
+    DialogComponent,
+    TableComponent,
     DataAnalysisComponent,
     TopbarComponent,
+  ],
+  providers: [
+    DataMappingService
   ],
   exports: [
     RouterModule

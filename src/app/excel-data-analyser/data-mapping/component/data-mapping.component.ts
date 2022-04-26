@@ -1,12 +1,10 @@
 import { DialogComponent } from './dialog.component';
 import { DataMappingService } from '../services/data-mapping.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { companyMapper, companyTableProperties, employeeMapper, empTableProperties, excelHeaders, Mapper, Table, tableListData } from '../domain/tableMapper.domain';
 import IMapperName from '../domain/mapper-name.domain';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import IMapper from '../domain/data-mapping.domain';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -16,10 +14,15 @@ import IMapper from '../domain/data-mapping.domain';
 })
 export class DataMappingComponent implements OnInit {
 
-  constructor(private mappingService: DataMappingService, public dialog: MatDialog) {
+  constructor(
+    private mappingService: DataMappingService,
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute) {
 
   }
 
+  path: string;
 
   ngOnInit(): void {
     this.mappingService.getTableList()
@@ -27,6 +30,8 @@ export class DataMappingComponent implements OnInit {
         console.log(tables);
         this.tables = tables;
       });
+
+      this.path = this.route.snapshot.routeConfig.path;
   }
 
   showTable: boolean = false;
