@@ -30,19 +30,10 @@ class MapperRepo {
     }
 
     public async getMapperNames(searchParam): Promise<any> {
-        console.log("search param");
-        console.log(searchParam);
         const modelNames = await MapperModel.find(searchParam)
             .select({ mapperName: 1, _id: 1 });
-        
-        console.log(modelNames);
         const customMap = { _id: "customId", mapperName: "Custom_Mapping" }
-        //const dto1:MapperNameDto = {_id : "123",mapperName : "Employee_Mapping"};
-        //const dto2:MapperNameDto = {_id : "456",mapperName : "Companny_Mapping"};
         modelNames.unshift(customMap);
-
-        console.log(modelNames);
-
         return modelNames;
     } l̥
 

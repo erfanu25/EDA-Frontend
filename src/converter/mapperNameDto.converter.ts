@@ -14,8 +14,6 @@ class MapperNameDtoConverter {
     }
 
     public convertToDto(mapperModel): MapperNameDto {
-        console.log("To string");
-        console.log(mapperModel["_id"].toString());
         const mapperDto = {
             _id: mapperModel["_id"].toString(),
             mapperName: mapperModel["mapperName"]
