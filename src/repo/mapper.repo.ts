@@ -58,11 +58,14 @@ class MapperRepo {
 
 
     public getTableColumns(collectionName): Promise<String[]> {
+        console.log(collectionName);
         return new Promise(async (resolve, reject) => {
             try {
                 let fieldNames = [];
                 const connection = await mongoose.connect("mongodb://localhost/test");
-                const schema = mongoose.model("Employee").schema;
+                const schema = mongoose.model(collectionName).schema;
+
+                console.log(schema);
 
                 Object.entries(schema.paths)
                     .filter(([key, value]) => key != "__v" && key != "_id")
