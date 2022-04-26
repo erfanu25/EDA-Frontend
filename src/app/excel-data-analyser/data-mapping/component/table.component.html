@@ -1,0 +1,64 @@
+<div class="row margin25">
+  <div style="width: 70%; float:left">
+
+    <div class="dragdrop-wrapper">
+      <div class="row margin25">
+        <div class="col-md-6">
+          <h4 style="padding-left: 5%;"><b>Excel Column</b></h4>
+          <div class="dragdrop-fix" *ngFor="let column of excelHeaderList">{{column}}</div>
+        </div>
+        <div class="col-md-6" cdkDropList #mappedColumn="cdkDropList" [cdkDropListData]="mappedTableColumns"
+          (cdkDropListDropped)="dropItem($event)" [cdkDropListConnectedTo]="[todoList]">
+          <h4 style="padding-left: 5%;"><b>Mapping Column</b></h4>
+          <div class="dragdrop-inner" *ngFor="let tColumns of mappedTableColumns" cdkDrag>{{tColumns}}</div>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+  <div style="width: 30%; float:right">
+    <div class="dragdrop-wrapper" cdkDropList #todoList="cdkDropList" [cdkDropListData]="dbColumns"
+      [cdkDropListConnectedTo]="[mappedColumn]" (cdkDropListDropped)="dropItem($event)">
+      <h4 style="padding-left: 5%;"><b>Choose Table Properties</b></h4>
+      <div class="dragdrop-inner" *ngFor="let ut of dbColumns" cdkDrag>{{ut}}</div>
+    </div>
+  </div>
+
+</div>
+
+<mat-card-actions style="text-align: center;">
+  <!-- <button mat-button style="background-color:green; 
+               color:white" (click)="showMappedTable()">
+        View Mapping Excel
+      </button> -->
+  <button mat-button style="background-color:green; 
+               color:white" (click)="saveMapping()">
+    Save Mapping
+  </button>
+</mat-card-actions>
+
+
+<!-- <mat-card style="margin-top: 10px;" *ngIf="showTable">
+    <table mat-table [dataSource]="dataSource" style="width: 100%;">
+  
+    
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef> Age (empAge)</th>
+        <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+    
+  </mat-card> -->
+
+<!-- <p-dialog header="Title" [(visible)]="displayDialog" [style]="{width: '50vw'}">
+    <mat-card>
+  
+    </mat-card>
+  </p-dialog> -->
