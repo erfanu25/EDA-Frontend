@@ -8,6 +8,11 @@ import * as endpoints from "./data-mapping.endpoints";
 @Injectable()
 export class DataMappingService {
 
+  private table_url: string = "http://localhost:7071/api/getTableList";
+  private mapper_name_url: string = "http://localhost:7071/api/getMapperNames";
+  private column_list_url: string = "http://localhost:7071/api/getColumnList";
+  private save_mapping_url: string = "http://localhost:7071/api/saveMapper";
+  private get_mapper_url: string = "http://localhost:7071/api/getMapper";
 
   constructor(private http: HttpClient) {
 
@@ -44,6 +49,13 @@ export class DataMappingService {
       fromObject: queryParam
     });
     return this.http.get<string[]>(endpoints.column_list_url, { params: httpParams });;
+  }
+
+  public getMapper(queryParam): Observable<string[]> {
+    const httpParams = new HttpParams({
+      fromObject: queryParam
+    });
+    return this.http.get<string[]>(this.get_mapper_url, { params: httpParams });;
   }
 
 }
