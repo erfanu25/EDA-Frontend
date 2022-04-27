@@ -55,7 +55,7 @@ class ExcelDataHandler {
             proceedData.push(this.modifyInput(data, excelHeader, tableProperties));
         })
 
-        return { message: `proceed Data'`, data: proceedData };
+        return proceedData;
     }
 
 
