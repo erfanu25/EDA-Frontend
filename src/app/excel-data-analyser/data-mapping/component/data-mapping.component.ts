@@ -31,6 +31,9 @@ export class DataMappingComponent implements OnInit {
   tabledata: any[] = [];
   headers: any[] = [];
   showMapperView: boolean = false;
+
+
+
   showTable: boolean = false;
   selectedMapperId: string = "customId";
   excelHeaders: string[] = ["Name", "Address", "Age"];
@@ -149,8 +152,8 @@ export class DataMappingComponent implements OnInit {
 
     console.log(updatedMapper);
 
-    // this.mappingService.saveMapping(updatedMapper)
-    //   .subscribe((updatedMapper) => console.log(updatedMapper));
+    this.mappingService.updateMapping(updatedMapper)
+      .subscribe((updatedMapper) => console.log(updatedMapper));
   }
 
   saveMapping(mapperContent) {
@@ -169,7 +172,7 @@ export class DataMappingComponent implements OnInit {
           horizontalPosition: 'center',
           panelClass: 'my-custom-snackbar'
         })
-        
+
       );
   }
 

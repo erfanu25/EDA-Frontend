@@ -1,6 +1,6 @@
 import { DataMappingService } from '../services/data-mapping.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { excelHeaders } from '../domain/tableMapper.domain';
 
 
@@ -9,7 +9,7 @@ import { excelHeaders } from '../domain/tableMapper.domain';
   templateUrl: './table-data-mapper.component.html',
   styleUrls: ['../data-mapping.component.css']
 })
-export class TableMapperComponent implements OnInit {
+export class TableMapperComponent implements OnInit, OnChanges {
   //private tableList: string[] = []
 
   @Input("dbColumns") public dbColumns: string[] = [];
@@ -32,20 +32,30 @@ export class TableMapperComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    console.log("table component");
-    console.log(this.mappedContent);
+
+  ngOnChanges(changes: SimpleChanges): void {
+
     if (this.mappedContent) {
       this.populateColumnHeaderWithExisting();
     }
   }
 
+
+  ngOnInit(): void {
+
+  }
+
+  getExcelHeaderList(fileId) {
+
+  }
+
   populateColumnHeaderWithExisting() {
     let excelHeaderMap = JSON.parse(this.mappedContent);
 
-    Object.values(excelHeaderMap).forEach(keyVal => {
-      console.log("key val");
-      console.log(keyVal);
+    Object.entries(excelHeaderMap).forEach((value, indx) => {
+      let mapArr: string[] = value.toString().split(",");
+      console.log(mapArr[0] + " " + mapArr[1]);
+      this.mappedCol.set(mapArr[0], mapArr[1]);
     })
 
   }
