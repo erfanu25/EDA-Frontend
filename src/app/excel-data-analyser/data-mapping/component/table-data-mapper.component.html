@@ -10,7 +10,14 @@
         <div class="col-md-6" cdkDropList #mappedColumn="cdkDropList" [cdkDropListData]="mappedTableColumns"
           (cdkDropListDropped)="dropItem($event)" [cdkDropListConnectedTo]="[todoList]">
           <h4 style="padding-left: 5%;"><b>Mapping Column</b></h4>
-          <div class="dragdrop-inner" *ngFor="let tColumns of mappedTableColumns" cdkDrag>{{tColumns}}</div>
+          <div class="dragdrop-inner" *ngFor="let tColumn of mappedTableColumns" cdkDrag>
+            {{tColumn}}
+
+            <span><button class="btn" (click)="removeMappedColumn(tColumn)">
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </span>
+          </div>
         </div>
 
 
@@ -23,7 +30,9 @@
     <div class="dragdrop-wrapper" cdkDropList #todoList="cdkDropList" [cdkDropListData]="dbColumns"
       [cdkDropListConnectedTo]="[mappedColumn]" (cdkDropListDropped)="dropItem($event)">
       <h4 style="padding-left: 5%;"><b>Choose Table Properties</b></h4>
-      <div class="dragdrop-inner" *ngFor="let ut of dbColumns" cdkDrag>{{ut}}</div>
+      <div class="dragdrop-inner" *ngFor="let ut of dbColumns" cdkDrag>
+        {{ut}}
+      </div>
     </div>
   </div>
 

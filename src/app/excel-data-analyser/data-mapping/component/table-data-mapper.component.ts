@@ -2,7 +2,6 @@ import { DataMappingService } from '../services/data-mapping.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { excelHeaders } from '../domain/tableMapper.domain';
-// import { EventEmitter } from 'stream';
 
 
 @Component({
@@ -13,29 +12,48 @@ import { excelHeaders } from '../domain/tableMapper.domain';
 export class TableMapperComponent implements OnInit {
   //private tableList: string[] = []
 
-  @Input("dbColumns") public  dbColumns: string[] = []; 
+  @Input("dbColumns") public dbColumns: string[] = [];
 
-  @Output() public saveMappingEvent = new EventEmitter<Map<string,string>>();
+  @Input("mappedContent") public mappedContent: string;
+
+  @Input("mappedTableColumns") public mappedTableColumns: string[] = [];
+
+  @Output() public saveMappingEvent = new EventEmitter<Map<string, string>>();
+
+  @Output() public removeMappedColumnEvent = new EventEmitter<string>();
 
   mappedCol: Map<string, string> = new Map<string, string>();
-
 
   constructor(private mappingService: DataMappingService) {
 
   }
 
-  excelHeaderList: string[] = [];
-
-  mappedTableColumns: string[] = [];
+  // excelHeaderList: string[] = [];
 
   ngOnInit(): void {
-    console.log(this.dbColumns);
-  
+    console.log("table component");
+    console.log(this.mappedContent);
+    if (this.mappedContent) {
+      this.populateColumnHeaderWithExisting();
+    }
   }
 
   getExcelHeaderList(fileId) {
 
   }
+
+  populateColumnHeaderWithExisting() {
+    let excelHeaderMap = JSON.parse(this.mappedContent);
+
+    Object.values(excelHeaderMap).forEach(keyVal => {
+      console.log("key val");
+      console.log(keyVal);
+    })
+
+  }
+
+
+  excelHeaderList: string[] = ["Name", "Address", "Age"];
 
   dropItem(event: CdkDragDrop<string[]>) {
     console.log("current " + event.container);
@@ -52,22 +70,18 @@ export class TableMapperComponent implements OnInit {
         event.currentIndex);
     }
 
-    this.populateColumnHeaderMeaping(event);
+    this.populateColumnHeaderMaping(event);
   }
 
-  populateColumnHeaderMeaping(event: CdkDragDrop<string[]>) {
-    let currentIndx = event.currentIndex;
+  populateColumnHeaderMaping(event: CdkDragDrop<string[]>) {
     event.container.data.forEach(((element, indx) => {
-      this.mappedCol.set(element, this.excelHeaderList[currentIndx]);
+      this.mappedCol.set(element, this.excelHeaderList[indx]);
     }));
-
-    console.log("Map data ");
-    console.log(this.mappedCol);
-
   }
 
   saveMapping() {
     console.log("Map data 2");
+    console.log(this.mappedCol);
     this.saveMappingEvent.emit(this.mappedCol);
   }
 
@@ -75,19 +89,13 @@ export class TableMapperComponent implements OnInit {
 
   }
 
-  processMapperData(mapperData) {
-    this.excelHeaderList = excelHeaders;
-    // this.mappedTableColumns = [];
-    // if (mapperData) {
-    //   this.mappedExcelColumns = [];
-    //   mapperData.forEach(element => {
-    //     this.mappedExcelColumns.push(element.excelHeader);
-    //     this.mappedTableColumns.push(element.tablePropertiesName);
-    //   })
-    // }
+
+  removeMappedColumn(tColumn) {
+    console.log("Remove");
+    console.log(this.mappedCol);
+    this.mappedCol.delete(tColumn);
+    this.removeMappedColumnEvent.emit(tColumn);
   }
-
-
 
 
 }

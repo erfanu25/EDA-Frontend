@@ -5,6 +5,7 @@ import IMapperName from '../domain/mapper-name.domain';
 import { MatDialog } from '@angular/material/dialog';
 import IMapper from '../domain/data-mapping.domain';
 import { ActivatedRoute, Router } from '@angular/router';
+import IMapperSaved from '../domain/saved-mapper.domain';
 
 
 @Component({
@@ -26,17 +27,29 @@ export class DataMappingComponent implements OnInit {
   dataMaps: any;
 
   ngOnInit(): void {
+<<<<<<< Updated upstream
     this.getTableList();
+=======
+    this.mappingService.getTableList()
+      .subscribe(tables => {
+        console.log(tables);
+        this.tables = tables;
+      });
+
+>>>>>>> Stashed changes
     this.path = this.route.snapshot.routeConfig.path;
   }
 
   showTable: boolean = false;
   selectedMapperId: string = "customId";
+  excelHeaders: string[] = ["Name", "Address", "Age"];
   tables: string[] = [];
+  mappedTableColumns: string[] = [];
   dbColumnList: string[] = [];
   mapperNameList: IMapperName[] = [];
   modelName: string;
   mapperName: string;
+  mappedContent : string;
 
 
   getTableList() {
@@ -52,6 +65,7 @@ export class DataMappingComponent implements OnInit {
     this.mappingService.getMapperNames(queryParam)
       .subscribe(fetchedMapperNames => {
         this.mapperNameList = fetchedMapperNames;
+        console.log(this.mapperNameList);
       });
   }
 
@@ -67,67 +81,84 @@ export class DataMappingComponent implements OnInit {
     this.modelName = event.value;
   }
 
-  onSaveMapping(modelContent) {
+
+  onMapperSelect(event) {
+    let mapperId = event.value;
+    this.mapperName = event.source.selected.viewValue;   
+    let queryParam = { "_id": mapperId };
+    this.mappingService.getMapper(queryParam)
+      .subscribe(mapper => {
+        this.setMappedColumnsInview(mapper["modelContent"]);
+        this.mappedContent = mapper["modelContent"];
+        console.log("mapped content");
+        console.log(this.mappedContent);
+      });
+  }
+
+  setMappedColumnsInview(mappedContentStr) {
+    let mappecontent = JSON.parse(mappedContentStr);
+    this.mappedTableColumns = [];
+
+    Object.keys(mappecontent).forEach((val, key) => {
+      let excelHeader = mappecontent[val];
+      let excelHeaderIndx = this.excelHeaders.indexOf(excelHeader);
+      this.mappedTableColumns[excelHeaderIndx] = val;
+    });
+
+  }
+
+
+  onSaveMapping(mapperContent) {
     if (this.selectedMapperId == 'customId') {
       let diaLogRef = this.dialog.open(DialogComponent, {
         data: { mapperName: this.mapperName }
       });
       diaLogRef.afterClosed().subscribe(result => {
         this.mapperName = result;
-        this.saveMapping(modelContent);
+        this.saveMapping(mapperContent);
       })
+    } else {
+     // this.mapperName = result;
+      this.updateMapping(this.selectedMapperId, mapperContent);
     }
   }
 
-  saveMapping(event) {
+  updateMapping(mapperId, mapperContent) {
+    const updatedMapper: IMapperSaved = {
+      _id: mapperId,
+      modelName: this.modelName,
+      mapperName: this.mapperName,
+      modelContent: JSON.stringify(Object.fromEntries(mapperContent.entries()))
+    }
+
+    console.log(updatedMapper);
+
+    // this.mappingService.saveMapping(updatedMapper)
+    //   .subscribe((updatedMapper) => console.log(updatedMapper));
+  }
+
+  saveMapping(mapperContent) {
     const mapper: IMapper = {
       modelName: this.modelName,
       mapperName: this.mapperName,
-      modelContent: JSON.stringify(Object.fromEntries(event.entries()))
+      modelContent: JSON.stringify(Object.fromEntries(mapperContent.entries()))
     }
-
-    console.log(mapper);
 
     this.mappingService.saveMapping(mapper)
       .subscribe((savedMapper) => console.log(savedMapper));
   }
 
-
-
-  onMapperSelect(event) {
-
-    this.mapperName = event.target.options[event.target.options.selectedIndex].text;
-    console.log("Model name " + this.mapperName);
-
-    //   this.showTable = false;
-    //   if (event.id === 3) {
-    //     this.processMapperData(employeeMapper);
-    //   } else if (event.id === 1) {
-    //     this.processMapperData(companyMapper);
-    //   } else {
-    //     this.processMapperData(null);
-    //   }
+  removeMappedColumn(columnToRemove) {
+    let columnToRemoveIndx = this.mappedTableColumns.indexOf(columnToRemove);
+    this.mappedTableColumns.splice(columnToRemoveIndx, 1);
+    this.placeInDbColumn(columnToRemove);
   }
 
-  // processMapperData(mapperData) {
-  //   this.mappedExcelColumns = excelHeaders;
-  //   this.mappedTableColumns = [];
-  //   if (mapperData) {
-  //     this.mappedExcelColumns = [];
-  //     mapperData.forEach(element => {
-  //       this.mappedExcelColumns.push(element.excelHeader);
-  //       this.mappedTableColumns.push(element.tablePropertiesName);
-  //     })
-  //   }
-  // }
-
-  // showMappedTable() {
-  //   this.showTable = true;
-  // }
-
-  // showDialog() {
-  //   this.displayDialog = true;
-  // }
-
+  placeInDbColumn(column) {
+    let columnIndx = this.dbColumnList.indexOf(column);
+    if (columnIndx == -1) {
+      this.dbColumnList.push(column);
+    }
+  }
 
 }
