@@ -52,6 +52,8 @@ import { TableMapperComponent } from "./data-mapping/component/table-data-mapper
 import { MatDialogModule } from "@angular/material/dialog";
 import { DataMappingService } from "./data-mapping/services/data-mapping.service";
 import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapper.component";
+import {DataAnalysisService} from "./data-analysis/service-api/data-analysis.service";
+import {DataAnalyserTableComponent} from "../data-analyser-table/data-analyser-table.component";
 
 @NgModule({
   imports: [
@@ -62,7 +64,6 @@ import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapp
     ReactiveFormsModule,
     MatIconModule,
     MatProgressBarModule,
-    HttpClientModule,
     MatRadioModule,
     CommonModule,
     DialogModule,
@@ -96,7 +97,8 @@ import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapp
     DragDropModule,
     CheckboxModule,
     TagModule,
-    MatDialogModule
+    MatDialogModule,
+
     // AppModule,
 
 
@@ -113,9 +115,11 @@ import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapp
     TableMapperComponent,
     DataAnalysisComponent,
     TopbarComponent,
+    DataAnalyserTableComponent
   ],
   providers: [
-    DataMappingService
+    DataMappingService,
+    DataAnalysisService
   ],
   exports: [
     RouterModule

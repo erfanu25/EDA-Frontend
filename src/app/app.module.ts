@@ -25,11 +25,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CriteriaAddService } from './excel-data-analyser/data-analysis/criteria/services/criteria-add.service';
 import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteria/services/criteria-view.service';
+import { DataAnalyserTableComponent } from './data-analyser-table/data-analyser-table.component';
+import {TableModule} from "primeng/table";
+import {ButtonModule} from "primeng/button";
+import {MultiSelectModule} from "primeng/multiselect";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,12 +41,13 @@ import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteri
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbModule
+
   ],
-  providers: [ AnalysisHttpHandler,CriteriaAddService,CriteriaViewService,
+  providers: [AnalysisHttpHandler, CriteriaAddService, CriteriaViewService,
     HttpHandler,],
+  exports: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
