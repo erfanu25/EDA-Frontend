@@ -8,36 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ViewDataMapperComponent implements OnInit {
 
-  @Input("dataMapping") public  dataMapping: any; 
+  @Input("headers") public  headers: any[];
+  @Input("tabledata") public  tabledata: any[]; 
 
   constructor(private mappingService: DataMappingService) {
 
   }
 
-  headers: any[];
-  tabledata: any[];
-
   ngOnInit(): void {
-    this.dataMapping = { 
-        "name": "Name",
-        "econtact": "Contact No",
-        "gender": "Gender",
-        "address": "Address",
-        "email": "Email" };
-    console.log(this.dataMapping);
-    this.getExcelDataWithMap(this.dataMapping);
+    
   }
 
-  getExcelDataWithMap(dataMaps) {
-    this.mappingService.getExcelDataWithMapping(dataMaps)
-    .subscribe(mappedData => {
-      console.log(mappedData.data);
-      this.tabledata = mappedData.data;
-      this.headers = Object.keys(this.tabledata[0]);
-
-      console.log(this.headers);
-
-    });
-  }
 
 }

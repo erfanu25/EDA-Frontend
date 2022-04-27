@@ -25,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CriteriaAddService } from './excel-data-analyser/data-analysis/criteria/services/criteria-add.service';
 import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteria/services/criteria-view.service';
-
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -41,8 +41,13 @@ import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteri
     ReactiveFormsModule,
     NgbModule
   ],
-  providers: [ AnalysisHttpHandler,CriteriaAddService,CriteriaViewService,
-    HttpHandler,],
+  providers: [ 
+    AnalysisHttpHandler,
+    CriteriaAddService,
+    CriteriaViewService,
+    HttpHandler,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5500}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,11 +14,15 @@ export class TableMapperComponent implements OnInit {
 
   @Input("dbColumns") public dbColumns: string[] = [];
 
+  @Input("excelHeaders") public excelHeaderList: string[] = [];
+
   @Input("mappedContent") public mappedContent: string;
 
   @Input("mappedTableColumns") public mappedTableColumns: string[] = [];
 
   @Output() public saveMappingEvent = new EventEmitter<Map<string, string>>();
+
+  @Output() public viewMapperEvent = new EventEmitter<Map<string, string>>();
 
   @Output() public removeMappedColumnEvent = new EventEmitter<string>();
 
@@ -28,18 +32,12 @@ export class TableMapperComponent implements OnInit {
 
   }
 
-  // excelHeaderList: string[] = [];
-
   ngOnInit(): void {
     console.log("table component");
     console.log(this.mappedContent);
     if (this.mappedContent) {
       this.populateColumnHeaderWithExisting();
     }
-  }
-
-  getExcelHeaderList(fileId) {
-
   }
 
   populateColumnHeaderWithExisting() {
@@ -51,9 +49,6 @@ export class TableMapperComponent implements OnInit {
     })
 
   }
-
-
-  excelHeaderList: string[] = ["Name", "Address", "Age"];
 
   dropItem(event: CdkDragDrop<string[]>) {
     console.log("current " + event.container);
@@ -86,7 +81,8 @@ export class TableMapperComponent implements OnInit {
   }
 
   showMappedTable() {
-
+    console.log(this.mappedCol);
+    this.viewMapperEvent.emit(this.mappedCol);
   }
 
 

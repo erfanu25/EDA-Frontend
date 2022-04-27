@@ -2,7 +2,7 @@ import { DataMappingService } from '../services/data-mapping.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output ,Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 // import { EventEmitter } from 'stream';
 
 
@@ -20,11 +20,17 @@ export class DialogComponent implements OnInit {
 
   }
 
+  form: FormGroup;
+
   ngOnInit(): void {
-  
+    this.prepareForm();
   }
 
-  
+  prepareForm() {
+    this.form = new FormGroup({
+      mapperName: new FormControl('', [Validators.maxLength(20), Validators.required]),
+      });
+  }
   // onNoClick(): void {
   //   this.dialogRef.close();
   // }

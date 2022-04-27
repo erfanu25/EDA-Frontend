@@ -51,6 +51,7 @@ import { TableMapperComponent } from "./data-mapping/component/table-data-mapper
 import { MatDialogModule } from "@angular/material/dialog";
 import { DataMappingService } from "./data-mapping/services/data-mapping.service";
 import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapper.component";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   imports: [
@@ -95,7 +96,8 @@ import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapp
     DragDropModule,
     CheckboxModule,
     TagModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
     // AppModule,
 
 

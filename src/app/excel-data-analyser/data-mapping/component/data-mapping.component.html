@@ -35,9 +35,10 @@
       </div>
 
       <table-data-mapper *ngIf="showTable" [dbColumns]="dbColumnList" 
-        [mappedContent] = "mappedContent"
+        [mappedContent] = "mappedContent" [excelHeaders]="excelHeaderList"
         [mappedTableColumns]="mappedTableColumns" 
-        (saveMappingEvent)="onSaveMapping($event)" 
+        (saveMappingEvent)="onSaveMapping($event)"
+        (viewMapperEvent)="onViewMapping($event)"
         (removeMappedColumnEvent)="removeMappedColumn($event)"></table-data-mapper>
     </div>
   </mat-card-content>
@@ -45,7 +46,7 @@
 
 </mat-card>
 
-<view-data-mapper [dataMapping]="dataMaps"></view-data-mapper>
+<view-data-mapper *ngIf="showMapperView" [headers]="headers" [tabledata]="tabledata"></view-data-mapper>
 
 <!-- <p-dialog header="Title" [(visible)]="displayDialog" [style]="{width: '50vw'}">
     <mat-card>

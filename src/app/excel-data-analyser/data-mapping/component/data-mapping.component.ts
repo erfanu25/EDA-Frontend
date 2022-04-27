@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import IMapper from '../domain/data-mapping.domain';
 import { ActivatedRoute, Router } from '@angular/router';
 import IMapperSaved from '../domain/saved-mapper.domain';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class DataMappingComponent implements OnInit {
   constructor(
     private mappingService: DataMappingService,
     public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute) {
 
@@ -25,21 +27,10 @@ export class DataMappingComponent implements OnInit {
 
   path: string;
   dataMaps: any;
-
-  ngOnInit(): void {
-<<<<<<< Updated upstream
-    this.getTableList();
-=======
-    this.mappingService.getTableList()
-      .subscribe(tables => {
-        console.log(tables);
-        this.tables = tables;
-      });
-
->>>>>>> Stashed changes
-    this.path = this.route.snapshot.routeConfig.path;
-  }
-
+  excelHeaderList: string[] = [];
+  tabledata: any[] = [];
+  headers: any[] = [];
+  showMapperView: boolean = false;
   showTable: boolean = false;
   selectedMapperId: string = "customId";
   excelHeaders: string[] = ["Name", "Address", "Age"];
@@ -49,8 +40,12 @@ export class DataMappingComponent implements OnInit {
   mapperNameList: IMapperName[] = [];
   modelName: string;
   mapperName: string;
-  mappedContent : string;
+  mappedContent: string;
 
+  ngOnInit(): void {
+    this.getTableList();
+    this.path = this.route.snapshot.routeConfig.path;
+  }
 
   getTableList() {
     this.mappingService.getTableList()
@@ -76,15 +71,23 @@ export class DataMappingComponent implements OnInit {
         this.showTable = true;
         this.dbColumnList = columns;
         this.getMapperNames(event.value);
+        this.getExcelHeaderList(0);
       });
 
     this.modelName = event.value;
   }
 
+  getExcelHeaderList(fileId) {
+    this.mappingService.getExcelHeaders(fileId)
+      .subscribe(headers => {
+        this.excelHeaderList = headers.data;
+      });
+  }
+
 
   onMapperSelect(event) {
     let mapperId = event.value;
-    this.mapperName = event.source.selected.viewValue;   
+    this.mapperName = event.source.selected.viewValue;
     let queryParam = { "_id": mapperId };
     this.mappingService.getMapper(queryParam)
       .subscribe(mapper => {
@@ -114,13 +117,26 @@ export class DataMappingComponent implements OnInit {
         data: { mapperName: this.mapperName }
       });
       diaLogRef.afterClosed().subscribe(result => {
-        this.mapperName = result;
-        this.saveMapping(mapperContent);
+        if (result) {
+          this.mapperName = result;
+          this.saveMapping(mapperContent);
+        }
       })
     } else {
-     // this.mapperName = result;
+      // this.mapperName = result;
       this.updateMapping(this.selectedMapperId, mapperContent);
     }
+  }
+
+  onViewMapping(mapperContent) {
+    const dataMap = JSON.stringify(Object.fromEntries(mapperContent.entries()));
+    this.mappingService.getExcelDataWithMapping(dataMap)
+      .subscribe(mappedData => {
+        this.showMapperView = true;
+        console.log(mappedData.data);
+        this.tabledata = mappedData.data;
+        this.headers = Object.keys(this.tabledata[0]);
+      });
   }
 
   updateMapping(mapperId, mapperContent) {
@@ -145,7 +161,16 @@ export class DataMappingComponent implements OnInit {
     }
 
     this.mappingService.saveMapping(mapper)
-      .subscribe((savedMapper) => console.log(savedMapper));
+      .subscribe((savedMapper) =>
+        // console.log(savedMapper)
+        this._snackBar.open('Saved Successfully', 'Ok', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          panelClass: 'my-custom-snackbar'
+        })
+        
+      );
   }
 
   removeMappedColumn(columnToRemove) {
