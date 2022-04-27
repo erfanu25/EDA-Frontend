@@ -12,7 +12,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
           case "POST":
             if (req?.body) {
               response = {
-                documentResponse: await mapperService.getMappedExcelData(req?.body)
+                data: await mapperService.getMappedExcelData(req?.body)
               };
             } else {
               throw Error("No document found");

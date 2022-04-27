@@ -19,7 +19,7 @@ class MapperRepo {
     }
 
     public async saveMapping(mapper): Promise<IMapper> {
-        await mongoose.connect("mongodb://localhost/test");
+        // await mongoose.connect("mongodb://localhost/test");
         mapper.save();
         return mapper;
     }
@@ -61,7 +61,7 @@ class MapperRepo {
         return new Promise(async (resolve, reject) => {
             try {
                 let fieldNames = [];
-                const connection = await mongoose.connect("mongodb://localhost/test");
+               // const connection = await mongoose.connect("mongodb://localhost/myapp");
                 const schema = mongoose.model(collectionName).schema;
 
                 console.log(schema);
