@@ -35,7 +35,7 @@
       </div>
 
       <table-data-mapper *ngIf="showTable" [dbColumns]="dbColumnList"
-        [mappedContent] = "mappedContent"
+        [mappedContent] = "mappedContent" [excelHeaders]="excelHeaderList"
         [mappedTableColumns]="mappedTableColumns"
         (saveMappingEvent)="onSaveMapping($event)"
         (viewMapperEvent)="onViewMapping($event)"
