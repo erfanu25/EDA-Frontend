@@ -21,63 +21,11 @@
 
     <!--  <h5>Single Column</h5>-->
 
-    <app-criteria (selectedCriteriaOutput)='selectedCriteria($event)' ></app-criteria>
-    <p-button  (click)="onCriteriaViewClick()"  type="button"   class="pt-2">Save Criteria As View</p-button>
+<!--    <app-criteria (selectedCriteriaOutput)='selectedCriteria($event)' ></app-criteria>-->
+<!--    <p-button  (click)="onCriteriaViewClick()"  type="button"   class="pt-2">Save Criteria As View</p-button>-->
     <app-data-analyser-table [tableData] = "details"></app-data-analyser-table>
 
-<!--    <p-table #dt [value]="details" (onFilter)="onFilter($event, dt)" [columns]="selectedColumns"  dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"-->
-<!--             [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll" [lazy]="false"-->
-<!--             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"-->
-<!--             [globalFilterFields]="['name','age','address']">-->
 
-<!--      <ng-template pTemplate="caption">-->
-
-<!--        <div class="flex">-->
-<!--          <div>-->
-<!--            <span class="p-input-icon-left">-->
-<!--              <i class="pi pi-search"></i>-->
-<!--              <input pInputText type="text" pInputText (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />-->
-<!--            </span>-->
-<!--            <p-button label="More Filters" style="margin-left: 10px" [disabled]="!selectedColumns" (click)="showAdvanceFilters()"></p-button>-->
-<!--          </div>-->
-<!--          <div style="margin-top: 5px;width: max-content">-->
-<!--            <span>-->
-<!--                Filters:-->
-<!--            <input pInputText type="text" pInputText />-->
-<!--            </span>-->
-<!--            <span style="float: right">-->
-<!--                            <p-multiSelect style="margin: 2px" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"-->
-<!--                                           selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>-->
-<!--              <button pButton style="margin: 2px" pRipple type="button" label="Export As xlsx" class="p-button-raised"></button>-->
-<!--              <button pButton style="margin: 2px" pRipple type="button" label="Add formula" class="p-button-raised"></button>-->
-
-<!--            </span>-->
-<!--          </div>-->
-
-
-
-<!--        </div>-->
-<!--      </ng-template>-->
-<!--      <ng-template pTemplate="header" let-columns>-->
-<!--        <tr>-->
-<!--          <th *ngFor="let col of columns" pSortableColumn="{{col.field}}">-->
-<!--            <div class="flex justify-content-between align-items-center" style="margin-left: 10px">-->
-<!--              {{col.header}}-->
-<!--              <p-sortIcon field="name"></p-sortIcon>-->
-<!--&lt;!&ndash;              <p-columnFilter type="text" field="{{col.field}}" display="menu" class="ml-auto"></p-columnFilter>&ndash;&gt;-->
-
-<!--            </div>-->
-<!--          </th>-->
-<!--        </tr>-->
-<!--      </ng-template>-->
-<!--      <ng-template pTemplate="body" let-product let-columns="columns">-->
-<!--        <tr>-->
-<!--          <td *ngFor="let col of columns">-->
-<!--            {{product[col.field]}}-->
-<!--          </td>-->
-<!--        </tr>-->
-<!--      </ng-template>-->
-<!--    </p-table>-->
   </p-card>
 
 </div>

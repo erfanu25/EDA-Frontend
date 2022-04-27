@@ -5,31 +5,31 @@
 
   <ng-template pTemplate="caption">
 
-    <div class="flex">
-      <div>
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" pInputText (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
-            </span>
-        <p-button label="More Filters" style="margin-left: 10px" [disabled]="!selectedColumns" (click)="showAdvanceFilters()"></p-button>
-      </div>
-      <div style="margin-top: 5px;width: max-content">
-            <span>
-                Filters:
-            <input pInputText type="text" pInputText />
-            </span>
-        <span style="float: right">
-                            <p-multiSelect style="margin: 2px" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                                           selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
-              <button pButton style="margin: 2px" pRipple type="button" label="Export As xlsx" class="p-button-raised"></button>
-              <button pButton style="margin: 2px" pRipple type="button" label="Add formula" class="p-button-raised"></button>
+<!--    <div class="flex">-->
+<!--      <div>-->
+<!--            <span class="p-input-icon-left">-->
+<!--              <i class="pi pi-search"></i>-->
+<!--              <input pInputText type="text" pInputText (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />-->
+<!--            </span>-->
+<!--        <p-button label="More Filters" style="margin-left: 10px" [disabled]="!selectedColumns" (click)="showAdvanceFilters()"></p-button>-->
+<!--      </div>-->
+<!--      <div style="margin-top: 5px;width: max-content">-->
+<!--            <span>-->
+<!--                Filters:-->
+<!--            <input pInputText type="text" pInputText />-->
+<!--            </span>-->
+<!--        <span style="float: right">-->
+<!--                            <p-multiSelect style="margin: 2px" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"-->
+<!--                                           selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>-->
+<!--              <button pButton style="margin: 2px" pRipple type="button" label="Export As xlsx" class="p-button-raised"></button>-->
+<!--              <button pButton style="margin: 2px" pRipple type="button" label="Add formula" class="p-button-raised"></button>-->
 
-            </span>
-      </div>
+<!--            </span>-->
+<!--      </div>-->
 
 
 
-    </div>
+<!--    </div>-->
   </ng-template>
   <ng-template pTemplate="header" let-columns>
     <tr>

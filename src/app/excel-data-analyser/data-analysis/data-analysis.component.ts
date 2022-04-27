@@ -52,14 +52,7 @@ export class DataAnalysisComponent implements OnInit {
     ];
     this.activeItem = this.items[0];
 
-    // this.fetchEmplyeeList();
-    // this.cols = [
-    //   { field: 'name', header: 'Name', type: 'text' },
-    //   { field: 'age', header: 'Age' , type: 'number'},
-    //   { field: 'email', header: 'Email', type: 'text' },
-    //   { field: 'salary', header: 'Salary', type: 'number' },
-    //
-    // ];
+
     this.path = this.route.snapshot.routeConfig.path;
 
 
@@ -69,28 +62,7 @@ export class DataAnalysisComponent implements OnInit {
     this.displayCriteriaAddComponents=false;
   }
 
-  //
-  // @Input() get selectedColumns(): any[] {
-  //   return this._selectedColumns;
-  // }
 
-
-  // @ViewChild('dt') set dt(dt: any) {
-  //   if(dt != undefined) {
-  //     let filters = dt.filters['status'];
-  //     if (filters != undefined && filters.value != undefined) {
-  //       this.statusFilter = filters.value;
-  //     }
-  //     this.cd.detectChanges();
-  //   }
-  // }
-  // onFilter(event, dt){
-  //   this.filteredValues = event.filters;
-  // }
-  // set selectedColumns(val: any[]) {
-  //   //restore original order
-  //   this._selectedColumns = this.cols.filter(col => val.includes(col));
-  // }
 
   fetchEmplyeeList(event){
     if(event  === 'EMPLOYEE') {
@@ -101,25 +73,12 @@ export class DataAnalysisComponent implements OnInit {
     }
   }
 
-  navigateToDataMapping(){
-    this.router.navigate(['dataMapping'], { relativeTo: this.route });
-  }
-  navigateToDataIngestion(){
-    this.router.navigate(['']);
-  }
   selectedCriteria(criteriaViews) {
     console.log(criteriaViews);
   }
   onCriteriaViewClick() {
     this.displayCriteriaAddComponents=true;
   }
-  // showAdvanceFilters(){
-  //   if(this._selectedColumns.length != 0){
-  //     this.arrayLength = this._selectedColumns.length;
-  //   }else {
-  //     this.arrayLength = null;
-  //   }
-  //
-  // }
+
 
 }
