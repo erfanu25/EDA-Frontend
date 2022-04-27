@@ -8,13 +8,6 @@ import * as endpoints from "./data-mapping.endpoints";
 @Injectable()
 export class DataMappingService {
 
-  private table_url: string = "http://localhost:7071/api/getTableList";
-  private mapper_name_url: string = "http://localhost:7071/api/getMapperNames";
-  private column_list_url: string = "http://localhost:7071/api/getColumnList";
-  private save_mapping_url: string = "http://localhost:7071/api/saveMapper";
-  private get_mapper_url: string = "http://localhost:7071/api/getMapper";
-  private update_mapper_url: string = " http://localhost:7071/api/updateMapper";
-
   constructor(private http: HttpClient) {
 
   }
@@ -35,12 +28,11 @@ export class DataMappingService {
   }
 
   public updateMapping(mapper): Observable<IMapper> {
-    return this.http.post<IMapper>(this.update_mapper_url, mapper);
+    return this.http.post<IMapper>(endpoints.update_mapper_url, mapper);
   }
 
   public getExcelDataWithMapping(dataMap): Observable<any> {
-    return null;
-   // return this.http.post<IMapper>(endpoints.get_data_with_mapping, dataMap);
+    return this.http.post<IMapper>(endpoints.get_data_with_mapping, dataMap);
   }
 
   public getExcelHeaders(queryParam): Observable<any> {
