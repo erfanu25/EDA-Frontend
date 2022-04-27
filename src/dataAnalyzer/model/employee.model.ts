@@ -5,15 +5,15 @@ import  { Schema, Document } from "mongoose"
 export interface IEmployee {
     email:string,
     name: string;
-    age: string;
-    address: string;
+    age: number;
+    salary: number;
 }
 
 const EmployeeSchema: Schema = new Schema({
     email: { type: String, required: true },
     name: { type: String, required: true },
-    age: { type: String, required: true },
-    address: { type: String, required: true },
+    age: { type: Number, required: true },
+    salary: { type: Number, required: true },
 })
 // const empl= mongoose.model("Employee", EmployeeSchema)
 
