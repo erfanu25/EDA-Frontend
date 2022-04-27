@@ -49,6 +49,10 @@ class MapperService {
     public async getMapper(searchParam): Promise<MapperDto> {
         return this.mappingHandler.getMapper(searchParam);
     }
+
+    public async updateMapper(mapper): Promise<MapperDto> {
+        return this.mappingHandler.updateMapper(mapper);
+    }
 }
 
 export default MapperService;
