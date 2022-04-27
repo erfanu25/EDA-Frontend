@@ -10,13 +10,12 @@ import { excelHeaders } from '../domain/tableMapper.domain';
   styleUrls: ['../data-mapping.component.css']
 })
 export class TableMapperComponent implements OnInit, OnChanges {
-  //private tableList: string[] = []
 
   @Input("dbColumns") public dbColumns: string[] = [];
 
   @Input("excelHeaders") public excelHeaderList: string[] = [];
 
-  @Input("mappedContent") public mappedContent: string;
+  @Input("mappedContent") public mappedContentStr: string;
 
   @Input("mappedTableColumns") public mappedTableColumns: string[] = [];
 
@@ -24,9 +23,9 @@ export class TableMapperComponent implements OnInit, OnChanges {
 
   @Output() public viewMapperEvent = new EventEmitter<Map<string, string>>();
 
-  @Output() public removeMappedColumnEvent = new EventEmitter<string>();
+ // @Output() public removeMappedColumnEvent = new EventEmitter<string>();
 
-  mappedCol: Map<string, string> = new Map<string, string>();
+  mappedContent: Map<string, string> = new Map<string, string>();
 
   constructor(private mappingService: DataMappingService) {
 
@@ -34,8 +33,8 @@ export class TableMapperComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
-
-    if (this.mappedContent) {
+    console.log(changes);
+    if (this.mappedContentStr) {
       this.populateColumnHeaderWithExisting();
     }
   }
@@ -50,12 +49,12 @@ export class TableMapperComponent implements OnInit, OnChanges {
   }
 
   populateColumnHeaderWithExisting() {
-    let excelHeaderMap = JSON.parse(this.mappedContent);
+    let excelHeaderMap = JSON.parse(this.mappedContentStr);
 
     Object.entries(excelHeaderMap).forEach((value, indx) => {
       let mapArr: string[] = value.toString().split(",");
       console.log(mapArr[0] + " " + mapArr[1]);
-      this.mappedCol.set(mapArr[0], mapArr[1]);
+      this.mappedContent.set(mapArr[0], mapArr[1]);
     })
 
   }
@@ -80,27 +79,38 @@ export class TableMapperComponent implements OnInit, OnChanges {
 
   populateColumnHeaderMaping(event: CdkDragDrop<string[]>) {
     event.container.data.forEach(((element, indx) => {
-      this.mappedCol.set(element, this.excelHeaderList[indx]);
+      this.mappedContent.set(this.dbColumns[indx], element);
     }));
+
   }
 
   saveMapping() {
-    console.log("Map data 2");
-    console.log(this.mappedCol);
-    this.saveMappingEvent.emit(this.mappedCol);
+    this.saveMappingEvent.emit(this.mappedContent);
   }
 
   showMappedTable() {
-    console.log(this.mappedCol);
-    this.viewMapperEvent.emit(this.mappedCol);
+    this.viewMapperEvent.emit(this.mappedContent);
   }
 
 
-  removeMappedColumn(tColumn) {
+  removeMappedColumn(columnToRemove,index) {
     console.log("Remove");
-    console.log(this.mappedCol);
-    this.mappedCol.delete(tColumn);
-    this.removeMappedColumnEvent.emit(tColumn);
+    let dbColumnToRemove = this.dbColumns[index];
+    console.log(dbColumnToRemove);
+    this.mappedContent.delete(dbColumnToRemove);
+    console.log(this.mappedContent);
+
+    //let columnToRemoveIndx = this.mappedTableColumns.indexOf(columnToRemove);
+    this.mappedTableColumns.splice(index, 1);
+    this.placeInDbColumn(columnToRemove);
+    //this.removeMappedColumnEvent.emit(tColumn);
+  }
+
+  placeInDbColumn(column) {
+    let columnIndx = this.excelHeaderList.indexOf(column);
+    if (columnIndx == -1) {
+      this.excelHeaderList.push(column);
+    }
   }
 
 

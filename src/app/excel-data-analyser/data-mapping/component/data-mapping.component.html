@@ -34,12 +34,20 @@
         </section>
       </div>
 
-      <table-data-mapper *ngIf="showTable" [dbColumns]="dbColumnList"
-        [mappedContent] = "mappedContent" [excelHeaders]="excelHeaderList"
+      <!-- <table-data-mapper *ngIf="showTable" [dbColumns]="dbColumnList"
+        [mappedContent] = "mappedContent" 
+        [excelHeaders]="excelHeaderList"
         [mappedTableColumns]="mappedTableColumns"
         (saveMappingEvent)="onSaveMapping($event)"
         (viewMapperEvent)="onViewMapping($event)"
-        (removeMappedColumnEvent)="removeMappedColumn($event)"></table-data-mapper>
+        (removeMappedColumnEvent)="removeMappedColumn($event)"></table-data-mapper> -->
+
+        <table-data-mapper *ngIf="showTable" [dbColumns]="dbColumnList"
+        [mappedContent] = "mappedContent" 
+        [excelHeaders]="excelHeaderList"
+        [mappedTableColumns]="mappedTableColumns"
+        (saveMappingEvent)="onSaveMapping($event)"
+        (viewMapperEvent)="onViewMapping($event)"></table-data-mapper>
     </div>
   </mat-card-content>
 

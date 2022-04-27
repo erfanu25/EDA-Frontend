@@ -84,6 +84,8 @@ export class DataMappingComponent implements OnInit {
     this.mappingService.getExcelHeaders(fileId)
       .subscribe(headers => {
         this.excelHeaderList = headers.data;
+        console.log("excelHeader");
+        console.log(this.excelHeaderList);
       });
   }
 
@@ -106,9 +108,12 @@ export class DataMappingComponent implements OnInit {
     this.mappedTableColumns = [];
 
     Object.keys(mappecontent).forEach((val, key) => {
+      console.log(val);
       let excelHeader = mappecontent[val];
-      let excelHeaderIndx = this.excelHeaders.indexOf(excelHeader);
-      this.mappedTableColumns[excelHeaderIndx] = val;
+      console.log("excel header");
+      console.log(excelHeader);
+      let dbColumnIndx = this.dbColumnList.indexOf(val);
+      this.mappedTableColumns[dbColumnIndx] = excelHeader;
     });
 
   }
@@ -176,17 +181,17 @@ export class DataMappingComponent implements OnInit {
       );
   }
 
-  removeMappedColumn(columnToRemove) {
-    let columnToRemoveIndx = this.mappedTableColumns.indexOf(columnToRemove);
-    this.mappedTableColumns.splice(columnToRemoveIndx, 1);
-    this.placeInDbColumn(columnToRemove);
-  }
+  // removeMappedColumn(columnToRemove) {
+  //   let columnToRemoveIndx = this.mappedTableColumns.indexOf(columnToRemove);
+  //   this.mappedTableColumns.splice(columnToRemoveIndx, 1);
+  //   this.placeInDbColumn(columnToRemove);
+  // }
 
-  placeInDbColumn(column) {
-    let columnIndx = this.dbColumnList.indexOf(column);
-    if (columnIndx == -1) {
-      this.dbColumnList.push(column);
-    }
-  }
+  // placeInDbColumn(column) {
+  //   let columnIndx = this.excelHeaderList.indexOf(column);
+  //   if (columnIndx == -1) {
+  //     this.excelHeaderList.push(column);
+  //   }
+  // }
 
 }

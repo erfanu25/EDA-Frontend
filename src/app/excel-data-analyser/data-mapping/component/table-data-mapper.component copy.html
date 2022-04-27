@@ -4,27 +4,20 @@
     <div class="dragdrop-wrapper">
       <div class="row margin25">
         <div class="col-md-6">
-          <h4 style="padding-left: 5%;"><b>Database Column</b></h4>
-          <!-- <div class="dragdrop-fix" *ngFor="let column of excelHeaderList">{{column}}</div> -->
-
-          <div class="dragdrop-fix" *ngFor="let ut of dbColumns" >
-            {{ut}}
-          </div>
-
+          <h4 style="padding-left: 5%;"><b>Excel Column</b></h4>
+          <div class="dragdrop-fix" *ngFor="let column of excelHeaderList">{{column}}</div>
         </div>
-
-        <div class="col-md-6" cdkDropList #mappedColumn="cdkDropList" 
-        [cdkDropListData]="mappedTableColumns"
+        <div class="col-md-6" cdkDropList #mappedColumn="cdkDropList" [cdkDropListData]="mappedTableColumns"
           (cdkDropListDropped)="dropItem($event)" [cdkDropListConnectedTo]="[todoList]">
           <h4 style="padding-left: 5%;"><b>Mapping Column</b></h4>
-          <div class="dragdrop-inner" *ngFor="let tColumn of mappedTableColumns;let i = index" cdkDrag>
+          <div class="dragdrop-inner" *ngFor="let tColumn of mappedTableColumns" cdkDrag>
             {{tColumn}}
-            <span><button class="btn" (click)="removeMappedColumn(tColumn,i)">
+
+            <span><button class="btn" (click)="removeMappedColumn(tColumn)">
                 <i class="fa fa-times" aria-hidden="true"></i>
               </button>
             </span>
           </div>
-
         </div>
 
 
@@ -34,13 +27,16 @@
   </div>
 
   <div style="width: 30%; float:right">
-    <div class="dragdrop-wrapper" cdkDropList #todoList="cdkDropList" [cdkDropListData]="excelHeaderList"
+    
+    <div class="dragdrop-wrapper" cdkDropList #todoList="cdkDropList" [cdkDropListData]="dbColumns"
       [cdkDropListConnectedTo]="[mappedColumn]" (cdkDropListDropped)="dropItem($event)">
-      <h4 style="padding-left: 5%;"><b>Excel Column</b></h4>
-
-      <div class="dragdrop-fix" *ngFor="let column of excelHeaderList" cdkDrag>{{column}}</div>
-
+      <h4 style="padding-left: 5%;"><b>Choose Table Properties</b></h4>
+      <div class="dragdrop-inner" *ngFor="let ut of dbColumns" cdkDrag>
+        {{ut}}
+      </div>
     </div>
+
+
   </div>
 
 </div>
@@ -48,8 +44,8 @@
 <mat-card-actions style="text-align: center;">
   <button mat-button style="background-color:green; 
                color:white" (click)="showMappedTable()">
-    View Mapping Excel
-  </button>
+        View Mapping Excel
+      </button>
   <button mat-button style="background-color:green; 
                color:white" (click)="saveMapping()">
     Save Mapping
