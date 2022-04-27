@@ -17,8 +17,8 @@ class EmployeeAddRepo {
         const employeeModel = new EmployeeModel({
             email: employee.email,
             name: employee.name,
-            address: employee.address,
-            age: employee.age
+            age: employee.age,
+            salary: employee.salary
         });
         var result= await employeeModel.save();
         return result
