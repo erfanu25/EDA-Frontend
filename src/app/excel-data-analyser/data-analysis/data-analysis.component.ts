@@ -3,7 +3,8 @@ import {ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/c
 import {ActivatedRoute, Router} from "@angular/router";
 import {MenuItem, SelectItem} from "primeng/api";
 import {ThemePalette} from "@angular/material/core";
-import {EmpDetails, TableType} from "./domain/data-analysis.domain";
+import {DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria} from "./domain/data-analysis.domain";
+import {DataAnalysisService} from "./service-api/data-analysis.service";
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -11,27 +12,34 @@ import {EmpDetails, TableType} from "./domain/data-analysis.domain";
 })
 export class DataAnalysisComponent implements OnInit {
 
-  value!: any;
+  value: string;
   items!: MenuItem[];
   activeItem!: MenuItem;
+  arrayLength: number;
   tableType: SelectItem[] = TableType;
-  details: EmpDetails[]=[];
+  textCriteria: SelectItem[] = TextCriteria;
+  dateCriteria: SelectItem[] = DateCriteria;
+  numberCriteria: SelectItem[] = NumberCriteria;
+  details: unknown=[];
   loading: boolean = true;
-  cols: any[];
+  // cols: any[];
+  // statusFilter: string[] = [];
   showFooTable: boolean  = true;
-  statusFilter: string[] = [];
+
   isDataAnlaysis: boolean;
   isDataIngestion: boolean;
   isDataMapping: boolean;
-  _selectedColumns: any[];
+  // _selectedColumns: any[];
+  // filteredValues: any[];
   displayCriteriaAddComponents: boolean;
 
-  filteredValues: any[];
+
   path: string;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private dataAnalysisService: DataAnalysisService,
   ) { }
   ngOnInit(): void {
     this.loading = false;
@@ -43,20 +51,15 @@ export class DataAnalysisComponent implements OnInit {
       // {label: 'Custom Queries', icon: 'pi pi-fw pi-key'}
     ];
     this.activeItem = this.items[0];
-   this.details= [
-      { name: 'Galib', age: 29,address:'gsdhasdshg', email: 'abcd&nnnc.com' },
-      { name: 'Arif', age: 28,address:'gsgs' , email: 'sfsf&nnnc.com' },
-      { name: 'Rakib', age: 27,address:'gsdtw363hasdshg' , email: 'uyuf&nnnc.com' },
-      { name: 'Hannan', age: 26,address:'gsdhe455asdshg' , email: 'abacd&nnnadfc.com' },
 
-
-    ];
-    this.cols = [
-      { field: 'name', header: 'Name' },
-      { field: 'age', header: 'Age' },
-      { field: 'address', header: 'Address' },
-      { field: 'email', header: 'Email' }
-    ];
+    // this.fetchEmplyeeList();
+    // this.cols = [
+    //   { field: 'name', header: 'Name', type: 'text' },
+    //   { field: 'age', header: 'Age' , type: 'number'},
+    //   { field: 'email', header: 'Email', type: 'text' },
+    //   { field: 'salary', header: 'Salary', type: 'number' },
+    //
+    // ];
     this.path = this.route.snapshot.routeConfig.path;
 
 
@@ -66,25 +69,36 @@ export class DataAnalysisComponent implements OnInit {
     this.displayCriteriaAddComponents=false;
   }
 
+  //
+  // @Input() get selectedColumns(): any[] {
+  //   return this._selectedColumns;
+  // }
 
-  @Input() get selectedColumns(): any[] {
-    return this._selectedColumns;
-  }
-  @ViewChild('dt') set dt(dt: any) {
-    if(dt != undefined) {
-      let filters = dt.filters['status'];
-      if (filters != undefined && filters.value != undefined) {
-        this.statusFilter = filters.value;
-      }
-      this.cd.detectChanges();
+
+  // @ViewChild('dt') set dt(dt: any) {
+  //   if(dt != undefined) {
+  //     let filters = dt.filters['status'];
+  //     if (filters != undefined && filters.value != undefined) {
+  //       this.statusFilter = filters.value;
+  //     }
+  //     this.cd.detectChanges();
+  //   }
+  // }
+  // onFilter(event, dt){
+  //   this.filteredValues = event.filters;
+  // }
+  // set selectedColumns(val: any[]) {
+  //   //restore original order
+  //   this._selectedColumns = this.cols.filter(col => val.includes(col));
+  // }
+
+  fetchEmplyeeList(event){
+    if(event  === 'EMPLOYEE') {
+      this.dataAnalysisService.getStudentList('getStudentData')
+        .subscribe(data => {
+          this.details = data;
+        });
     }
-  }
-  onFilter(event, dt){
-    this.filteredValues = event.filters;
-  }
-  set selectedColumns(val: any[]) {
-    //restore original order
-    this._selectedColumns = this.cols.filter(col => val.includes(col));
   }
 
   navigateToDataMapping(){
@@ -99,18 +113,13 @@ export class DataAnalysisComponent implements OnInit {
   onCriteriaViewClick() {
     this.displayCriteriaAddComponents=true;
   }
-
-  // navigateToDataMapping(){
-  //   this.router.navigate(['dataMapping'], { relativeTo: this.route });
-  // }
-  // navigateToDataIngestion(){
-  //   this.router.navigate(['']);
-  // }
-  // navigateToDataMapping(){
-  //   this.router.navigate(['dataMapping'], { relativeTo: this.route });
-  // }
-  // navigateToDataIngestion(){
-  //   this.router.navigate(['']);
+  // showAdvanceFilters(){
+  //   if(this._selectedColumns.length != 0){
+  //     this.arrayLength = this._selectedColumns.length;
+  //   }else {
+  //     this.arrayLength = null;
+  //   }
+  //
   // }
 
 }

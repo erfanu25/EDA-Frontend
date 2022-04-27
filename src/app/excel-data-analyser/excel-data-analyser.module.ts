@@ -1,11 +1,10 @@
-import {RouterModule, Routes} from "@angular/router";
+import {RouterModule} from "@angular/router";
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
 import { MatCardModule } from '@angular/material/card';
 import {TableModule} from "primeng/table";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {HttpClientModule} from "@angular/common/http";
 import {MatRadioModule} from "@angular/material/radio";
 import {CommonModule} from "@angular/common";
 import {DialogModule} from "primeng/dialog";
@@ -14,7 +13,6 @@ import {PaginatorModule} from "primeng/paginator";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {SharedModule} from "primeng/api";
-
 import {AutoCompleteModule} from "primeng/autocomplete";
 import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
 import { DataAnalysisComponent } from './data-analysis/data-analysis.component';
@@ -52,6 +50,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { DataMappingService } from "./data-mapping/services/data-mapping.service";
 import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapper.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import {DataAnalysisService} from "./data-analysis/service-api/data-analysis.service";
+import {DataAnalyserTableComponent} from "../data-analyser-table/data-analyser-table.component";
 
 @NgModule({
   imports: [
@@ -62,7 +62,6 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     ReactiveFormsModule,
     MatIconModule,
     MatProgressBarModule,
-    HttpClientModule,
     MatRadioModule,
     CommonModule,
     DialogModule,
@@ -114,9 +113,11 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     TableMapperComponent,
     DataAnalysisComponent,
     TopbarComponent,
+    DataAnalyserTableComponent
   ],
   providers: [
-    DataMappingService
+    DataMappingService,
+    DataAnalysisService
   ],
   exports: [
     RouterModule

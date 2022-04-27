@@ -1,7 +1,7 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AnalysisHttpHandler } from '../../../service-api/analysis-http.handler';
-import { Criteria } from '../../models/criteria.model';
+import {TabViewModule} from 'primeng/tabview';
 @Component({
   selector: 'app-criteria',
   templateUrl: './criteria.component.html',
@@ -27,5 +27,7 @@ export class CriteriaComponent implements OnInit {
   onClick(view){
     this.selectedCriteriaOutput.emit(view); 
   }
+  
+
 
 }
