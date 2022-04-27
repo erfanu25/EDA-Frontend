@@ -24,9 +24,8 @@ class MapperRepo {
         return mapper;
     }
 
-    public async getMappers(): Promise<IMapper[]> {
-
-        return null;
+    public async getMapper(searchParam): Promise<IMapper> {
+        return await MapperModel.findById(searchParam._id);
     }
 
     public async getMapperNames(searchParam): Promise<any> {

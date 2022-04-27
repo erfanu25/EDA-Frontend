@@ -37,9 +37,8 @@ class MapperHandler {
         }
     }
 
-    public async getMappers(): Promise<IMapper[]> {
-
-        return null;
+    public async getMapper(searchParam): Promise<MapperDto> {
+        return this.mapperRepo.getMapper(searchParam);
     }
 
     public async getMapperNames(searchParams): Promise<MapperNameDto[]> {
