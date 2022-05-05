@@ -18,13 +18,12 @@ class MapperRepo {
         return this.mapperRep;
     }
 
-    public async saveMapping(mapper): Promise<IMapper> {
-        await mongoose.connect("mongodb://localhost/test");
-        mapper.save();
-        return mapper;
+
+    public async saveMapping(mapper): Promise<any> {
+        return await mapper.save();
     }
 
-    public async getMapper(searchParam): Promise<IMapper> {
+    public async getMapper(searchParam): Promise<any> {
         return await MapperModel.findById(searchParam._id);
     }
 
@@ -34,7 +33,14 @@ class MapperRepo {
         const customMap = { _id: "customId", mapperName: "Custom_Mapping" }
         modelNames.unshift(customMap);
         return modelNames;
-    } l̥
+    }
+
+    public async updateMapper(mapper): Promise<any> {
+        const modelMapper = await MapperModel.findById(mapper["_id"]);
+        modelMapper["modelContent"] = mapper["modelContent"]
+        return await modelMapper.save();
+
+    }
 
     public getTables(): Promise<String[]> {
         return new Promise(async (resolve, reject) => {
@@ -61,18 +67,12 @@ class MapperRepo {
         return new Promise(async (resolve, reject) => {
             try {
                 let fieldNames = [];
-                const connection = await mongoose.connect("mongodb://localhost/test");
+               // const connection = await mongoose.connect("mongodb://localhost/myapp");
                 const schema = mongoose.model(collectionName).schema;
-
-                console.log(schema);
 
                 Object.entries(schema.paths)
                     .filter(([key, value]) => key != "__v" && key != "_id")
                     .forEach(([key, value]) => fieldNames.push(key));
-
-
-                // var SongSchema = mongoose.model(collectionName).schema;
-                //console.log(SongSchema);
 
 
                 resolve(fieldNames);
@@ -84,25 +84,6 @@ class MapperRepo {
         })
     }
 
-    // public async getTables(): Promise<String[]> {
-    //     let collectionNames = [];
-    //     //const connection = await mongoose.connect(process.env["CosmosDbConnectionString"]);
-    //     const connection =  await mongoose.connect("mongodb://localhost/test");
-    //     const dbConnection = await mongoose.connection;
-    //  //   dbConnection.on('open',  function () {
-    //     await dbConnection.db.listCollections().toArray(async function (err, tables) {
-    //            await tables.forEach(element => {
-    //                 collectionNames.push(element["name"]);
-    //             });
-    //            await console.log(collectionNames);
-
-    //             dbConnection.close();
-    //         });
-    //  //   });
-    //  console.log("tt " + collectionNames);
-    //     return collectionNames;
-
-    // }
 
 
 }

@@ -5,10 +5,10 @@ import EmployeeOperationService from "../src/dataAnalyzer/service/employee.servi
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     let response = null;
     var employee: EmployeeDto = {
-      name: "Istiaq Hossain",
-      address: "Dhaka",
-      age: "13",
-      email:"hossain.ict@gmail.com"
+      name: "atique",
+        email:"atique.ict@gmail.com",
+      age: 36,
+        salary: 40000
   };
     await db.init();
     response = {

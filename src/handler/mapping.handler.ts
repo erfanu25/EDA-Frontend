@@ -3,6 +3,7 @@ import { IMapper } from "../model/Mapper.model";
 import MapperDto from "../dto/mapper.dto";
 import { MapperModel } from './../model/Mapper.model';
 import MapperNameDtoConverter from "../converter/mapperNameDto.converter";
+import MapperDtoConverter from "../converter/mapperDto.converter";
 
 
 
@@ -10,6 +11,7 @@ class MapperHandler {
     static isSignIn: boolean;
     static mapperHandler: MapperHandler;
     mapperNameDtoConverter: MapperNameDtoConverter = MapperNameDtoConverter.getConverterInstance();
+    mapperDtoConverter: MapperDtoConverter = MapperDtoConverter.getConverterInstance();
     mapperRepo: MapperRepo = MapperRepo.getRepoInstance()
 
     constructor() {
@@ -25,16 +27,13 @@ class MapperHandler {
 
 
     public async saveMapping(mapperDto: MapperDto): Promise<MapperDto> {
-        try {
-            const mapper = new MapperModel({
-                "modelName": mapperDto["modelName"],
-                "mapperName": mapperDto["mapperName"],
-                "modelContent": mapperDto["modelContent"]
-            });
-            return this.mapperRepo.saveMapping(mapper);
-        } catch (e) {
-            console.log(e);
-        }
+        const mapper = new MapperModel({
+            "modelName": mapperDto["modelName"],
+            "mapperName": mapperDto["mapperName"],
+            "modelContent": mapperDto["modelContent"]
+        });
+        return this.mapperRepo.saveMapping(mapper);
+
     }
 
     public async getMapper(searchParam): Promise<MapperDto> {
@@ -48,6 +47,13 @@ class MapperHandler {
             mapperList.push(this.mapperNameDtoConverter.convertToDto(mapper));
         });
         return mapperList;
+    }
+
+
+    public async updateMapper(mapper): Promise<MapperDto> {
+        let savedMapper = await this.mapperRepo.updateMapper(mapper);
+        return this.mapperDtoConverter.convertToDto(savedMapper);
+
     }
 
 }
