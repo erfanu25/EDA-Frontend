@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/getTableList/index.js"
+  "scriptFile": "../dist/setAndGetMappers/index.js"
 }
