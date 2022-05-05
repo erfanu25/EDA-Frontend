@@ -1,6 +1,9 @@
 import { MapperModel } from './../model/Mapper.model';
 import mongoose from 'mongoose';
-import  { IMapper } from "../model/Mapper.model";
+import { IMapper } from "../model/Mapper.model";
+
+const mongo = require("mongoose");
+
 
 class MapperRepo {
     static mapperRep: MapperRepo;
@@ -15,36 +18,72 @@ class MapperRepo {
         return this.mapperRep;
     }
 
-    public async saveMapping(mapper): Promise<IMapper> {
-        mapper.save();
-        return mapper;
+
+    public async saveMapping(mapper): Promise<any> {
+        return await mapper.save();
     }
 
-    public async getMappers(): Promise<IMapper[]> {
-      
-        return null;
+    public async getMapper(searchParam): Promise<any> {
+        return await MapperModel.findById(searchParam._id);
     }
 
-    public async getMapperNames(searchParam): Promise<String[]> {
+    public async getMapperNames(searchParam): Promise<any> {
         const modelNames = await MapperModel.find(searchParam)
-                .select({modelName : 1});
+            .select({ mapperName: 1, _id: 1 });
+        const customMap = { _id: "customId", mapperName: "Custom_Mapping" }
+        modelNames.unshift(customMap);
         return modelNames;
     }
 
-    public async getTables(): Promise<String[]> {
-       let collectionNames = [];
-       await mongoose.connection.on('open', function (ref) {
-            console.log('Connected to mongo server.');
-            //trying to get collection names
-            mongoose.connection.db.listCollections().toArray(function (err, names) {
-                console.log(names); // [{ name: 'dbname.myCollection' }]
-                collectionNames = names;
-            });
-        })
+    public async updateMapper(mapper): Promise<any> {
+        const modelMapper = await MapperModel.findById(mapper["_id"]);
+        modelMapper["modelContent"] = mapper["modelContent"]
+        return await modelMapper.save();
 
-        return collectionNames;
-      
     }
+
+    public getTables(): Promise<String[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let collectionNames = [];
+                const connection = await mongoose.connect("mongodb://localhost/test");
+                mongoose.connection.db.listCollections().toArray(function (err, tables) {
+                    tables.forEach(element => {
+                        collectionNames.push(element["name"]);
+                    });
+                    mongoose.connection.close();
+                    resolve(collectionNames);
+                });
+            } catch (e) {
+                reject(e);
+            }
+
+        })
+    }
+
+
+    public getTableColumns(collectionName): Promise<String[]> {
+        console.log(collectionName);
+        return new Promise(async (resolve, reject) => {
+            try {
+                let fieldNames = [];
+               // const connection = await mongoose.connect("mongodb://localhost/myapp");
+                const schema = mongoose.model(collectionName).schema;
+
+                Object.entries(schema.paths)
+                    .filter(([key, value]) => key != "__v" && key != "_id")
+                    .forEach(([key, value]) => fieldNames.push(key));
+
+
+                resolve(fieldNames);
+            } catch (e) {
+                console.log(e);
+                reject(e);
+            }
+
+        })
+    }
+
 
 
 }
