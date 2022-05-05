@@ -12,7 +12,7 @@ export class DataAnalysisService {
 
 
 
-  public getStudentList<T>(path: string, routerParams?: Params): Observable<T> {
+  public getEmployeeList<T>(path: string, routerParams?: Params): Observable<T> {
     let queryParams: Params = {};
     if (routerParams) {
       queryParams = this.setParameter(routerParams);

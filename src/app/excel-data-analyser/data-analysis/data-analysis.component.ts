@@ -66,7 +66,7 @@ export class DataAnalysisComponent implements OnInit {
 
   fetchEmplyeeList(event){
     if(event  === 'EMPLOYEE') {
-      this.dataAnalysisService.getStudentList('getStudentData')
+      this.dataAnalysisService.getEmployeeList('getEmployeeData')
         .subscribe(data => {
           this.details = data;
         });
