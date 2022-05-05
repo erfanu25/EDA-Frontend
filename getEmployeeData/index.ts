@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import EmployeeOperationService from "../src/dataAnalyzer/service/employee.service";
 import * as db from "../src/flex-max-cosmosdb-mongodb";
-const getStudentData: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+const getEmployeeData: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     let response = null;
     try {
         await db.init();
@@ -13,4 +13,4 @@ const getStudentData: AzureFunction = async function (context: Context, req: Htt
 
 };
 
-export default getStudentData;
+export default getEmployeeData;
