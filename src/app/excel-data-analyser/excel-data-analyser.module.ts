@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatRadioModule} from "@angular/material/radio";
-import {CommonModule} from "@angular/common";
+import {CommonModule, DecimalPipe} from "@angular/common";
 import {DialogModule} from "primeng/dialog";
 import {SpreadsheetAllModule} from "@syncfusion/ej2-angular-spreadsheet";
 import {PaginatorModule} from "primeng/paginator";
@@ -52,6 +52,7 @@ import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapp
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import {DataAnalysisService} from "./data-analysis/service-api/data-analysis.service";
 import {DataAnalyserTableComponent} from "../data-analyser-table/data-analyser-table.component";
+import {NgbdSortableHeader} from "../data-analyser-table/sortable.directives";
 
 @NgModule({
   imports: [
@@ -113,11 +114,13 @@ import {DataAnalyserTableComponent} from "../data-analyser-table/data-analyser-t
     TableMapperComponent,
     DataAnalysisComponent,
     TopbarComponent,
-    DataAnalyserTableComponent
+    DataAnalyserTableComponent,
+    NgbdSortableHeader
   ],
   providers: [
     DataMappingService,
-    DataAnalysisService
+    DataAnalysisService,
+    DecimalPipe
   ],
   exports: [
     RouterModule
