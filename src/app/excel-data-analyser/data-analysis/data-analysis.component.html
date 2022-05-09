@@ -2,8 +2,7 @@
 <app-topbar [topBarData]="path"></app-topbar>
 
 <div class="card">
-  <p-card header="Data Analysis">
-    <h3>Select Table</h3>
+  <p-card>
     <p-dropdown [options]="tableType" [(ngModel)]="value" placeholder="Select a Table" appendTo="body" (onChange)="fetchEmplyeeList($event.value)"
       [showClear]="true"></p-dropdown>
   </p-card>
@@ -14,8 +13,8 @@
 <!--  <p-table #ft [value]="filteredValues" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"></p-table>-->
 <!--</div>-->
 
-<div class="parent">
-<div class="child" style="margin-top: 5px">
+
+<div class="card" style="margin-top: 5px">
   <div class="row margin25">
     <div class="{{displayViewColumnSection ? 'col-md-8' : 'col-md-12'}}">
       <p-card>
@@ -48,7 +47,7 @@
     </div>
   </div>
 
-</div>
+
 
 <!--  <div class="child" style="margin-top: 5px; width: max-content" *ngIf="arrayLength">-->
 <!--    <div class="ui-g-12 ui-md-12" *ngFor="let col of selectedColumns; index as i; first as isFirst">-->
