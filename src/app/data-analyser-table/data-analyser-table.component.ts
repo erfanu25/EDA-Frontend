@@ -28,11 +28,13 @@ export class DataAnalyserTableComponent implements OnInit {
   tableDetails: EmpDetails[];
   employee$: Observable<EmpDetails[]>;
   total$: Observable<number>;
+  headerElements: string[];
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   @Input('tableData') set tableData(data) {
     if (data && Object.keys(data).length) {
       this.tableDetails = data;
+      this.headerElements = Object.keys(data[0]);
       this.employee$ = data;
     }
 
