@@ -65,20 +65,22 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col" sortable="name" (sort)="onSort($event)">Name</th>
-      <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
-      <th scope="col" sortable="salary" (sort)="onSort($event)">Salary</th>
-      <th scope="col" sortable="age" (sort)="onSort($event)">Age</th>
+<!--      <th scope="col" sortable="{{item}}" (sort)="onSort($event)">{{item.k}}</th>-->
+      <th *ngFor="let head of headerElements" sortable="{{head}}" scope="col" (sort)="onSort($event)">{{head | titlecase}} </th>
+<!--      <th scope="col" sortable="{{item}}" (sort)="onSort($event)">Email</th>-->
+<!--      <th scope="col" sortable="{{item}}" (sort)="onSort($event)">Salary</th>-->
+<!--      <th scope="col" sortable="age" (sort)="onSort($event)">Age</th>-->
+<!--      <td *ngFor = 'let key of keys'>{{item[key]}}</td>-->
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let employee of tableDetails">
-      <th scope="row">{{ employee.name }}</th>
-      <td>
-        <ngb-highlight [result]="employee.email" [term]="service.searchTerm"></ngb-highlight>
+<!--      <th  scope="row">{{ employee[headerElements[i]] }}</th>-->
+      <td *ngFor="let head of headerElements">
+        {{employee[head]}}
       </td>
-      <td><ngb-highlight [result]="employee.salary | number" [term]="service.searchTerm"></ngb-highlight></td>
-      <td><ngb-highlight [result]="employee.age | number" [term]="service.searchTerm"></ngb-highlight></td>
+<!--      <td><ngb-highlight [result]="employee.salary | number" [term]="service.searchTerm"></ngb-highlight></td>-->
+<!--      <td><ngb-highlight [result]="employee.age | number" [term]="service.searchTerm"></ngb-highlight></td>-->
     </tr>
     </tbody>
   </table>
