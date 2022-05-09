@@ -16,6 +16,13 @@ class EmployeeListRepo {
     public async getList(): Promise<EmployeeDto[]> {
         return await employeeModel.find({},{_id:0,__v:0});
     }
+
+    public async getSortedList(column,value): Promise<EmployeeDto[]> {
+        let anc = column;
+        return await employeeModel.find({},{_id:0,__v:0}).sort({column : Number(value)});
+  
+
+    }
     
 }
 
