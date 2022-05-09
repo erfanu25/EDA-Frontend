@@ -1,85 +1,46 @@
-
 <app-topbar [topBarData]="path"></app-topbar>
 
 <div class="card">
   <p-card>
-    <p-dropdown [options]="tableType" [(ngModel)]="value" placeholder="Select a Table" appendTo="body" (onChange)="fetchEmplyeeList($event.value)"
-      [showClear]="true"></p-dropdown>
+    <p-dropdown [options]="tableType" [(ngModel)]="value" placeholder="Select a Table" appendTo="body"
+      (onChange)="fetchEmplyeeList($event.value)" [showClear]="true"></p-dropdown>
   </p-card>
 </div>
-
-<!--<div class="card" style="margin-top: 5px">-->
-<!--  <h3>Filters:</h3>-->
-<!--  <p-table #ft [value]="filteredValues" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"></p-table>-->
-<!--</div>-->
-
-
 <div class="card" style="margin-top: 5px">
   <div class="row margin25">
     <div class="{{displayViewColumnSection ? 'col-md-8' : 'col-md-12'}}">
       <p-card>
         <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
-    
-        <!--  <h5>Single Column</h5>-->
-    
-    <!--    <app-criteria (selectedCriteriaOutput)='selectedCriteria($event)' ></app-criteria>-->
-    <!--    <p-button  (click)="onCriteriaViewClick()"  type="button"   class="pt-2">Save Criteria As View</p-button>-->
+
       <p-button  (click)="onViewColumnsClick()"  type="button"   class="pt-2" style=" 
           float: right;" >View Columns</p-button>
         <app-data-analyser-table [tableData] = "details" [showableColumn]="showableColumn"></app-data-analyser-table>
-    
       </p-card>
     </div>
     <div class="col-md-4" *ngIf="displayViewColumnSection">
       <mat-card style="height: 100%;">
         <h3>Select Columns to View</h3>
         <div class="ui-g" style="margin-bottom:10px;margin-top: 20px;">
-        <div  class="ui-g-2"><p-checkbox binary="true" [(ngModel)]="selectAllColumns" (onChange)="checkAllValue()" inputId="R"></p-checkbox> Select All</div>
-      </div>
-        <div class="ui-g" style="margin-bottom:10px;" *ngFor ="let column of columnHeaders; let i = index"> 
-          <div  class="ui-g-2"><p-checkbox binary="true" [(ngModel)]="permissions[i]" inputId="R"></p-checkbox> {{column | titlecase}}</div> 
-      </div>
-      <mat-card-actions>
-        <p-button  (click)="onApplyColumnsView()"  type="button"   class="pt-2" style=" 
-          float: right; margin-right: 30px;" >Apply</p-button>
-      </mat-card-actions>
+          <div class="ui-g-2">
+            <p-checkbox binary="true" [(ngModel)]="selectAllColumns" (onChange)="checkAllValue()" inputId="R">
+            </p-checkbox> Select All
+          </div>
+        </div>
+        <div class="ui-g" style="margin-bottom:10px;" *ngFor="let column of columnHeaders; let i = index">
+          <div class="ui-g-2">
+            <p-checkbox binary="true" [(ngModel)]="permissions[i]" inputId="R"></p-checkbox> {{column | titlecase}}
+          </div>
+        </div>
+        <mat-card-actions>
+          <p-button (click)="onApplyColumnsView()" type="button" class="pt-2" style=" 
+          float: right; margin-right: 30px;">Apply</p-button>
+        </mat-card-actions>
       </mat-card>
     </div>
   </div>
 
-
-
-<!--  <div class="child" style="margin-top: 5px; width: max-content" *ngIf="arrayLength">-->
-<!--    <div class="ui-g-12 ui-md-12" *ngFor="let col of selectedColumns; index as i; first as isFirst">-->
-<!--      <span  style="margin: 5px">-->
-<!--          <input type="text" [style]="{'width': '25%'}" pInputText [attr.disabled]="true" value="{{col.header}}">-->
-<!--      </span>-->
-
-<!--      <p-dropdown *ngIf="col.type==='number'" [options]="numberCriteria" [(ngModel)]="value"  appendTo="body"></p-dropdown>-->
-<!--      <p-dropdown *ngIf="col.type==='date'" [options]="dateCriteria" [(ngModel)]="value"  appendTo="body"></p-dropdown>-->
-<!--      <p-dropdown *ngIf="col.type==='text'" [options]="textCriteria" [(ngModel)]="value"  appendTo="body"></p-dropdown>-->
-
-<!--      <span  style="margin: 5px">-->
-<!--          <input type="text" pInputText [style]="{'width': '30%'}">-->
-<!--      </span>-->
-<!--    </div>-->
-<!--    <ng-template [ngIf]="_selectedColumns.length != 0">-->
-<!--    <div class="button-group">-->
-<!--      <p-button class="b-child" label="Apply"></p-button>-->
-<!--      <p-button class="b-child" label="Save criteria as View" ></p-button>-->
-<!--    </div>-->
-<!--      </ng-template>-->
-
-<!--  </div>-->
-
-
-
-
-
-
-<p-dialog header="Criteria View Name"
-    [(visible)]="displayCriteriaAddComponents" [modal]="true"
-    [draggable]="true" [resizable]="true">
-    <app-criteria-add  ></app-criteria-add>
-</p-dialog>
+  <p-dialog header="Criteria View Name" [(visible)]="displayCriteriaAddComponents" [modal]="true" [draggable]="true"
+    [resizable]="true">
+    <app-criteria-add></app-criteria-add>
+  </p-dialog>
 </div>
