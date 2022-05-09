@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Params} from "@angular/router";
 import {environment} from "../../../../environments/environment.prod";
+import {EmpDetails} from "../domain/data-analysis.domain";
 
 
 @Injectable()
@@ -12,13 +13,13 @@ export class DataAnalysisService {
 
 
 
-  public getEmployeeList<T>(path: string, routerParams?: Params): Observable<T> {
+  public getEmployeeList<T>(path: string, routerParams?: Params): Observable<EmpDetails[]> {
     let queryParams: Params = {};
     if (routerParams) {
       queryParams = this.setParameter(routerParams);
     }
     console.log(queryParams);
-    return this.http.get<T>(this.path(path), { params: queryParams });
+    return this.http.get<EmpDetails[]>(this.path(path), { params: queryParams });
   }
 
 

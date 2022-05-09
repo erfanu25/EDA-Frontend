@@ -33,10 +33,11 @@ export let NumberCriteria = [
 
 
 export interface EmpDetails {
-  email: string;
   name: string;
-  age: number;
+  email: string;
   salary: number;
+  age: number;
+
 
 
 

@@ -5,6 +5,7 @@ import {MenuItem, SelectItem} from "primeng/api";
 import {ThemePalette} from "@angular/material/core";
 import {DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria} from "./domain/data-analysis.domain";
 import {DataAnalysisService} from "./service-api/data-analysis.service";
+import {Observable} from "rxjs";
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -20,7 +21,7 @@ export class DataAnalysisComponent implements OnInit {
   textCriteria: SelectItem[] = TextCriteria;
   dateCriteria: SelectItem[] = DateCriteria;
   numberCriteria: SelectItem[] = NumberCriteria;
-  details: unknown=[];
+  details: EmpDetails[];
   loading: boolean = true;
   // cols: any[];
   // statusFilter: string[] = [];
@@ -69,6 +70,7 @@ export class DataAnalysisComponent implements OnInit {
       this.dataAnalysisService.getEmployeeList('getEmployeeData')
         .subscribe(data => {
           this.details = data;
+
         });
     }
   }
