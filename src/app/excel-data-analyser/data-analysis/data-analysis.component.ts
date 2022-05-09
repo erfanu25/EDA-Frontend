@@ -6,6 +6,7 @@ import {ThemePalette} from "@angular/material/core";
 import {DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria} from "./domain/data-analysis.domain";
 import {DataAnalysisService} from "./service-api/data-analysis.service";
 import {Observable} from "rxjs";
+import { DataMappingService } from '../data-mapping/services/data-mapping.service';
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -33,6 +34,12 @@ export class DataAnalysisComponent implements OnInit {
   // _selectedColumns: any[];
   // filteredValues: any[];
   displayCriteriaAddComponents: boolean;
+  displayViewColumnSection: boolean;
+
+  users: Array<any>;
+  selectAllColumns: boolean;
+  columnHeaders: Array<any>;
+  permissions: Array<any> = [];
 
 
   path: string;
@@ -40,10 +47,18 @@ export class DataAnalysisComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private cd: ChangeDetectorRef,
+    private mappingService: DataMappingService,
     private dataAnalysisService: DataAnalysisService,
   ) { }
   ngOnInit(): void {
     this.loading = false;
+  
+    this.users = [
+      {id: 1, name: 'Sam', permission: []},
+      {id: 2, name: 'Adam', permission: []},
+      {id: 3, name: 'Chris', permission: []}
+    ]
+
     this.items = [
       {label: 'Grid Views', icon: 'pi pi-fw pi-th-large'},
 
@@ -80,6 +95,34 @@ export class DataAnalysisComponent implements OnInit {
   }
   onCriteriaViewClick() {
     this.displayCriteriaAddComponents=true;
+  }
+
+  onViewColumnsClick() {
+    
+    let queryParam = { "collectionName": 'Employee' };
+    this.mappingService.getTableColumns(queryParam)
+      .subscribe(columns => {
+        console.log(columns);
+        this.columnHeaders = columns;
+        this.selectAllColumns = true;
+        this.checkAllValue();
+        this.displayViewColumnSection = true;
+      });
+  }
+
+  checkAllValue() {
+    this.columnHeaders.forEach((v, i) => {
+      if (this.selectAllColumns) {
+        this.permissions[i] = true;
+      } else {
+        this.permissions[i] = false;
+      }
+      
+    })
+  }
+
+  onApplyColumnsView() {
+    this.displayViewColumnSection = false;
   }
 
 
