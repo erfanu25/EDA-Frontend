@@ -1,95 +1,22 @@
-<!--<p-table #dt [value]="tableDetails" (onFilter)="onFilter($event, dt)" [columns]="selectedColumns"  dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"-->
-<!--         [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll" [lazy]="false"-->
-<!--         [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"-->
-<!--         [globalFilterFields]="['name','age','email','salary']">-->
-
-<!--  <ng-template pTemplate="caption">-->
-
-<!--    <div class="flex">-->
-<!--      <div>-->
-<!--&lt;!&ndash;            <span class="p-input-icon-left">&ndash;&gt;-->
-<!--&lt;!&ndash;              <i class="pi pi-search"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;              <input pInputText type="text" pInputText (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />&ndash;&gt;-->
-<!--&lt;!&ndash;            </span>&ndash;&gt;-->
-<!--&lt;!&ndash;        <p-button label="More Filters" style="margin-left: 10px" [disabled]="!selectedColumns" (click)="showAdvanceFilters()"></p-button>&ndash;&gt;-->
-<!--      </div>-->
-<!--      <div style="margin-top: 5px;width: max-content">-->
-<!--            <span>-->
-<!--                Filters:-->
-<!--            <input pInputText type="text" pInputText />-->
-<!--            </span>-->
-<!--        <span style="float: right">-->
-<!--                            <p-multiSelect style="margin: 2px" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"-->
-<!--                                           selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>-->
-<!--&lt;!&ndash;              <button pButton style="margin: 2px" pRipple type="button" label="Export As xlsx" class="p-button-raised"></button>&ndash;&gt;-->
-<!--&lt;!&ndash;              <button pButton style="margin: 2px" pRipple type="button" label="Add formula" class="p-button-raised"></button>&ndash;&gt;-->
-
-<!--            </span>-->
-<!--      </div>-->
-
-
-
-<!--    </div>-->
-<!--  </ng-template>-->
-<!--  <ng-template pTemplate="header" let-columns>-->
-<!--    <tr>-->
-<!--      <th *ngFor="let col of columns" pSortableColumn="{{col.field}}">-->
-<!--        <div class="flex justify-content-between align-items-center" style="margin-left: 10px">-->
-<!--          {{col.header}}-->
-<!--          <p-sortIcon field="name"></p-sortIcon>-->
-<!--          &lt;!&ndash;              <p-columnFilter type="text" field="{{col.field}}" display="menu" class="ml-auto"></p-columnFilter>&ndash;&gt;-->
-
-<!--        </div>-->
-<!--      </th>-->
-<!--    </tr>-->
-<!--  </ng-template>-->
-<!--  <ng-template pTemplate="body" let-product let-columns="columns">-->
-<!--    <tr>-->
-<!--      <td *ngFor="let col of columns">-->
-<!--        {{product[col.field]}}-->
-<!--      </td>-->
-<!--    </tr>-->
-<!--  </ng-template>-->
-<!--</p-table>-->
-
-
 <form>
-  <div class="mb-3 row">
-    <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
-    <div class="col-xs-3 col-sm-auto">
-      <input id="table-complete-search" type="text" class="form-control" name="searchTerm" [(ngModel)]="service.searchTerm">
-    </div>
-    <span class="col col-form-label" *ngIf="service.loading$ | async">Loading...</span>
-  </div>
-
   <table class="table table-striped">
     <thead>
     <tr>
-<!--      <th scope="col" sortable="{{item}}" (sort)="onSort($event)">{{item.k}}</th>-->
       <th *ngFor="let head of headerElements" sortable="{{head}}" scope="col" (sort)="onSort($event)">{{head | titlecase}} </th>
-<!--      <th scope="col" sortable="{{item}}" (sort)="onSort($event)">Email</th>-->
-<!--      <th scope="col" sortable="{{item}}" (sort)="onSort($event)">Salary</th>-->
-<!--      <th scope="col" sortable="age" (sort)="onSort($event)">Age</th>-->
-<!--      <td *ngFor = 'let key of keys'>{{item[key]}}</td>-->
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let employee of tableDetails">
-<!--      <th  scope="row">{{ employee[headerElements[i]] }}</th>-->
       <td *ngFor="let head of headerElements">
         {{employee[head]}}
       </td>
-<!--      <td><ngb-highlight [result]="employee.salary | number" [term]="service.searchTerm"></ngb-highlight></td>-->
-<!--      <td><ngb-highlight [result]="employee.age | number" [term]="service.searchTerm"></ngb-highlight></td>-->
     </tr>
     </tbody>
   </table>
-
   <div class="d-flex justify-content-between p-2">
     <ngb-pagination
       [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
     </ngb-pagination>
-
     <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
       <option [ngValue]="2">2 items per page</option>
       <option [ngValue]="4">4 items per page</option>
