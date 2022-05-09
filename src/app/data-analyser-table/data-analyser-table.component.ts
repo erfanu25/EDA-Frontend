@@ -40,6 +40,14 @@ export class DataAnalyserTableComponent implements OnInit {
 
   }
 
+  @Input('showableColumn') set showableColumn(data) {
+    if (data) {
+      this.headerElements = data;
+      console.log(data);
+    }
+
+  }
+
 
 
 

@@ -1,11 +1,11 @@
 
-import {ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {MenuItem, SelectItem} from "primeng/api";
-import {ThemePalette} from "@angular/material/core";
-import {DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria} from "./domain/data-analysis.domain";
-import {DataAnalysisService} from "./service-api/data-analysis.service";
-import {Observable} from "rxjs";
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { MenuItem, SelectItem } from "primeng/api";
+import { ThemePalette } from "@angular/material/core";
+import { DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria } from "./domain/data-analysis.domain";
+import { DataAnalysisService } from "./service-api/data-analysis.service";
+import { Observable } from "rxjs";
 import { DataMappingService } from '../data-mapping/services/data-mapping.service';
 @Component({
   selector: 'app-data-analysis',
@@ -26,7 +26,7 @@ export class DataAnalysisComponent implements OnInit {
   loading: boolean = true;
   // cols: any[];
   // statusFilter: string[] = [];
-  showFooTable: boolean  = true;
+  showFooTable: boolean = true;
 
   isDataAnlaysis: boolean;
   isDataIngestion: boolean;
@@ -40,7 +40,8 @@ export class DataAnalysisComponent implements OnInit {
   selectAllColumns: boolean;
   columnHeaders: Array<any>;
   permissions: Array<any> = [];
-
+  showableColumn: Array<any>;
+  columnToShow: Array<any> = [];
 
   path: string;
   constructor(
@@ -52,15 +53,15 @@ export class DataAnalysisComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.loading = false;
-  
+
     this.users = [
-      {id: 1, name: 'Sam', permission: []},
-      {id: 2, name: 'Adam', permission: []},
-      {id: 3, name: 'Chris', permission: []}
+      { id: 1, name: 'Sam', permission: [] },
+      { id: 2, name: 'Adam', permission: [] },
+      { id: 3, name: 'Chris', permission: [] }
     ]
 
     this.items = [
-      {label: 'Grid Views', icon: 'pi pi-fw pi-th-large'},
+      { label: 'Grid Views', icon: 'pi pi-fw pi-th-large' },
 
       // {label: 'Pivot views', icon: 'pi pi-fw pi-sort-amount-up'},
       // {label: 'Chart Views', icon: 'pi pi-fw pi-chart-bar'},
@@ -75,17 +76,27 @@ export class DataAnalysisComponent implements OnInit {
     this.path = this.route.snapshot.routeConfig.path;
 
 
-    this.displayCriteriaAddComponents=false;
+    this.displayCriteriaAddComponents = false;
   }
 
 
 
-  fetchEmplyeeList(event){
-    if(event  === 'EMPLOYEE') {
+  fetchEmplyeeList(event) {
+    if (event === 'EMPLOYEE') {
       this.dataAnalysisService.getEmployeeList('getEmployeeData')
         .subscribe(data => {
           this.details = data;
 
+        });
+
+      let queryParam = { "collectionName": 'Employee' };
+      this.mappingService.getTableColumns(queryParam)
+        .subscribe(columns => {
+          console.log(columns);
+          this.columnHeaders = columns;
+          this.columnToShow = columns;
+          this.selectAllColumns = true;
+          this.checkAllValue();
         });
     }
   }
@@ -94,20 +105,11 @@ export class DataAnalysisComponent implements OnInit {
     console.log(criteriaViews);
   }
   onCriteriaViewClick() {
-    this.displayCriteriaAddComponents=true;
+    this.displayCriteriaAddComponents = true;
   }
 
   onViewColumnsClick() {
-    
-    let queryParam = { "collectionName": 'Employee' };
-    this.mappingService.getTableColumns(queryParam)
-      .subscribe(columns => {
-        console.log(columns);
-        this.columnHeaders = columns;
-        this.selectAllColumns = true;
-        this.checkAllValue();
-        this.displayViewColumnSection = true;
-      });
+    this.displayViewColumnSection = true;
   }
 
   checkAllValue() {
@@ -117,12 +119,20 @@ export class DataAnalysisComponent implements OnInit {
       } else {
         this.permissions[i] = false;
       }
-      
     })
   }
 
   onApplyColumnsView() {
     this.displayViewColumnSection = false;
+    this.showableColumn = [];
+    this.columnToShow = [];
+    this.columnHeaders.forEach((value, i) => {
+      if (this.permissions[i]) {
+        this.columnToShow.push(value);
+      }
+    })
+
+    this.showableColumn = this.columnToShow;
   }
 
 

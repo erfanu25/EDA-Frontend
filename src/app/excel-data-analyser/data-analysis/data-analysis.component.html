@@ -26,7 +26,7 @@
     <!--    <p-button  (click)="onCriteriaViewClick()"  type="button"   class="pt-2">Save Criteria As View</p-button>-->
       <p-button  (click)="onViewColumnsClick()"  type="button"   class="pt-2" style=" 
           float: right;" >View Columns</p-button>
-        <app-data-analyser-table [tableData] = "details"></app-data-analyser-table>
+        <app-data-analyser-table [tableData] = "details" [showableColumn]="showableColumn"></app-data-analyser-table>
     
       </p-card>
     </div>
