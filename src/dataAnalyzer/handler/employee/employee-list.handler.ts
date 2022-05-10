@@ -20,6 +20,10 @@ class EmployeeListHandler {
         return await this.employeeListRepo.getList();
     }
 
+    public async getSortedList(column, value): Promise<IEmployee[]> {
+        return await this.employeeListRepo.getSortedList(column,value);
+    }
+
     
 }
 
