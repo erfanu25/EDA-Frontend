@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CriteriaAddService } from './excel-data-analyser/data-analysis/criteria/services/criteria-add.service';
 import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteria/services/criteria-view.service';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import { PaginationModule } from './common/pagination/pagination.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
+    PaginationModule
 
   ],
   providers: [

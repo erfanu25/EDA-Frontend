@@ -1,0 +1,32 @@
+<div class="pagination-container">
+  <ngb-pagination class="custom-pagination" [collectionSize]="totalItems" (pageChange)="gotoPage($event)" [maxSize]="5"
+    [ellipses]="false" [pageSize]="size" [boundaryLinks]="true" [page]="currentPage" [rotate]="true">
+    <ng-template ngbPaginationFirst><em class="fa fa-step-backward" aria-hidden="true"></em></ng-template>
+    <ng-template ngbPaginationPrevious><em class="fa fa-caret-left" aria-hidden="true"></em></ng-template>
+    <ng-template ngbPaginationNext><em class="fa fa-caret-right" aria-hidden="true"></em></ng-template>
+    <ng-template ngbPaginationLast><em class="fa fa-step-forward" aria-hidden="true"></em></ng-template>
+  </ngb-pagination>
+  <div class="per-page">
+    <div class="txt">Per Page:</div>
+    <div class="ml-2 form-group">
+      <select [(ngModel)]="size" (change)="sizeChange()" class="form-control">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+  </div>
+  <div class="page-go">
+    <div class="txt">Page:</div>
+    <div class=" ml-2 form-group">
+      <input style="max-width: 40px;" [value]="currentPage" #goPageNum class="form-control" type="text" numbersOnly (keydown.enter)="gotoPage(+goPageNum.value)"/>
+    </div>
+    <div class="ml-2 txt">of {{totalPages}}</div>
+    <button class="btn btn-light ml-2 go-btn" (click)="gotoPage(+goPageNum.value)" type="button">Go</button>
+    <div class="ml-2 txt">Showing {{((currentPage-1)*size)+1}} - 
+      <span *ngIf="totalItems > ((currentPage-1)*size)+size">{{((currentPage-1)*size)+size}}</span>
+      <span *ngIf="totalItems < ((currentPage-1)*size)+size">{{totalItems}}</span>
+      from {{totalItems}} results.</div>
+  </div>
+</div>

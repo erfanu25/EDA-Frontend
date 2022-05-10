@@ -14,11 +14,6 @@ import {debounceTime, delay, switchMap, tap} from "rxjs/operators";
 import {HttpParams} from "@angular/common/http";
 import {DataAnalysisService} from "../excel-data-analyser/data-analysis/service-api/data-analysis.service";
 
-
-
-
-
-
 @Component({
   selector: 'app-data-analyser-table',
   templateUrl: './data-analyser-table.component.html',
@@ -33,29 +28,26 @@ export class DataAnalyserTableComponent implements OnInit {
   pageSize: number;
   headerElements: string[];
   sortingFlag: number;
+  sortBy:string;
+  sortType:Number;
+  asc:boolean;
 
-  // @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-  @Input('tableData') set tableData(data) {
-    if (data && Object.keys(data).length) {
-      this.tableDetails = data;
-      this.headerElements = Object.keys(data[0]);
-      this.total = this.tableDetails.length;
+  // // @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+  // @Input('tableData') set tableData(data) {
+  //   if (data && Object.keys(data).length) {
+  //     // this.tableDetails = data;
+  //     // this.headerElements = Object.keys(data.data[0]);
+  //     // this.total = this.tableDetails.length;
+  //   }
 
-    }
-
-  }
+  // }
 
   @Input('showableColumn') set showableColumn(data) {
     if (data) {
       this.headerElements = data;
       console.log(data);
     }
-
   }
-
-
-
-
 
   constructor(
               private dataAnalysisService: DataAnalysisService,
@@ -63,37 +55,59 @@ export class DataAnalyserTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.sortBy="name";
+    this.sortType=-1;
+    this.asc=true;
+    this.pageSize=10;
+    this.page=1
+    this.total=0;
+    debugger;
+    this.getEmployeeeList();
+  }
+  // onSort(event) {
+  //   if(!this.sortingFlag){
+  //     this.sortingFlag = 1;
+  //     this.getSortedList(event,this.sortingFlag.toString());
+  //     return;
+  //   } if(this.sortingFlag === 1) {
+  //     this.sortingFlag = -1;
+  //     this.getSortedList(event,this.sortingFlag.toString());
+  //     return;
+  //   } if(this.sortingFlag === -1) {
+  //     this.sortingFlag = 1;
+  //     this.getSortedList(event,this.sortingFlag.toString());
+  //     return;
+  //   }
 
+  // }
+
+  // getSortedList(event,value){
+  //   this.dataAnalysisService.getEmployeeList('getSortedEmployeeData',{'column': event.target.innerText.toLowerCase(),'value': value})
+  //     .subscribe(data => {
+  //       this.tableDetails = data;
+  //       this.total = this.tableDetails.length;
+  //     });
+  // }
+  
+  gotoPage({ page, size }){
+    this.page = page;
+    this.pageSize = size;
+    this.getEmployeeeList();
   }
 
-
-  onSort(event) {
-
-    if(!this.sortingFlag){
-      this.sortingFlag = 1;
-      this.getSortedList(event,this.sortingFlag.toString());
-      return;
-    } if(this.sortingFlag === 1) {
-      this.sortingFlag = -1;
-      this.getSortedList(event,this.sortingFlag.toString());
-      return;
-    } if(this.sortingFlag === -1) {
-      this.sortingFlag = 1;
-      this.getSortedList(event,this.sortingFlag.toString());
-      return;
-    }
-
+  sort(id) {
+    this.sortBy = id;
+    this.sortType = this.sortType == -1 ? 1 :-1;
+    this.getEmployeeeList();
   }
-
-  getSortedList(event,value){
-    this.dataAnalysisService.getEmployeeList('getSortedEmployeeData',{'column': event.target.innerText.toLowerCase(),'value': value})
+  getEmployeeeList(){
+    var query= `?sortBy=${this.sortBy}&sortType=${this.sortType}&pageIndex=${this.page}&pageSize=${this.pageSize}`;
+    this.dataAnalysisService.getEmployeeData('getSortedEmployeeData'+query)
       .subscribe(data => {
-        this.tableDetails = data;
-        this.total = this.tableDetails.length;
-
+        console.log(data);
+        this.tableDetails = data.data;
+        this.total = data.total;
+        //  this.headerElements = this.columnHeaders;
       });
-
-
   }
-
 }

@@ -42,6 +42,7 @@ export class DataAnalysisComponent implements OnInit {
   permissions: Array<any> = [];
   showableColumn: Array<any>;
   columnToShow: Array<any> = [];
+  tableName:string;
 
   path: string;
   constructor(
@@ -53,6 +54,7 @@ export class DataAnalysisComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.loading = false;
+    this.tableName="EMPLOYEE";
 
     this.users = [
       { id: 1, name: 'Sam', permission: [] },
@@ -83,11 +85,18 @@ export class DataAnalysisComponent implements OnInit {
 
   fetchEmplyeeList(event) {
     if (event === 'EMPLOYEE') {
-      this.dataAnalysisService.getEmployeeList('getEmployeeData')
-        .subscribe(data => {
-          this.details = data;
+      this.tableName='EMPLOYEE';
+      // this.dataAnalysisService.getEmployeeList('getEmployeeData')
+      //   .subscribe(data => {
+      //     this.details = data;
 
-        });
+      //   });
+            // var query= `?sortBy=name&sortType=1&pageIndex=1&pageSize=10`;
+      // this.dataAnalysisService.getEmployeeData('getSortedEmployeeData'+query)
+      //   .subscribe(data => {
+      //     this.details = data.data;
+      //   });
+
 
       let queryParam = { "collectionName": 'Employee' };
       this.mappingService.getTableColumns(queryParam)
@@ -96,6 +105,7 @@ export class DataAnalysisComponent implements OnInit {
           this.columnHeaders = columns;
           this.columnToShow = columns;
           this.selectAllColumns = true;
+          this.showableColumn=columns;
           this.checkAllValue();
         });
     }
@@ -109,7 +119,22 @@ export class DataAnalysisComponent implements OnInit {
   }
 
   onViewColumnsClick() {
+
     this.displayViewColumnSection = true;
+    if(this.showableColumn==null){
+      if (this.tableName === 'EMPLOYEE') {
+        let queryParam = { "collectionName": 'Employee' };
+        this.mappingService.getTableColumns(queryParam)
+          .subscribe(columns => {
+            console.log(columns);
+            this.columnHeaders = columns;
+            this.columnToShow = columns;
+            this.selectAllColumns = true;
+            this.showableColumn=columns;
+            this.checkAllValue();
+          });
+      }
+    }
   }
 
   checkAllValue() {
@@ -133,6 +158,7 @@ export class DataAnalysisComponent implements OnInit {
     })
 
     this.showableColumn = this.columnToShow;
+    // this.columnHeaders=this.showableColumn;
   }
 
 
