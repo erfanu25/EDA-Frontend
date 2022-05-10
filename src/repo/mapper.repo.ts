@@ -46,7 +46,6 @@ class MapperRepo {
         return new Promise(async (resolve, reject) => {
             try {
                 let collectionNames = [];
-                const connection = await mongoose.connect("mongodb://localhost/test");
                 mongoose.connection.db.listCollections().toArray(function (err, tables) {
                     tables.forEach(element => {
                         collectionNames.push(element["name"]);
@@ -63,11 +62,9 @@ class MapperRepo {
 
 
     public getTableColumns(collectionName): Promise<String[]> {
-        console.log(collectionName);
         return new Promise(async (resolve, reject) => {
             try {
                 let fieldNames = [];
-               // const connection = await mongoose.connect("mongodb://localhost/myapp");
                 const schema = mongoose.model(collectionName).schema;
 
                 Object.entries(schema.paths)

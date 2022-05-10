@@ -15,6 +15,7 @@ class MapperDtoConverter {
         const mapperDto = {
             _id: mapperModel["_id"].toString(),
             modelName: mapperModel["modelName"],
+            tableName: mapperModel["tableName"],
             mapperName: mapperModel["mapperName"],
             modelContent: mapperModel["modelContent"]
         };

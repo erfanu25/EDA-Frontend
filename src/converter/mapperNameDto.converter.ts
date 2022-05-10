@@ -21,6 +21,14 @@ class MapperNameDtoConverter {
         return mapperDto;
     }
 
+    public convertToDtoList(mappers): MapperNameDto[] {
+        let mapperList: MapperNameDto[] = [];
+        mappers.forEach(mapper => {
+            mapperList.push(this.convertToDto(mapper));
+        });
+        return mapperList;
+    }
+
 }
 
 export default MapperNameDtoConverter;
