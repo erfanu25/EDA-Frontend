@@ -1,12 +1,13 @@
 
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { MenuItem, SelectItem } from "primeng/api";
-import { ThemePalette } from "@angular/material/core";
 import { DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria } from "./domain/data-analysis.domain";
 import { DataAnalysisService } from "./service-api/data-analysis.service";
-import { Observable } from "rxjs";
 import { DataMappingService } from '../data-mapping/services/data-mapping.service';
+// import * as XLSX from "xlsx";
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -24,15 +25,11 @@ export class DataAnalysisComponent implements OnInit {
   numberCriteria: SelectItem[] = NumberCriteria;
   details: EmpDetails[];
   loading: boolean = true;
-  // cols: any[];
-  // statusFilter: string[] = [];
   showFooTable: boolean = true;
 
   isDataAnlaysis: boolean;
   isDataIngestion: boolean;
   isDataMapping: boolean;
-  // _selectedColumns: any[];
-  // filteredValues: any[];
   displayCriteriaAddComponents: boolean;
   displayViewColumnSection: boolean;
 
@@ -122,6 +119,10 @@ export class DataAnalysisComponent implements OnInit {
     })
   }
 
+  checkSingleColumn() {
+    this.selectAllColumns = false;
+  }
+
   onApplyColumnsView() {
     this.displayViewColumnSection = false;
     this.showableColumn = [];
@@ -133,6 +134,54 @@ export class DataAnalysisComponent implements OnInit {
     })
 
     this.showableColumn = this.columnToShow;
+  }
+
+
+  onExportDataClick() {
+    var Header = this.showableColumn.map((name) => {
+      return name[0].toUpperCase() + name.slice(1)
+    });
+    var showableColumnData = JSON.parse(JSON.stringify(this.details, this.showableColumn));
+
+    var dataForExcel = [];
+    showableColumnData.forEach((row: any) => {
+      dataForExcel.push(Object.values(row))
+    })
+
+   
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Sheet1');
+
+    let headerRow = worksheet.addRow(Header);
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: '4167B8' },
+        bgColor: { argb: '' }
+      }
+      cell.font = {
+        bold: true,
+        color: { argb: 'FFFFFF' },
+        size: 12
+      }
+    })
+
+    dataForExcel.forEach(d => {
+      worksheet.addRow(d);
+    }
+    );
+
+    worksheet.columns.forEach(column => {
+      const lengths = column.values.map(v => v.toString().length);
+      const maxLength = Math.max(...lengths.filter(v => typeof v === 'number')) + 2;
+      column.width = maxLength;
+    });
+
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, 'DataSheet_' + new Date().toLocaleString() + '.xlsx');
+    })
   }
 
 
