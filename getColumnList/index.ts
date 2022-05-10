@@ -11,10 +11,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let mapperService: MapperService = MapperService.getServiceInstance();
 
         // create 1 db connection for all functions
-        const app: Application = express();
-
-        app.use(cors());
-
         await db.init();
 
         switch (req.method) {

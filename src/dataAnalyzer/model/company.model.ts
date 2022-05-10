@@ -1,26 +1,21 @@
 import mongoose from "mongoose";
-import  { Schema, Document } from "mongoose"
+import { Schema} from "mongoose"
 
- 
+
 export interface ICompany {
-    title: string;
+    name: String,
+    title: string,
     type: string;
     address: string;
     status: string;
-
 }
 
 const CompanySchema: Schema = new Schema({
-    name: {
-        type: String
-    },
-    status: {
-        _id: false,
-        title: String,
-        type: String,
-        address: String,
-        status: String,
-    }
+    name: String,
+    title: String,
+    type: String,
+    address: String,
+    status: String
 })
 
-export default mongoose.model<ICompany>("Company", CompanySchema)
+export const Company = mongoose.model("Company", CompanySchema)
