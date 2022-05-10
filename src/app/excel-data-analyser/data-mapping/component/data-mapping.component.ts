@@ -7,6 +7,7 @@ import IMapper from '../domain/data-mapping.domain';
 import { ActivatedRoute, Router } from '@angular/router';
 import IMapperSaved from '../domain/saved-mapper.domain';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import ITable from '../domain/table-details.domain';
 
 
 @Component({
@@ -37,11 +38,12 @@ export class DataMappingComponent implements OnInit {
   showTable: boolean = false;
   selectedMapperId: string = "customId";
   excelHeaders: string[] = ["Name", "Address", "Age"];
-  tables: string[] = [];
+  tables: ITable[] = [];
   mappedTableColumns: string[] = [];
   dbColumnList: string[] = [];
   mapperNameList: IMapperName[] = [];
   modelName: string;
+  tableName: string;
   mapperName: string;
   mappedContent: string;
 
@@ -53,7 +55,6 @@ export class DataMappingComponent implements OnInit {
   getTableList() {
     this.mappingService.getTableList()
       .subscribe(tables => {
-        console.log(tables);
         this.tables = tables;
       });
   }
@@ -63,12 +64,13 @@ export class DataMappingComponent implements OnInit {
     this.mappingService.getMapperNames(queryParam)
       .subscribe(fetchedMapperNames => {
         this.mapperNameList = fetchedMapperNames;
-        console.log(this.mapperNameList);
       });
   }
 
   onTableChange(event) {
-    let queryParam = { "collectionName": event.value };
+    let tableName = event.value;
+    let schema = event.source.selected.viewValue;
+    let queryParam = { "collectionName": schema };
     this.mappingService.getTableColumns(queryParam)
       .subscribe(columns => {
         this.showTable = true;
@@ -77,15 +79,14 @@ export class DataMappingComponent implements OnInit {
         this.getExcelHeaderList(0);
       });
 
-    this.modelName = event.value;
+    this.modelName = schema;
+    this.tableName = tableName;
   }
 
   getExcelHeaderList(fileId) {
     this.mappingService.getExcelHeaders(fileId)
       .subscribe(headers => {
         this.excelHeaderList = headers.data;
-        console.log("excelHeader");
-        console.log(this.excelHeaderList);
       });
   }
 
@@ -98,8 +99,6 @@ export class DataMappingComponent implements OnInit {
       .subscribe(mapper => {
         this.setMappedColumnsInview(mapper["modelContent"]);
         this.mappedContent = mapper["modelContent"];
-        console.log("mapped content");
-        console.log(this.mappedContent);
       });
   }
 
@@ -108,10 +107,7 @@ export class DataMappingComponent implements OnInit {
     this.mappedTableColumns = [];
 
     Object.keys(mappecontent).forEach((val, key) => {
-      console.log(val);
       let excelHeader = mappecontent[val];
-      console.log("excel header");
-      console.log(excelHeader);
       let dbColumnIndx = this.dbColumnList.indexOf(val);
       this.mappedTableColumns[dbColumnIndx] = excelHeader;
     });
@@ -141,7 +137,6 @@ export class DataMappingComponent implements OnInit {
     this.mappingService.getExcelDataWithMapping(dataMap)
       .subscribe(mappedData => {
         this.showMapperView = true;
-        console.log(mappedData.data);
         this.tabledata = mappedData.data;
         this.headers = Object.keys(this.tabledata[0]);
       });
@@ -151,47 +146,43 @@ export class DataMappingComponent implements OnInit {
     const updatedMapper: IMapperSaved = {
       _id: mapperId,
       modelName: this.modelName,
+      tableName: this.tableName,
       mapperName: this.mapperName,
       modelContent: JSON.stringify(Object.fromEntries(mapperContent.entries()))
     }
 
-    console.log(updatedMapper);
-
     this.mappingService.updateMapping(updatedMapper)
-      .subscribe((updatedMapper) => console.log(updatedMapper));
+      .subscribe((updatedMapper) => this.showSuccesMessage());
+  }
+
+  showSuccesMessage() {
+    this._snackBar.open('Saved Successfully', 'Ok', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      panelClass: 'my-custom-snackbar'
+    })
   }
 
   saveMapping(mapperContent) {
     const mapper: IMapper = {
       modelName: this.modelName,
+      tableName : this.tableName,
       mapperName: this.mapperName,
       modelContent: JSON.stringify(Object.fromEntries(mapperContent.entries()))
     }
 
     this.mappingService.saveMapping(mapper)
-      .subscribe((savedMapper) =>
-        // console.log(savedMapper)
-        this._snackBar.open('Saved Successfully', 'Ok', {
-          duration: 3000,
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-          panelClass: 'my-custom-snackbar'
-        })
-
-      );
+      .subscribe((response) => {
+        this.showSuccesMessage();
+        this.setMapperSelectedAfterSave(response["mapResponse"]);
+      });
   }
 
-  // removeMappedColumn(columnToRemove) {
-  //   let columnToRemoveIndx = this.mappedTableColumns.indexOf(columnToRemove);
-  //   this.mappedTableColumns.splice(columnToRemoveIndx, 1);
-  //   this.placeInDbColumn(columnToRemove);
-  // }
-
-  // placeInDbColumn(column) {
-  //   let columnIndx = this.excelHeaderList.indexOf(column);
-  //   if (columnIndx == -1) {
-  //     this.excelHeaderList.push(column);
-  //   }
-  // }
+  setMapperSelectedAfterSave(mapper) {
+    let option = { _id: mapper["_id"], mapperName: mapper["mapperName"] };
+    this.mapperNameList.push(option);
+    this.selectedMapperId = mapper["_id"];
+  }
 
 }

@@ -2,7 +2,9 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th *ngFor="let head of headerElements" sortable="{{head}}" scope="col" (sort)="onSort($event)">{{head | titlecase}} </th>
+      <th *ngFor="let head of headerElements" sortable="{{head}}" scope="col"  (click)="onSort($event)">{{head | titlecase}}
+
+      </th>
     </tr>
     </thead>
     <tbody>
@@ -15,13 +17,13 @@
   </table>
   <div class="d-flex justify-content-between p-2">
     <ngb-pagination
-      [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+      ngb-pagination [collectionSize]="total" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
     </ngb-pagination>
-    <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
-      <option [ngValue]="2">2 items per page</option>
-      <option [ngValue]="4">4 items per page</option>
-      <option [ngValue]="6">6 items per page</option>
-    </select>
+<!--    <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize">-->
+<!--      <option [ngValue]="2">2 items per page</option>-->
+<!--      <option [ngValue]="4">4 items per page</option>-->
+<!--      <option [ngValue]="6">6 items per page</option>-->
+<!--    </select>-->
   </div>
 
 </form>
