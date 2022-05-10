@@ -16,7 +16,13 @@ class EmployeeOperationHandler {
         return this.EmployeeOperationHandler;
     }
     public async add(employeeDto:EmployeeDto){
-        var employee: IEmployee = {email:employeeDto.email, name: employeeDto.name,age: employeeDto.age,salary: employeeDto.salary,    };
+        var employee: IEmployee = {
+            email: employeeDto.email, name: employeeDto.name, age: employeeDto.age, salary: employeeDto.salary,
+            gender: "",
+            mobileNo: "",
+            emergencyContactNo: "",
+            birthDate: undefined
+        };
         return await this.EmployeeAddRepo.Add(employee);
     }
 }
