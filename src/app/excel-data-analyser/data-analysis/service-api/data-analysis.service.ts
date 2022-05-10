@@ -18,7 +18,6 @@ export class DataAnalysisService {
     if (routerParams) {
       queryParams = this.setParameter(routerParams);
     }
-    console.log(queryParams);
     return this.http.get<EmpDetails[]>(this.path(path), { params: queryParams });
   }
 

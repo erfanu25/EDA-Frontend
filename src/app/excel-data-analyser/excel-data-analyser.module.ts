@@ -52,7 +52,7 @@ import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapp
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import {DataAnalysisService} from "./data-analysis/service-api/data-analysis.service";
 import {DataAnalyserTableComponent} from "../data-analyser-table/data-analyser-table.component";
-import {NgbdSortableHeader} from "../data-analyser-table/sortable.directives";
+
 
 @NgModule({
   imports: [
@@ -115,7 +115,6 @@ import {NgbdSortableHeader} from "../data-analyser-table/sortable.directives";
     DataAnalysisComponent,
     TopbarComponent,
     DataAnalyserTableComponent,
-    NgbdSortableHeader
   ],
   providers: [
     DataMappingService,
