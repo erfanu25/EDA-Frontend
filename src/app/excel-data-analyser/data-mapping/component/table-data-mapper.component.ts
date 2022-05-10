@@ -2,6 +2,7 @@ import { DataMappingService } from '../services/data-mapping.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { excelHeaders } from '../domain/tableMapper.domain';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -23,17 +24,16 @@ export class TableMapperComponent implements OnInit, OnChanges {
 
   @Output() public viewMapperEvent = new EventEmitter<Map<string, string>>();
 
- // @Output() public removeMappedColumnEvent = new EventEmitter<string>();
+  // @Output() public removeMappedColumnEvent = new EventEmitter<string>();
 
   mappedContent: Map<string, string> = new Map<string, string>();
 
-  constructor(private mappingService: DataMappingService) {
+  constructor(private _snackBar: MatSnackBar) {
 
   }
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (this.mappedContentStr) {
       this.populateColumnHeaderWithExisting();
     }
@@ -53,28 +53,35 @@ export class TableMapperComponent implements OnInit, OnChanges {
 
     Object.entries(excelHeaderMap).forEach((value, indx) => {
       let mapArr: string[] = value.toString().split(",");
-      console.log(mapArr[0] + " " + mapArr[1]);
       this.mappedContent.set(mapArr[0], mapArr[1]);
     })
 
   }
 
   dropItem(event: CdkDragDrop<string[]>) {
-    console.log("current " + event.container);
-    console.log("prev " + event.previousContainer);
-    console.log("currentInd " + event.currentIndex);
-    console.log("prevInd " + event.previousIndex);
-    console.log(event.container);
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    if (this.dbColumns.length > event.container.data.length) {
+      if (event.previousContainer === event.container) {
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      } else {
+        transferArrayItem(event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex);
+      }
+      this.populateColumnHeaderMaping(event);
     } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+      this.showInvalidMsg();
     }
 
-    this.populateColumnHeaderMaping(event);
+  }
+
+  showInvalidMsg() {
+    this._snackBar.open('Invalid Operation', 'Ok', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      panelClass: 'my-custom-snackbar'
+    })
   }
 
   populateColumnHeaderMaping(event: CdkDragDrop<string[]>) {
@@ -85,7 +92,11 @@ export class TableMapperComponent implements OnInit, OnChanges {
   }
 
   saveMapping() {
-    this.saveMappingEvent.emit(this.mappedContent);
+    if (this.mappedContent.size > 0) {
+      this.saveMappingEvent.emit(this.mappedContent);
+    } else {
+      this.showInvalidMsg();
+    }
   }
 
   showMappedTable() {
@@ -93,17 +104,12 @@ export class TableMapperComponent implements OnInit, OnChanges {
   }
 
 
-  removeMappedColumn(columnToRemove,index) {
-    console.log("Remove");
+  removeMappedColumn(columnToRemove, index) {
     let dbColumnToRemove = this.dbColumns[index];
-    console.log(dbColumnToRemove);
     this.mappedContent.delete(dbColumnToRemove);
-    console.log(this.mappedContent);
-
-    //let columnToRemoveIndx = this.mappedTableColumns.indexOf(columnToRemove);
+    //this.dbColumns.push(this.dbColumns.splice(index, 1)[0]);
     this.mappedTableColumns.splice(index, 1);
     this.placeInDbColumn(columnToRemove);
-    //this.removeMappedColumnEvent.emit(tColumn);
   }
 
   placeInDbColumn(column) {
