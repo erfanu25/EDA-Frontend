@@ -34,6 +34,8 @@ export class DataAnalysisComponent implements OnInit {
   // _selectedColumns: any[];
   // filteredValues: any[];
   displayCriteriaAddComponents: boolean;
+  displayAdvanceFiltersComponents: boolean;
+
   displayViewColumnSection: boolean;
 
   users: Array<any>;
@@ -107,7 +109,14 @@ export class DataAnalysisComponent implements OnInit {
         this.selectAllColumns = true;
         this.checkAllValue();
         this.displayViewColumnSection = true;
+        this.displayAdvanceFiltersComponents = false;
+
       });
+  }
+  
+  onAdvanceFiltersClick() {
+    this.displayAdvanceFiltersComponents = !this.displayAdvanceFiltersComponents;
+    this.displayViewColumnSection = false;
   }
 
   checkAllValue() {

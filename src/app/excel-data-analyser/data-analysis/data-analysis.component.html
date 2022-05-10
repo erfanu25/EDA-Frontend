@@ -8,13 +8,19 @@
 </div>
 <div class="card" style="margin-top: 5px">
   <div class="row margin25">
-    <div class="{{displayViewColumnSection ? 'col-md-8' : 'col-md-12'}}">
+    <div class="{{displayViewColumnSection || displayAdvanceFiltersComponents ? 'col-md-8' : 'col-md-12'}}">
       <p-card>
         <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
         <p-button (click)="onViewColumnsClick()" type="button" class="pt-2" style=" 
           float: right;">View Columns</p-button>
+        <p-button (click)="onAdvanceFiltersClick()" type="button" class="pt-2 advance-filter-button"  >Advance  Filters</p-button>
         <app-data-analyser-table [tableData]="details"></app-data-analyser-table>
       </p-card>
+    </div>
+    <div class="col-md-4" *ngIf="displayAdvanceFiltersComponents">
+      <mat-card style="height: 100%;">
+       <app-advance-filter></app-advance-filter>
+      </mat-card>
     </div>
     <div class="col-md-4" *ngIf="displayViewColumnSection">
       <mat-card style="height: 100%;">
@@ -37,9 +43,4 @@
       </mat-card>
     </div>
   </div>
-
-  <p-dialog header="Criteria View Name" [(visible)]="displayCriteriaAddComponents" [modal]="true" [draggable]="true"
-    [resizable]="true">
-    <app-criteria-add></app-criteria-add>
-  </p-dialog>
 </div>
