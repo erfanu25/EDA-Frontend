@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import IMapper from "../domain/data-mapping.domain";
 import IMapperName from "../domain/mapper-name.domain";
 import * as endpoints from "./data-mapping.endpoints";
+import ITable from "../domain/table-details.domain";
 
 @Injectable()
 export class DataMappingService {
@@ -12,8 +13,8 @@ export class DataMappingService {
 
   }
 
-  public getTableList(): Observable<string[]> {
-    return this.http.get<string[]>(endpoints.table_url);
+  public getTableList(): Observable<ITable[]> {
+    return this.http.get<ITable[]>(endpoints.table_url);
   }
 
   public getMapperNames(queryParam): Observable<IMapperName[]> {

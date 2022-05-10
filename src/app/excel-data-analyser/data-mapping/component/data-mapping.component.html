@@ -17,7 +17,7 @@
           <p><b>Select Table: </b></p>
           <mat-form-field appearance="outline">
             <mat-select name="tableElement" placeholder="Select a table" (selectionChange)="onTableChange($event)">
-              <mat-option *ngFor="let item of tables" [value]="item">{{item}}</mat-option>
+              <mat-option *ngFor="let item of tables" [value]="item.table">{{item.schema}}</mat-option>
             </mat-select>
           </mat-form-field>
         </section>
