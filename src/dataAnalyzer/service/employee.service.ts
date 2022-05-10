@@ -31,9 +31,11 @@ class EmployeeOperationService {
     public async GetList(){
         return await this.employeeListleHandler.getList();
     }
-
-    public async GetSortedList(column, value){
-        return await this.employeeListleHandler.getSortedList(column,value);
+    public async GetSortedList(sortBy, sortType, pageSize, pageIndex){
+        return await this.employeeListleHandler.getSortedList(sortBy, sortType, pageSize, pageIndex);
+    }
+    public async CountEmployees(){
+        return await this.employeeListleHandler.countEmployees();
     }
 }
 

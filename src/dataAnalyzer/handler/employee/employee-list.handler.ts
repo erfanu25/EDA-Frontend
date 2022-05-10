@@ -19,12 +19,12 @@ class EmployeeListHandler {
     public async getList(): Promise<IEmployee[]> {
         return await this.employeeListRepo.getList();
     }
-
-    public async getSortedList(column, value): Promise<IEmployee[]> {
-        return await this.employeeListRepo.getSortedList(column,value);
+    public async getSortedList(sortBy, sortType, pageSize, pageIndex): Promise<IEmployee[]> {
+        return await this.employeeListRepo.getSortedList(sortBy, sortType, pageSize, pageIndex);
     }
-
-    
+    public async countEmployees(): Promise<Number> {
+        return await this.employeeListRepo.countEmployees();
+    }
 }
 
 export default EmployeeListHandler;
