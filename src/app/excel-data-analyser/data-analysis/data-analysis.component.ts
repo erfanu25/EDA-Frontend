@@ -80,25 +80,24 @@ export class DataAnalysisComponent implements OnInit {
 
     this.displayCriteriaAddComponents = false;
   }
-
-
-
-  fetchEmplyeeList(event) {
+  
+  fetchList(event) {
     if (event === 'EMPLOYEE') {
       this.tableName='EMPLOYEE';
-      // this.dataAnalysisService.getEmployeeList('getEmployeeData')
-      //   .subscribe(data => {
-      //     this.details = data;
-
-      //   });
-            // var query= `?sortBy=name&sortType=1&pageIndex=1&pageSize=10`;
-      // this.dataAnalysisService.getEmployeeData('getSortedEmployeeData'+query)
-      //   .subscribe(data => {
-      //     this.details = data.data;
-      //   });
-
-
       let queryParam = { "collectionName": 'Employee' };
+      this.mappingService.getTableColumns(queryParam)
+        .subscribe(columns => {
+          console.log(columns);
+          this.columnHeaders = columns;
+          this.columnToShow = columns;
+          this.selectAllColumns = true;
+          this.showableColumn=columns;
+          this.checkAllValue();
+        });
+    }
+    if (event === 'COMPANY') {
+      this.tableName='COMPANY';
+      let queryParam = { "collectionName": 'Company' };
       this.mappingService.getTableColumns(queryParam)
         .subscribe(columns => {
           console.log(columns);
@@ -126,7 +125,17 @@ export class DataAnalysisComponent implements OnInit {
         let queryParam = { "collectionName": 'Employee' };
         this.mappingService.getTableColumns(queryParam)
           .subscribe(columns => {
-            console.log(columns);
+            this.columnHeaders = columns;
+            this.columnToShow = columns;
+            this.selectAllColumns = true;
+            this.showableColumn=columns;
+            this.checkAllValue();
+          });
+      }
+      if (this.tableName === 'COMPANY') {
+        let queryParam = { "collectionName": 'Company' };
+        this.mappingService.getTableColumns(queryParam)
+          .subscribe(columns => {
             this.columnHeaders = columns;
             this.columnToShow = columns;
             this.selectAllColumns = true;

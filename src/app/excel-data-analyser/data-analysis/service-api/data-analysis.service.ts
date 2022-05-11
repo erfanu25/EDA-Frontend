@@ -24,6 +24,9 @@ export class DataAnalysisService {
   public getEmployeeData<T>(path: string): Observable<any> {
     return this.http.get(this.path(path), {});
   }
+  public getList<T>(path: string): Observable<any> {
+    return this.http.get(this.path(path), {});
+  }
   
   private setParameter(routerParams: Params): HttpParams {
     let queryParams = new HttpParams();

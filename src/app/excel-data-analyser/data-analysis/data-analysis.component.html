@@ -3,7 +3,7 @@
 <div class="card">
   <p-card>
     <p-dropdown [options]="tableType" [(ngModel)]="value" placeholder="Select a Table" appendTo="body"
-      (onChange)="fetchEmplyeeList($event.value)" [showClear]="true"></p-dropdown>
+      (onChange)="fetchList($event.value)" [showClear]="true"></p-dropdown>
   </p-card>
 </div>
 <div class="card" style="margin-top: 5px">
@@ -14,7 +14,7 @@
 
       <p-button  (click)="onViewColumnsClick()"  type="button"   class="pt-2" style=" 
           float: right;" >View Columns</p-button>
-        <app-data-analyser-table   [showableColumn]="showableColumn"></app-data-analyser-table>
+        <app-data-analyser-table   [tableName]="tableName"   [showableColumn]="showableColumn"></app-data-analyser-table>
       </p-card>
     </div>
     <div class="col-md-4" *ngIf="displayViewColumnSection">

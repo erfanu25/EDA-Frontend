@@ -2,10 +2,10 @@
   <div class="col-md-12">
 
   </div>
-  <table class="table table-striped">
+  <table class="table table-hover">
     <thead>
     <tr>
-      <th *ngFor="let head of headerElements"  scope="col"  (click)="sort(head)">
+      <th *ngFor="let head of headerElements"  class="txt" scope="col"  (click)="sort(head)">
         {{head | titlecase}}
         <ng-container *ngIf="head">
           <i class="fa text-warning" [ngClass]="{
