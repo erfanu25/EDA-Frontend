@@ -3,6 +3,7 @@ import { IMapper } from "../model/Mapper.model";
 import MapperDto from "../dto/mapper.dto";
 import DbTableHandler from "../handler/dbTable.handler";
 import ExcelDataHandler from "../handler/excel-data.handler";
+import DbTableDto from "../dto/dbTable.dto";
 
 
 class MapperService {
