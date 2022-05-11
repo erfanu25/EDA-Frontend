@@ -3,6 +3,7 @@ import { IMapper } from "../model/Mapper.model";
 import MapperDto from "../dto/mapper.dto";
 import { MapperModel } from '../model/Mapper.model';
 import * as fs from 'fs';
+import DbTableDto from "../dto/dbTable.dto";
 
 
 class DbTableHandler {
