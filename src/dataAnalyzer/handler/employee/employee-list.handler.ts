@@ -1,3 +1,4 @@
+import { EmployeeDto } from "../../dto/employee.dto";
 import { IEmployee } from "../../model/employee.model";
 import EmployeeListRepo from "../../repo/employee/employee-list.repo";
 
@@ -16,15 +17,15 @@ class EmployeeListHandler {
         return this.employeeListHandler;
     }
 
-    public async getList(): Promise<IEmployee[]> {
+    public async getList(): Promise<EmployeeDto[]> {
         return await this.employeeListRepo.getList();
     }
-
-    public async getSortedList(column, value): Promise<IEmployee[]> {
-        return await this.employeeListRepo.getSortedList(column,value);
+    public async getSortedList(sortBy, sortType, pageSize, pageIndex): Promise<EmployeeDto[]> {
+        return await this.employeeListRepo.getSortedList(sortBy, sortType, pageSize, pageIndex);
     }
-
-    
+    public async countEmployees(): Promise<Number> {
+        return await this.employeeListRepo.countEmployees();
+    }
 }
 
 export default EmployeeListHandler;

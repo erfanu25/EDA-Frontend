@@ -7,6 +7,10 @@ export interface IEmployee {
     name: string;
     age: number;
     salary: number;
+    gender:string;
+    mobileNo:string;
+    emergencyContactNo:string,
+    birthDate:Date
 }
 
 const EmployeeSchema: Schema = new Schema({
@@ -14,6 +18,10 @@ const EmployeeSchema: Schema = new Schema({
     name: { type: String, required: true },
     age: { type: Number, required: true },
     salary: { type: Number, required: true },
+    gender: { type: String, required: false },
+    mobileNo: { type: String, required: false },
+    emergencyContactNo: { type: String, required: false },
+    birthDate: { type: Date, required: false },
 })
 // const empl= mongoose.model("Employee", EmployeeSchema)
 
