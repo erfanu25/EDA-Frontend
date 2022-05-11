@@ -14,7 +14,10 @@
       "zlib": [ "./node_modules/browserify-zlib" ],
       "assert":["./node_modules/assert"],
       "path":["./node_modules/path-browserify"],
-      "os":["./node_modules/os-browserify/browser"]
+      "os":["./node_modules/os-browserify/browser"],
+      "exceljs": [
+        "node_modules/exceljs/dist/exceljs.min"
+      ]
     },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

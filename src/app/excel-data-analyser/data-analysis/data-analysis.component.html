@@ -11,10 +11,13 @@
     <div class="{{displayViewColumnSection ? 'col-md-8' : 'col-md-12'}}">
       <p-card>
         <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
-
-      <p-button  (click)="onViewColumnsClick()"  type="button"   class="pt-2" style=" 
+        <p-button  (click)="onViewColumnsClick()"  type="button"   class="pt-2" style=" 
           float: right;" >View Columns</p-button>
+        <p-button (click)="onExportDataClick()" type="button" class="pt-2" style=" 
+        float: right; padding-left: 5px;">Export Data</p-button>
         <app-data-analyser-table   [tableName]="tableName"   [showableColumn]="showableColumn"></app-data-analyser-table>
+
+
       </p-card>
     </div>
     <div class="col-md-4" *ngIf="displayViewColumnSection">
@@ -28,7 +31,7 @@
         </div>
         <div class="ui-g" style="margin-bottom:10px;" *ngFor="let column of columnHeaders; let i = index">
           <div class="ui-g-2">
-            <p-checkbox binary="true" [(ngModel)]="permissions[i]" inputId="R"></p-checkbox> {{column | titlecase}}
+            <p-checkbox binary="true" [(ngModel)]="permissions[i]" (onChange)="checkSingleColumn()"></p-checkbox> {{column | titlecase}}
           </div>
         </div>
         <mat-card-actions>
