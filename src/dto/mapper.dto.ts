@@ -1,7 +1,8 @@
 
 interface MapperDto {
     _id: string
-    modelName: string;
+    modelName: string,
+    tableName : string,
     mapperName: string,
     modelContent: string
 }

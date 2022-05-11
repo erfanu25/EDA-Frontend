@@ -1,18 +1,20 @@
 import mongoose, { Schema, Document, model } from "mongoose"
 
- 
+
 export interface IMapper {
-    modelName: string;
+    modelName: string,
+    tableName: string,
     mapperName: string,
-    modelContent : string
+    modelContent: string
 
 }
 
 const MapperSchema: Schema = new Schema({
-    modelName:  String,
-    mapperName : String,
-    modelContent : String
-   
+    modelName: String,
+    tableName: String,
+    mapperName: String,
+    modelContent: String
+
 })
 
 //export default mongoose.model<IMapper>("Mapper", MapperSchema,"Mapper")

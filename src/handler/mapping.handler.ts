@@ -29,6 +29,7 @@ class MapperHandler {
     public async saveMapping(mapperDto: MapperDto): Promise<MapperDto> {
         const mapper = new MapperModel({
             "modelName": mapperDto["modelName"],
+            "tableName" : mapperDto["tableName"],
             "mapperName": mapperDto["mapperName"],
             "modelContent": mapperDto["modelContent"]
         });
@@ -41,18 +42,18 @@ class MapperHandler {
     }
 
     public async getMapperNames(searchParams): Promise<MapperNameDto[]> {
-        let mapperList = []
         const mappers = await this.mapperRepo.getMapperNames(searchParams);
-        mappers.forEach(mapper => {
-            mapperList.push(this.mapperNameDtoConverter.convertToDto(mapper));
-        });
-        return mapperList;
+        return this.mapperNameDtoConverter.convertToDtoList(mappers);
     }
 
 
     public async updateMapper(mapper): Promise<MapperDto> {
-        let savedMapper = await this.mapperRepo.updateMapper(mapper);
-        return this.mapperDtoConverter.convertToDto(savedMapper);
+        try {
+            let savedMapper = await this.mapperRepo.updateMapper(mapper);
+            return this.mapperDtoConverter.convertToDto(savedMapper);
+        } catch (e) {
+            console.log(e);
+        }
 
     }
 

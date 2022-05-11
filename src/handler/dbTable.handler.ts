@@ -5,13 +5,11 @@ import { MapperModel } from '../model/Mapper.model';
 import * as fs from 'fs';
 
 
-
-
 class DbTableHandler {
     static isSignIn: boolean;
     static dbTableHandler: DbTableHandler;
     mapperRepo: MapperRepo = MapperRepo.getRepoInstance();
-    tables: string[] = ["Employee","Company","Mapper", "FileContent", "status"];
+    tables: string[] = ["Employee"];
 
     constructor() {
     }
@@ -25,18 +23,13 @@ class DbTableHandler {
     }
 
 
-    public async getTables(): Promise<String[]> {
-        // fs.readFile("./table-list","utf-8",)
-        //return this.mapperRepo.getTables();
-
-        return this.tables;
+    public async getTables(): Promise<DbTableDto[]> {
+        return JSON.parse(fs.readFileSync("tables.json", "utf8"));
     }
 
     public async getTableColumns(collectionName): Promise<String[]> {
         return this.mapperRepo.getTableColumns(collectionName);
     }
-
-
 
 }
 

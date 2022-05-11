@@ -25,7 +25,7 @@ class MapperService {
         return this.dbTable.getTableColumns(collectionName);
     }
 
-    public async getTables(): Promise<String[]> {
+    public async getTables(): Promise<DbTableDto[]> {
         return this.dbTable.getTables();
     }
 

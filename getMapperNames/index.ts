@@ -2,7 +2,6 @@ import express, { Application } from 'express';
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import * as db from "../lib/db-connector";
 import MapperService from "../src/service/mapper.service";
-import cors from 'cors';
 
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
@@ -11,9 +10,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let mapperService: MapperService = MapperService.getServiceInstance();
 
         // create 1 db connection for all functions
-        const app: Application = express();
-
-        app.use(cors());
 
         await db.init();
 

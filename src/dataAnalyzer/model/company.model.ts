@@ -12,6 +12,7 @@ export interface ICompany {
 
 
 const CompanySchema: Schema = new Schema({
+
     name: { type: String, required: true },
     address: { type: String, required: true },
     telephone: { type: String, required: true },
@@ -19,6 +20,7 @@ const CompanySchema: Schema = new Schema({
     email: { type: String, required: true },
     taxNumber: { type: String, required: true },
     revenue: { type: Number, required: false },
+
 })
 
-export default mongoose.model<ICompany>("Company", CompanySchema)
+export const Company = mongoose.model("Company", CompanySchema)
