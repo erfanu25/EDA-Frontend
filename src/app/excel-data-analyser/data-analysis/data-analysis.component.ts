@@ -173,6 +173,20 @@ export class DataAnalysisComponent implements OnInit {
 
 
   onExportDataClick() {
+   
+    var query = ``;
+    if(this.tableName==="EMPLOYEE"){
+      query = `getSortedEmployeeData?sortBy=name&sortType=-1&pageIndex=1&pageSize=1000000`;
+    }
+    this.dataAnalysisService.getList(query)
+      .subscribe(data => {
+        console.log(data);
+        this.details = data.data;
+        this.exportExel();
+      });
+   
+  }
+  exportExel(){
     var Header = this.showableColumn.map((name) => {
       return name[0].toUpperCase() + name.slice(1)
     });
