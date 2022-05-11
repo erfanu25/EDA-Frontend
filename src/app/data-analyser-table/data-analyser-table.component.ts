@@ -30,7 +30,6 @@ export class DataAnalyserTableComponent implements OnInit {
   sortingFlag: number;
   sortBy: string;
   sortType: Number;
-  asc: boolean;
   tableName:string;
 
   @Input('showableColumn') set showableColumn(data) {
@@ -51,7 +50,6 @@ export class DataAnalyserTableComponent implements OnInit {
   ngOnInit(): void {
     this.sortBy = "name";
     this.sortType = -1;
-    this.asc = true;
     this.pageSize = 10;
     this.page = 1
     this.total = 0;
@@ -77,7 +75,6 @@ export class DataAnalyserTableComponent implements OnInit {
     }
     this.dataAnalysisService.getList(query)
       .subscribe(data => {
-        console.log(data);
         this.tableDetails = data.data;
         this.total = data.total;
       });

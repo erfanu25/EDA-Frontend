@@ -1,32 +1,32 @@
 <form>
-  <div class="col-md-12">
-
+  <div class="col-md-12" *ngIf="headerElements.length>0">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th *ngFor="let head of headerElements"  class="txt" scope="col"  (click)="sort(head)">
+          {{head | titlecase}}
+          <ng-container *ngIf="head">
+            <i class="fa text-warning" [ngClass]="{
+              'fa-sort-asc': (this.sortBy === head && sortType===1),
+              'fa-sort-desc': (this.sortBy === head && sortType===-1),
+              'fa-sort text-muted': this.sortBy !== head
+            }"></i>
+          </ng-container>
+  
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of tableDetails">
+        <td *ngFor="let head of headerElements">
+          {{employee[head]}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination (pageSizeChange)="gotoPage($event)" [totalItems]="total" [size]="pageSize" [currentPage]="page"></pagination>
+  
   </div>
-  <table class="table table-hover">
-    <thead>
-    <tr>
-      <th *ngFor="let head of headerElements"  class="txt" scope="col"  (click)="sort(head)">
-        {{head | titlecase}}
-        <ng-container *ngIf="head">
-          <i class="fa text-warning" [ngClass]="{
-            'fa-sort-asc': (this.sortBy === head && sortType===1),
-            'fa-sort-desc': (this.sortBy === head && sortType===-1),
-            'fa-sort text-muted': this.sortBy !== head
-          }"></i>
-        </ng-container>
-
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let employee of tableDetails">
-      <td *ngFor="let head of headerElements">
-        {{employee[head]}}
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <pagination (pageSizeChange)="gotoPage($event)" [totalItems]="total" [size]="pageSize" [currentPage]="page"></pagination>
 
   <!-- <div class="d-flex justify-content-between p-2">
   </div> -->

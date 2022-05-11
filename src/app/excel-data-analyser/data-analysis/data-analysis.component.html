@@ -7,17 +7,15 @@
   </p-card>
 </div>
 <div class="card" style="margin-top: 5px">
-  <div class="row margin25">
+  <div class="row margin25" *ngIf="columnHeaders">
     <div class="{{displayViewColumnSection ? 'col-md-8' : 'col-md-12'}}">
       <p-card>
         <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
-        <p-button  (click)="onViewColumnsClick()"  type="button"   class="pt-2" style=" 
-          float: right;" >View Columns</p-button>
         <p-button (click)="onExportDataClick()" type="button" class="pt-2" style=" 
         float: right; padding-left: 5px;">Export Data</p-button>
+        <p-button  (click)="onViewColumnsClick()"  type="button"   class="pt-2" style=" 
+          float: right;" >View Columns</p-button>
         <app-data-analyser-table   [tableName]="tableName"   [showableColumn]="showableColumn"></app-data-analyser-table>
-
-
       </p-card>
     </div>
     <div class="col-md-4" *ngIf="displayViewColumnSection">
