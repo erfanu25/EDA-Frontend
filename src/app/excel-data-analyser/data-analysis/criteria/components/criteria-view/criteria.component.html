@@ -1,0 +1,30 @@
+<!-- <div class="btn-group" role="group" aria-label="Basic example">
+    <button (click)="onClick('DEFAULT')"    type="button" class="btn btn-light">Default</button>
+    <button (click)="onClick(view)" *ngFor="let view of criteriaViews"  type="button" class="btn btn-light">{{view.name}}</button>
+</div>     -->
+
+
+<p-tabView>
+    <p-tabPanel header="Default">
+      Default
+    </p-tabPanel>
+    <p-tabPanel *ngFor="let view of criteriaViews;let i = index;" [header]="view.name">
+        <div>Content {{i}}
+        <app-data-table-view></app-data-table-view>            
+        </div>
+    </p-tabPanel>
+</p-tabView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

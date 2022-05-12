@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FileData } from "./services/domain/data-ingestion.domain";
-import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
@@ -14,8 +13,9 @@ export class DataIngestionComponent implements OnInit, AfterViewInit {
   representatives!: any[];
   activityValues: number[] = [0, 100];
   totalRecords: number = 5;
+  path: string;
   displayedColumns: string[] = ['date', 'fileName', 'status', 'schedule', 'action'];
-  dataSource = new MatTableDataSource<FileData>(this.fileData);
+  // dataSource = new MatTableDataSource<FileData>(this.fileData);
   constructor(
     private router: Router,
     private route: ActivatedRoute) { }
@@ -28,7 +28,7 @@ export class DataIngestionComponent implements OnInit, AfterViewInit {
       { date: '12/02/2022', fileName: 'Erfan', status: 'mapped', schedule: '14/12/2021', action: 'Inject Now' },
 
     ];
-
+    this.path = this.route.snapshot.routeConfig.path;
 
   }
 
@@ -63,5 +63,10 @@ export class DataIngestionComponent implements OnInit, AfterViewInit {
   }
 
 
-
+  navigateToDataMapping() {
+    this.router.navigate(['dataMapping'], { relativeTo: this.route });
+  }
+  navigateToDataAnalysis() {
+    this.router.navigate(['dataAnalysis'], { relativeTo: this.route });
+  }
 }

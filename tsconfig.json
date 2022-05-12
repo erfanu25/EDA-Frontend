@@ -2,6 +2,23 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types" : ["node"],
+    "typeRoots": [ "../node_modules/@types" ],
+    "paths": {
+      "stream": [ "./node_modules/stream-browserify" ],
+      "crypto": [ "./node_modules/crypto-browserify" ],
+      "util": [ "./node_modules/util" ],
+      "https": [ "./node_modules/https-browserify" ],
+      "http": [ "./node_modules/stream-http" ],
+      "url": [ "./node_modules/url" ],
+      "zlib": [ "./node_modules/browserify-zlib" ],
+      "assert":["./node_modules/assert"],
+      "path":["./node_modules/path-browserify"],
+      "os":["./node_modules/os-browserify/browser"],
+      "exceljs": [
+        "node_modules/exceljs/dist/exceljs.min"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -29,6 +46,7 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictPropertyInitialization": false,
-    "strictTemplates": true
+    "strictTemplates": false,
+    "strictDomEventTypes": false
   }
 }

@@ -1,0 +1,15 @@
+<h4 mat-dialog-title>Mapper Name</h4>
+<form [formGroup]="form" #form1="ngForm">
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter Mapper Name</mat-label>
+    <input matInput [(ngModel)]="data.mapperName" formControlName="mapperName" required>
+    <mat-error>Mapper Name is <strong>required</strong></mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions style="text-align: center;margin: auto">
+  <!-- <button mat-button (click)="onNoClick()">No Thanks</button> -->
+
+  <button color="primary" mat-button [disabled]="!(form.valid)" [mat-dialog-close]="form.valid ? data.mapperName : null" cdkFocusInitial>Submit</button>
+</div>
+</form>

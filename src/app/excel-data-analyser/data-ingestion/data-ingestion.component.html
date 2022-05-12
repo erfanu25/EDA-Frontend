@@ -1,4 +1,17 @@
+<!--<div class="toolbar" role="banner">-->
+<!--    <span>-->
+<!--        <h3 style="padding-left: 10px">Excel Data Analyser</h3>-->
+<!--    </span>-->
+<!--  <div class="spacer"></div>-->
+<!--  <div>-->
+<!--    <button mat-button style="background-color:green;-->
+<!--        color:white" (click)="navigateToDataMapping()">Data Mapping</button>-->
+<!--    <button mat-button style="background-color:green;-->
+<!--        color:white" (click)="navigateToDataAnalysis()">Data Analysis</button>-->
+<!--  </div>-->
 
+<!--</div>-->
+<app-topbar [topBarData]="path"></app-topbar>
 <div class="card">
   <p-card header="Data Ingestion">
     <file-upload [fileUploadData]="fileData"></file-upload>
@@ -11,9 +24,10 @@
 
 <div class="card">
   <p-card header="List">
-    <p-table style="width: 90%" [value]="fileData" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    <p-table  [value]="fileData" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" styleClass="p-datatable-customers"
       responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [rowsPerPageOptions]="[10,25,50]">
+
       <ng-template pTemplate="header">
         <tr>
           <th>Date</th>
@@ -44,12 +58,7 @@
           <td>{{file.action}}</td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-      </ng-template>
-      <ng-template pTemplate="paginatorright">
-        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-      </ng-template>
+
     </p-table>
   </p-card>
 </div>
