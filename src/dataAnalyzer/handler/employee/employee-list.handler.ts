@@ -23,6 +23,10 @@ class EmployeeListHandler {
     public async getSortedList(sortBy, sortType, pageSize, pageIndex): Promise<EmployeeDto[]> {
         return await this.employeeListRepo.getSortedList(sortBy, sortType, pageSize, pageIndex);
     }
+
+    public async getSearchedEmployeeList(minRange, maxRange, searchedText): Promise<EmployeeDto[]> {
+        return await this.employeeListRepo.getSearchedEmployeeList(minRange, maxRange, searchedText);
+    }
     public async countEmployees(): Promise<Number> {
         return await this.employeeListRepo.countEmployees();
     }

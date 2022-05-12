@@ -27,6 +27,50 @@ class EmployeeListRepo {
             : await data.skip(skip).limit(take).lean().exec();
         return result;
     }
+
+    public async getSearchedEmployeeList( minRange, maxRange, searchedText): Promise<EmployeeDto[]> {
+        employeeModel.createIndexes({
+            name: "text"
+
+         });
+        //  const query = { $text: { $search: searchedText } };
+        //  // Return only the `title` of each matched document
+        //  const projection = {
+        //    _id: 0,
+        //    email: 1,
+        //  };
+         const dt = await employeeModel.find({$text:{$search:searchedText}}).lean().exec();
+        //  const dt =  await employeeModel.aggregate([
+        //     // {
+        //     //    $search: {
+        //     //       "range": {
+        //     //          "path": "salary",
+        //     //          "gte": parseInt(minRange),
+        //     //          "lte": parseInt(maxRange)
+        //     //       }
+        //     //    }
+        //     // },
+         
+        //     // {
+        //     //    $project: {
+        //     //       "_id": 0,
+        //     //       "name": 1,
+        //     //       "email": 1,
+        //     //       "salary": 1
+        //     //    }
+        //     // }
+        
+            
+        //         { $match: { $text: { $search: "erf " } } },
+        //         { $project: { email: 1, _id: 0 } }
+              
+        // ]);
+        // const data = await employeeModel.find( { _id: 0, __v: 0 },{salary: {
+        //     $gte:parseInt(minRange),
+        //     $lte: parseInt(maxRange) 
+        // }},{ $text: { $search: searchedText } }).lean().exec();
+        return dt;
+    }
     public async countEmployees(): Promise<Number> {
         const data = employeeModel.find({}, { _id: 0, __v: 0 }).count();
         return data;
