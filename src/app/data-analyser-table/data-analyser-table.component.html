@@ -1,29 +1,34 @@
 <form>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th *ngFor="let head of headerElements" sortable="{{head}}" scope="col"  (click)="onSort($event)">{{head | titlecase}}
-
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let employee of tableDetails">
-      <td *ngFor="let head of headerElements">
-        {{employee[head]}}
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-between p-2">
-    <ngb-pagination
-      ngb-pagination [collectionSize]="total" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
-    </ngb-pagination>
-<!--    <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize">-->
-<!--      <option [ngValue]="2">2 items per page</option>-->
-<!--      <option [ngValue]="4">4 items per page</option>-->
-<!--      <option [ngValue]="6">6 items per page</option>-->
-<!--    </select>-->
+  <div class="col-md-12 col-sm-12 col-lg-12" *ngIf="headerElements.length>0" style="overflow-y: auto;" >
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th *ngFor="let head of headerElements"  class="txt" scope="col"  (click)="sort(head)">
+          {{head | uppercase}}
+          <ng-container *ngIf="head">
+            <i class="fa text-warning" [ngClass]="{
+              'fa-sort-asc': (this.sortBy === head && sortType===1),
+              'fa-sort-desc': (this.sortBy === head && sortType===-1),
+              'fa-sort text-muted': this.sortBy !== head
+            }"></i>
+          </ng-container>
+  
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of tableDetails">
+        <td *ngFor="let head of headerElements">
+          {{employee[head]}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination (pageSizeChange)="gotoPage($event)" [totalItems]="total" [size]="pageSize" [currentPage]="page"></pagination>
+  
   </div>
+
+  <!-- <div class="d-flex justify-content-between p-2">
+  </div> -->
 
 </form>

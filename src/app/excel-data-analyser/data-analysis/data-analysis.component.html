@@ -3,25 +3,28 @@
 <div class="card">
   <p-card>
     <p-dropdown [options]="tableType" [(ngModel)]="value" placeholder="Select a Table" appendTo="body"
-      (onChange)="fetchEmplyeeList($event.value)" [showClear]="true"></p-dropdown>
+      (onChange)="fetchList($event.value)" [showClear]="true"></p-dropdown>
   </p-card>
 </div>
 <div class="card" style="margin-top: 5px">
-  <div class="row margin25">
+
+  <div class="row margin25" *ngIf="columnHeaders">
     <div class="{{displayViewColumnSection || displayAdvanceFiltersComponents ? 'col-md-8' : 'col-md-12'}}">
       <p-card>
         <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
-        <p-button (click)="onAdvanceFiltersClick()" type="button" class="pt-2 advance-filter-button"  >Advance  Filters</p-button>
-        <app-data-analyser-table [tableData]="details"></app-data-analyser-table>
-      <p-button  (click)="onViewColumnsClick()"  type="button"   class="pt-2" style=" 
-          float: right;" >View Columns</p-button>
-        <app-data-analyser-table [tableData] = "details" [showableColumn]="showableColumn"></app-data-analyser-table>
+        <p-button (click)="onExportDataClick()" type="button" class="pt-2" style=" 
+        float: right; padding-left: 5px;">Export Data</p-button>
+        <p-button (click)="onViewColumnsClick()" type="button" class="pt-2" style=" 
+          float: right;">View Columns</p-button>
+        <p-button (click)="onAdvanceFiltersClick()" type="button" class="pt-2 advance-filter-button">Advance Filters
+        </p-button>
+        <app-data-analyser-table [payloadFilters]="payloadFiltersList"  [tableName]="tableName" [showableColumn]="showableColumn"></app-data-analyser-table>
 
       </p-card>
     </div>
     <div class="col-md-4" *ngIf="displayAdvanceFiltersComponents">
       <mat-card style="height: 100%;">
-       <app-advance-filter></app-advance-filter>
+        <app-advance-filter  (filterListChange)="updatedFilterList($event)" [columnWithTypes]="columnWithTypes"  ></app-advance-filter>
       </mat-card>
     </div>
     <div class="col-md-4" *ngIf="displayViewColumnSection">
@@ -35,7 +38,8 @@
         </div>
         <div class="ui-g" style="margin-bottom:10px;" *ngFor="let column of columnHeaders; let i = index">
           <div class="ui-g-2">
-            <p-checkbox binary="true" [(ngModel)]="permissions[i]" inputId="R"></p-checkbox> {{column | titlecase}}
+            <p-checkbox binary="true" [(ngModel)]="permissions[i]" (onChange)="checkSingleColumn()"></p-checkbox>
+            {{column | titlecase}}
           </div>
         </div>
         <mat-card-actions>

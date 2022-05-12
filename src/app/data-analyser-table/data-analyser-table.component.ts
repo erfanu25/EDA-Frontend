@@ -4,26 +4,22 @@ import {
   OnInit,
   PipeTransform,
   QueryList,
-  ViewChildren
+  ViewChildren,
+  OnChanges 
 } from '@angular/core';
-import {BehaviorSubject, Observable, of, Subject} from "rxjs";
-import {EmpDetails} from "../excel-data-analyser/data-analysis/domain/data-analysis.domain";
-import {DecimalPipe} from "@angular/common";
-import {debounceTime, delay, switchMap, tap} from "rxjs/operators";
+import { BehaviorSubject, Observable, of, Subject } from "rxjs";
+import { EmpDetails } from "../excel-data-analyser/data-analysis/domain/data-analysis.domain";
+import { DecimalPipe } from "@angular/common";
+import { debounceTime, delay, switchMap, tap } from "rxjs/operators";
 // import {TableService} from "./service/data-analyser-table.service";
-import {HttpParams} from "@angular/common/http";
-import {DataAnalysisService} from "../excel-data-analyser/data-analysis/service-api/data-analysis.service";
-
-
-
-
-
+import { HttpParams } from "@angular/common/http";
+import { DataAnalysisService } from "../excel-data-analyser/data-analysis/service-api/data-analysis.service";
 
 @Component({
   selector: 'app-data-analyser-table',
   templateUrl: './data-analyser-table.component.html',
   styleUrls: ['./data-analyser-table.component.css'],
-  providers: [ DecimalPipe]
+  providers: [DecimalPipe]
 })
 export class DataAnalyserTableComponent implements OnInit {
   tableDetails: EmpDetails[];
@@ -33,67 +29,70 @@ export class DataAnalyserTableComponent implements OnInit {
   pageSize: number;
   headerElements: string[];
   sortingFlag: number;
-
-  // @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-  @Input('tableData') set tableData(data) {
-    if (data && Object.keys(data).length) {
-      this.tableDetails = data;
-      this.headerElements = Object.keys(data[0]);
-      this.total = this.tableDetails.length;
-
-    }
-
-  }
-
+  sortBy: string;
+  sortType: Number;
+  tableName:string;
+  payload:string;
   @Input('showableColumn') set showableColumn(data) {
     if (data) {
       this.headerElements = data;
-      console.log(data);
     }
-
   }
+  
+  @Input('tableName') set setTableName(data) {
+    if (data) {
+      this.tableName = data;
+    }
+  }
+  @Input('payloadFilters') set setPayloadFilters(data) {
+    debugger;
+    if (data) {
+      console.log("this is in input table components.");
+      this.payload = data;
+    }
+  }
+  ngOnChanges() {
+    /**********THIS FUNCTION WILL TRIGGER WHEN PARENT COMPONENT UPDATES 'someInput'**************/
+     console.log("Changes Trigger payload:");
+     console.log(this.payload);
+     this.getList();
 
-
-
-
+    } 
 
   constructor(
-              private dataAnalysisService: DataAnalysisService,
-  ) {
-  }
+    private dataAnalysisService: DataAnalysisService) {}
 
   ngOnInit(): void {
-
+    this.sortBy = "name";
+    this.sortType = -1;
+    this.pageSize = 10;
+    this.page = 1
+    this.total = 0;
+    this.getList();
   }
 
+  gotoPage({ page, size }) {
+    this.page = page;
+    this.pageSize = size;
+    this.getList();
+  }
 
-  onSort(event) {
+  sort(id) {
+    this.sortBy = id;
+    this.sortType = this.sortType == -1 ? 1 : -1;
+    this.getList();
 
-    if(!this.sortingFlag){
-      this.sortingFlag = 1;
-      this.getSortedList(event,this.sortingFlag.toString());
-      return;
-    } if(this.sortingFlag === 1) {
-      this.sortingFlag = -1;
-      this.getSortedList(event,this.sortingFlag.toString());
-      return;
-    } if(this.sortingFlag === -1) {
-      this.sortingFlag = 1;
-      this.getSortedList(event,this.sortingFlag.toString());
-      return;
+  }
+  getList() {
+    var query = ``;
+    if(this.tableName==="EMPLOYEE"){
+      query = `getSortedEmployeeData?sortBy=${this.sortBy}&sortType=${this.sortType}&pageIndex=${this.page}&pageSize=${this.pageSize}`;
     }
-
-  }
-
-  getSortedList(event,value){
-    this.dataAnalysisService.getEmployeeList('getSortedEmployeeData',{'column': event.target.innerText.toLowerCase(),'value': value})
+    this.dataAnalysisService.search(query,this.payload)
       .subscribe(data => {
-        this.tableDetails = data;
-        this.total = this.tableDetails.length;
-
+        this.tableDetails = data.data;
+        this.total = data.total;
       });
-
-
   }
 
 }

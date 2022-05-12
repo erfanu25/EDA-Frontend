@@ -49,6 +49,14 @@ export class DataMappingService {
     });
     return this.http.get<string[]>(endpoints.column_list_url, { params: httpParams });;
   }
+  public GetColumnsWithTypes(queryParam): Observable<string[]> {
+    const httpParams = new HttpParams({
+      fromObject: queryParam
+    });
+    return this.http.get<any>(endpoints.columns_types, { params: httpParams });;
+  }
+
+  
 
   public getMapper(queryParam): Observable<string[]> {
     const httpParams = new HttpParams({

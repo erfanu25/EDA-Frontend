@@ -52,7 +52,10 @@ import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapp
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import {DataAnalysisService} from "./data-analysis/service-api/data-analysis.service";
 import {DataAnalyserTableComponent} from "../data-analyser-table/data-analyser-table.component";
+
 import { AdvanceFilterComponent } from './data-analysis/advance-filter/advance-filter.component';
+import { PaginationModule } from "../common/pagination/pagination.module";
+import { FiltersComponent } from './data-analysis/advance-filter/filters/filters.component';
 
 @NgModule({
   imports: [
@@ -98,6 +101,7 @@ import { AdvanceFilterComponent } from './data-analysis/advance-filter/advance-f
     TagModule,
     MatDialogModule,
     MatSnackBarModule,
+    PaginationModule
     // AppModule,
 
 
@@ -115,7 +119,8 @@ import { AdvanceFilterComponent } from './data-analysis/advance-filter/advance-f
     DataAnalysisComponent,
     TopbarComponent,
     DataAnalyserTableComponent,
-    AdvanceFilterComponent
+    AdvanceFilterComponent,
+    FiltersComponent
   ],
   providers: [
     DataMappingService,
@@ -123,7 +128,8 @@ import { AdvanceFilterComponent } from './data-analysis/advance-filter/advance-f
     DecimalPipe
   ],
   exports: [
-    RouterModule
+    RouterModule,
+    
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

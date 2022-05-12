@@ -6,29 +6,29 @@ export let TableType = [
 
 export let TextCriteria = [
 
-  { label: 'Starts with', value: 'Starts with' },
+  { label: 'Starts with', value: 'Starts_with' },
   { label: 'Contains', value: 'Contains' }  ,
-  { label: 'Not contains', value: 'Not contains' },
-  { label: 'Ends with', value: 'Ends with' } ,
+  { label: 'Not contains', value: 'Not_contains' },
+  { label: 'Ends with', value: 'Ends_with' } ,
   { label: 'Equals', value: 'Equals' },
-  { label: 'Not equals', value: 'Not equals' }
+  { label: 'Not equals', value: 'Not_equals' }
 ];
 
 export let DateCriteria = [
 
-  { label: 'Date is', value: 'Date is' },
-  { label: 'Date is NOT', value: 'Date is NOT' }  ,
-  { label: 'Date is BEFORE', value: 'Date is BEFORE' },
-  { label: 'Date is AFTER', value: 'Date is AFTER' }
+  { label: 'Date is', value: 'Date_is' },
+  { label: 'Date is NOT', value: 'Date_is_NOT' }  ,
+  { label: 'Date is BEFORE', value: 'Date_is_BEFORE' },
+  { label: 'Date is AFTER', value: 'Date_is_AFTER' }
 ];
 
 export let NumberCriteria = [
 
   { label: 'Equals', value: 'Equals' },
-  { label: 'Not Equals', value: 'Not Equals' } ,
-  { label: 'Less than or equal to', value: 'Less than or equal to' },
-  { label: 'Greater than', value: 'Greater than' },
-  { label: 'Greater than or equal to', value: 'Greater than or equal to' },
+  { label: 'Not Equals', value: 'Not_Equals' } ,
+  { label: 'Less than or equal to', value: 'Less_than_or_equal_to' },
+  { label: 'Greater than', value: 'Greater_than' },
+  { label: 'Greater than or equal to', value: 'Greater_than_or_equal_to' },
 ];
 
 
