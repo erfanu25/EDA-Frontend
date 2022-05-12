@@ -1,55 +1,9 @@
+<div >
+    <file-uploader (onCompleteItem)="onCompleteItem($event)"></file-uploader>
+  </div>
 
-<div class="card">
-  <p-card header="Data Ingestion">
-    <file-upload [fileUploadData]="fileData"></file-upload>
-  </p-card>
-</div>
-
-
-
-
-
-<div class="card">
-  <p-card header="List">
-    <p-table style="width: 90%" [value]="fileData" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-      responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [rowsPerPageOptions]="[10,25,50]">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Date</th>
-          <th>File Name</th>
-          <th>Status</th>
-          <th>Schedule</th>
-          <th>Action</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-file>
-        <tr>
-          <td>{{file.date}}</td>
-          <td>{{file.fileName}}</td>
-          <td>{{file.status}}</td>
-          <!--          <td>{{file.schedule}}</td>-->
-
-          <td [pEditableColumn]="file" [pEditableColumnField]="'schedule'">
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <p-calendar [(ngModel)]="file.schedule" [ngModelOptions]="{standalone: true}" [showIcon]="true"
-                  dateFormat="mm/dd/yy" inputId="icon"></p-calendar>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{file.schedule}}
-              </ng-template>
-            </p-cellEditor>
-          </td>
-          <td>{{file.action}}</td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-      </ng-template>
-      <ng-template pTemplate="paginatorright">
-        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-      </ng-template>
-    </p-table>
-  </p-card>
-</div>
+  <div >
+    <file-content-list ></file-content-list>
+  </div>
+  <br>
+  <br>

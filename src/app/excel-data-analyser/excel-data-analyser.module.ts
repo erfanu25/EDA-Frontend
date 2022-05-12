@@ -1,9 +1,9 @@
+import { FileUploadService } from './data-ingestion/file-upload/file-upload.service';
 import {RouterModule, Routes} from "@angular/router";
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
 import { MatCardModule } from '@angular/material/card';
 import {TableModule} from "primeng/table";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {FileUploadComponent} from "./fileUpload/file-upload.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {HttpClientModule} from "@angular/common/http";
@@ -17,7 +17,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {SharedModule} from "primeng/api";
 
 import {AutoCompleteModule} from "primeng/autocomplete";
-import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
 import { DataMappingComponent } from './data-mapping/data-mapping.component';
 import { DataAnalysisComponent } from './data-analysis/data-analysis.component';
 import {routes} from "./excel-data-analyser.routes";
@@ -42,6 +41,9 @@ import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import {TabMenuModule} from "primeng/tabmenu";
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
+import { FileUploadComponent } from './data-ingestion/file-upload/file-upload.component';
+import { FileContentListComponent } from './data-ingestion/file-content/file-content-list/file-content-list.component';
 
 @NgModule({
   imports: [
@@ -88,12 +90,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   ],
   declarations: [
     FileUploadComponent,
-    DataIngestionComponent,
     DataMappingComponent,
-    DataAnalysisComponent],
+    DataAnalysisComponent,
+    DataIngestionComponent,
+    FileContentListComponent,
+    ],
   exports: [
     RouterModule
   ],
+  providers: [FileUploadService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class ExcelDataAnalyserModule { }
