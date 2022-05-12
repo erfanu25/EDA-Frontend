@@ -17,16 +17,20 @@ class EmployeeListRepo {
         return await employeeModel.find({}, { _id: 0, __v: 0 });
     }
 
-    public async getSortedList(sortBy, sortType, pageSize, pageIndex): Promise<EmployeeDto[]> {
+    public async getSortedList(sortBy, sortType, pageSize, pageIndex,payload): Promise<EmployeeDto[]> {
+        console.log(":::payload:::");
+        console.log(payload);
         var sort = this.getSortClause(sortBy, sortType);
         const take = parseInt(pageSize, 10);
         const skip = (parseInt(pageIndex, 10) - 1) * take;
-        const data = employeeModel.find({}, { _id: 0, __v: 0 }).sort(sort);
+        const data = employeeModel.find(payload, { _id: 0, __v: 0 }).sort(sort);
         const result = pageSize === -1
             ? await data.lean().exec()
             : await data.skip(skip).limit(take).lean().exec();
         return result;
     }
+
+
 
     public async getSearchedEmployeeList( minRange, maxRange, searchedText): Promise<EmployeeDto[]> {
         employeeModel.createIndexes({

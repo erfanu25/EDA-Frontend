@@ -2,6 +2,7 @@ import { EmployeeDto } from "../dto/employee.dto";
 import EmployeeGetSingleHandler from "../handler/employee/employee-get-single.handler";
 import EmployeeListHandler from "../handler/employee/employee-list.handler";
 import EmployeeOperationHandler from "../handler/employee/employee-operation.handler";
+import QueryBuilderHandler from "../handler/query-builder/query-builder";
 
 class EmployeeOperationService {
     private static employeeOperationService: EmployeeOperationService;
@@ -10,6 +11,8 @@ class EmployeeOperationService {
     private employeeGetSingleHandler:EmployeeGetSingleHandler = EmployeeGetSingleHandler
     .getHandlerInstance();  
     private employeeListleHandler:EmployeeListHandler = EmployeeListHandler
+    .getHandlerInstance();  
+    private queryBuildHandler:QueryBuilderHandler = QueryBuilderHandler
     .getHandlerInstance();  
 
     private constructor() {
@@ -31,11 +34,13 @@ class EmployeeOperationService {
     public async GetList(){
         return await this.employeeListleHandler.getList();
     }
-    public async GetSortedList(sortBy, sortType, pageSize, pageIndex){
-        return await this.employeeListleHandler.getSortedList(sortBy, sortType, pageSize, pageIndex);
+    public async GetSortedList(sortBy, sortType, pageSize, pageIndex,payload){
+        let query=await this.queryBuildHandler.build(payload);
+        return await this.employeeListleHandler.getSortedList(sortBy, sortType, pageSize, pageIndex,query);
     }
 
     public async GetSearchedEmployeeList( minRange, maxRange, searchedText){
+
         return await this.employeeListleHandler.getSearchedEmployeeList(minRange, maxRange, searchedText);
     }
     public async CountEmployees(){

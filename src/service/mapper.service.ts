@@ -25,6 +25,10 @@ class MapperService {
     public async getTableColumns(collectionName): Promise<String[]> {
         return this.dbTable.getTableColumns(collectionName);
     }
+    public async getTableColumnsWithTypes(collectionName): Promise<any> {
+        return this.dbTable.getTableColumnsWithTypes(collectionName);
+    }
+    
 
     public async getTables(): Promise<DbTableDto[]> {
         return this.dbTable.getTables();

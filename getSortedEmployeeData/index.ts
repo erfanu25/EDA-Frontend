@@ -8,8 +8,8 @@ const getSortedEmployeeData: AzureFunction = async function (context: Context, r
         await db.init();
         let total=await EmployeeOperationService.getServiceInstance()
         .CountEmployees();
-        response=await EmployeeOperationService.getServiceInstance()
-        .GetSortedList(req.query.sortBy,req.query.sortType,req.query.pageSize,req.query.pageIndex);
+        var body=req.body;
+        response=await EmployeeOperationService.getServiceInstance().GetSortedList(req.query.sortBy,req.query.sortType,req.query.pageSize,req.query.pageIndex,body);
         context.res = { status: 200, body: {total:total,data:response} }; ;
       } catch (error) {
         context.res = { status: error.status, body: JSON.parse(JSON.stringify(error)) }; ;
