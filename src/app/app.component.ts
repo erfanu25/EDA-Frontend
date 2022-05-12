@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, ActivationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +7,19 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'excel-genUp-UI';
+  title = 'excel-data-analyser';
+  compName: string;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute) { }
-    
-  navigateToDataMapping() {
-    this.router.navigate(['dataMapping'], { relativeTo: this.route });
+  constructor() {
+
+
   }
-  navigateToDataAnalysis() {
-    this.router.navigate(['dataAnalysis'], { relativeTo: this.route });
-  }
+
+
+
+
+
+
+
+
 }

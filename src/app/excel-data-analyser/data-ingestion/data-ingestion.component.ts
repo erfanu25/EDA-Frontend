@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FileQueueObject } from './file-upload/file-upload.service';
 
@@ -8,13 +9,16 @@ import { FileQueueObject } from './file-upload/file-upload.service';
 })
 export class DataIngestionComponent implements OnInit {
   name = 'Angular 7 - Example file upload queue';
-
+  path : string;
   onCompleteItem($event) {
     console.log($event);
   }
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+    ) {
+    
+   }
 
   ngOnInit(): void {
+    this.path = this.route.snapshot.routeConfig.path;
   }
-
 }

@@ -1,7 +1,7 @@
 import {Routes} from "@angular/router";
-import {DataMappingComponent} from "./data-mapping/data-mapping.component";
+import {DataIngestionComponent} from "./data-ingestion/data-ingestion.component";
 import {DataAnalysisComponent} from "./data-analysis/data-analysis.component";
-import { DataIngestionComponent } from "./data-ingestion/data-ingestion.component";
+import { DataMappingComponent } from "./data-mapping/component/data-mapping.component";
 
 export const routes: Routes = [
 
