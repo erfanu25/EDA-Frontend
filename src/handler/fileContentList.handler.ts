@@ -1,4 +1,6 @@
+import { IStatus } from './../model/status.model';
 import { IFileContent } from "../model/fileContent.model";
+import statusModel from "../model/status.model";
 import FileContentRepo from "../repo/fileContent.repo";
 
 class FileContentListHandler {
@@ -16,14 +18,22 @@ class FileContentListHandler {
         return this.fileContentListHandler;
     }
 
-    public async getList(): Promise<IFileContent[]> {
-        return await this.fileContentRepo.getList();
+    public async getList(page : number,size : number) {
+        let totalContents = 0;
+        totalContents = await this.fileContentRepo.getTotalContents();
+        let contents = await this.fileContentRepo.getList(page,size);
+        return {
+            data : contents,
+            total : totalContents
+        }
+
     }
 
-    public async create(fContent:IFileContent[]): Promise<IFileContent[]> {
-        console.log("this is handler")
+    public async create(fContent:IFileContent): Promise<IFileContent[]> {
+        let dbStatus : IStatus  = await statusModel.findOne({'name' : 'UNMAPPED'});
+        fContent.createdAt = Date.now();
+        fContent.status = dbStatus;
         return await this.fileContentRepo.create(fContent);
-    
     }
 
     
