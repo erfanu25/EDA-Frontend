@@ -1,11 +1,14 @@
 
+<h3>Advance Filters</h3>
+<hr class="mb2-mt2" />
 <div class="form-group row" *ngFor=" let header of headers">
-  <label for="staticEmail" class="col-lg-12 col-md-12 col-sm-12 col-form-label">{{header.key | uppercase}} </label>
+  <label for="staticEmail" class="col-lg-12 col-md-12 col-sm-12 col-form-label txt-lbl">{{header.key | uppercase}} </label>
   <div class="col-lg-12 col-md-12 col-sm-12">
     <app-filters [column]="header" (filterChange)="updatedFilter($event)"></app-filters>
   </div>
 </div>
 <mat-card-actions>
-  <p-button type="button" (click)="onApply()" class="pt-2" style=" 
-        float: right; margin-right: 30px;">Apply</p-button>
+  <!-- <p-button type="button" (click)="onApply()" class="pt-2" style=" 
+        float: right; margin-right: 30px;">Apply</p-button> -->
+        <button  (click)="onApply()" type="button" class="btn-apply"> Apply </button>
 </mat-card-actions>

@@ -1,28 +1,41 @@
-<select *ngIf="columnInfo.type==='String'" [(ngModel)]="textCriteriaModel"  #myTextCriteria (change)='onSelect(columnInfo.key,myTextCriteria.value,textCriteriaModel)' class="form-control-sm full-width">
+<select *ngIf="columnInfo.type==='String'" [(ngModel)]="textCriteriaModel"  #myTextCriteria 
+(change)='onSelect(columnInfo.key,myTextCriteria.value,inputTextValueModel)' class="form-control-sm full-width">
     <option [value]="temp.value" *ngFor="  let temp of textCriteria">
       {{ temp.label }}
     </option>
   </select>
   <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="columnInfo.type==='String'">
-    <input type="input" (keyup)="inputChanges(columnInfo.key,textCriteriaModel,myTextInput.value)" class="form-control-sm full-width" 
+    <input type="input" [(ngModel)]="inputTextValueModel" (keyup)="inputChanges(columnInfo.key,textCriteriaModel,myTextInput.value)" class="form-control-sm full-width" 
     #myTextInput  placeholder="Type here..">
   </div>
 
   <select *ngIf="columnInfo.type==='Number'"  
   [(ngModel)]="numberCriteriaModel" #myNumberCriteria 
-  (change)='onSelect(columnInfo.key,myNumberCriteria.value,numberCriteriaModel)'
+  (change)='onSelect(columnInfo.key,myNumberCriteria.value,inputNumberValueModel)'
     class="form-control-sm full-width">
     <option [value]="temp.value" *ngFor="  let temp of numberCriteria">
       {{ temp.label }}
     </option>
   </select>
-  <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="columnInfo.type==='Number'">
-    <input type="input" (keyup)="inputChanges(columnInfo.key,numberCriteriaModel,myNumberInput.value)" class="form-control-sm full-width" 
+  {{numberCriteriaModel}}
+<div *ngIf="columnInfo.type==='Number' && numberCriteriaModel=='Number_Range'"  >
+  <div>
+    <p>Min value: <input type="number" [(ngModel)]="minValue"></p>
+<p>Max value: <input type="number" [(ngModel)]="maxValue"></p>
+  </div>
+  <div class="custom-slider" >
+    <ngx-slider (userChangeEnd)="onChangeRange(columnInfo.key,numberCriteriaModel,$event)" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+  </div>
+</div>
+
+
+  <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="columnInfo.type==='Number' && numberCriteriaModel!='Number_Range'">
+    <input type="input" [(ngModel)]="inputNumberValueModel" (keyup)="inputChanges(columnInfo.key,numberCriteriaModel,myNumberInput.value)" class="form-control-sm full-width" 
     #myNumberInput  placeholder="Type here..">
   </div>
 
   <select *ngIf="columnInfo.type==='Date'"  [(ngModel)]="dateCriteriaModel"
-  #myDateCriteria (change)='onSelect(columnInfo.key,myDateCriteria.value,dateCriteriaModel)'
+  #myDateCriteria (change)='onSelect(columnInfo.key,myDateCriteria.value,inputDateValueModel)'
   class="form-control-sm full-width">
     <option [value]="temp.value" *ngFor="  let temp of dateCriteria">
       {{ temp.label }}
@@ -31,7 +44,7 @@
   <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="columnInfo.type==='Date'">
     
     <div class="input-group">
-      <input type="input" (ngModelChange)="inputChanges(columnInfo.key,dateCriteriaModel,myDateInput.value)"  class="form-control-sm full-width" 
+      <input type="input" [(ngModel)]="inputDateValueModel" (ngModelChange)="inputChanges(columnInfo.key,dateCriteriaModel,myDateInput.value)"  class="form-control-sm full-width" 
       #myDateInput placeholder="yyyy-mm-dd"
       name="dp" [(ngModel)]="selectedDate" ngbDatepicker #d="ngbDatepicker"
       >

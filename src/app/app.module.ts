@@ -12,6 +12,7 @@ import { CriteriaViewService } from './excel-data-analyser/data-analysis/criteri
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import { PaginationModule } from './common/pagination/pagination.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AnalysisHttpHandler,
     CriteriaAddService, 
     CriteriaViewService,
-    HttpHandler,
+    HttpHandler,DatePipe,
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5500}}
   ],
   exports: [

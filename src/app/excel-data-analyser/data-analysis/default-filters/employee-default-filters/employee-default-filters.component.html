@@ -1,0 +1,17 @@
+<div class="row">
+    <div   class="{{ expand ? 'col-lg-5' : 'col-lg-8'}}" >
+        <div class="input-group pt10">
+            <div class="input-group-prepend">
+                <span class="input-group-text custom-text "  >Email</span>
+            </div>
+            <input type="text" placeholder="Search Email" class="full-width form-control-sm" [(ngModel)]="email">
+        </div>
+    </div>
+    <div class="{{ expand ? 'col-lg-5 custom-slider' : 'col-lg-10 custom-slider'}}">
+        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+    </div>
+    <div class="{{ expand ? 'col-lg-2 ' : 'col-lg-5'}}">
+        <button (click)="onClick()" type="button" class="btn-apply advance-filter-button"> Apply
+        </button>
+    </div>
+</div>

@@ -23,8 +23,8 @@ export let DateCriteria = [
 ];
 
 export let NumberCriteria = [
-
   { label: 'Equals', value: 'Equals' },
+  { label: 'Range', value: 'Number_Range' },
   { label: 'Not Equals', value: 'Not_Equals' } ,
   { label: 'Less than or equal to', value: 'Less_than_or_equal_to' },
   { label: 'Greater than', value: 'Greater_than' },

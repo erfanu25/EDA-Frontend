@@ -12,24 +12,54 @@
     <div class="{{displayViewColumnSection || displayAdvanceFiltersComponents ? 'col-md-8' : 'col-md-12'}}">
       <p-card>
         <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
-        <p-button (click)="onExportDataClick()" type="button" class="pt-2" style=" 
-        float: right; padding-left: 5px;">Export Data</p-button>
-        <p-button (click)="onViewColumnsClick()" type="button" class="pt-2" style=" 
-          float: right;">View Columns</p-button>
-        <p-button (click)="onAdvanceFiltersClick()" type="button" class="pt-2 advance-filter-button">Advance Filters
-        </p-button>
-        <app-data-analyser-table [payloadFilters]="payloadFiltersList"  [tableName]="tableName" [columnWithTypes]="columnWithTypes" [showableColumn]="showableColumn" ></app-data-analyser-table>
+        <div class=" row">
+          <div class="col-lg-7">
+            <app-employee-default-filters (filterListChange)="updatedFilterList($event)" [expand]="displayViewColumnSection"></app-employee-default-filters>
+          </div>
+          <div class="col-lg-5">
+            <button (click)="onExportDataClick()" type="button" class="btn-apply advance-filter-button pull-right"> Export
+              Data </button>
+            <button (click)="onViewColumnsClick()" type="button" class="btn-apply advance-filter-button pull-right"> View
+              Columns </button>
+            <button (click)="onAdvanceFiltersClick()" type="button" class="btn-apply advance-filter-button pull-right">
+              Advance Filters </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="py-2" *ngIf="payloadFiltersList">
+            <strong class="custom-text">Search Result: &nbsp;</strong>
+            <span class="custom-text" *ngFor="let filter of payloadFiltersList; let i = index"> 
+              <span class="badge badge-pill badge-primary" *ngIf="filter.operator!='Number_Range' && filter.value!=''">
+                <strong >{{filter.field | uppercase}}: </strong>
+                <span *ngIf="filter.operator!='Number_Range'"> {{filter.value}} </span>
+              </span>
+              <span class="badge badge-pill badge-primary" *ngIf="filter.operator=='Number_Range'">
+                <strong >{{filter.field | uppercase}}: </strong>
+                <span *ngIf="filter.operator=='Number_Range'"> {{filter.value1}} To {{filter.value2}}  </span>
+              </span>
+
+             
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <app-data-analyser-table [payloadFilters]="payloadFiltersList" [tableName]="tableName"
+            [columnWithTypes]="columnWithTypes" [showableColumn]="showableColumn"></app-data-analyser-table>
+
+        </div>
 
       </p-card>
     </div>
     <div class="col-md-4" *ngIf="displayAdvanceFiltersComponents">
       <mat-card style="height: 100%;">
-        <app-advance-filter  (filterListChange)="updatedFilterList($event)" [columnWithTypes]="columnWithTypes"  ></app-advance-filter>
+        <app-advance-filter (filterListChange)="updatedFilterList($event)" [columnWithTypes]="columnWithTypes">
+        </app-advance-filter>
       </mat-card>
     </div>
     <div class="col-md-4" *ngIf="displayViewColumnSection">
-      <mat-card style="height: 100%;">
+      <mat-card style="height: 100%;" class="txt-lbl">
         <h3>Select Columns to View</h3>
+        <hr class="mb2-mt2" />
         <div class="ui-g" style="margin-bottom:10px;margin-top: 20px;">
           <div class="ui-g-2">
             <p-checkbox binary="true" [(ngModel)]="selectAllColumns" (onChange)="checkAllValue()" inputId="R">
@@ -38,13 +68,18 @@
         </div>
         <div class="ui-g" style="margin-bottom:10px;" *ngFor="let column of columnHeaders; let i = index">
           <div class="ui-g-2">
-            <p-checkbox binary="true" [(ngModel)]="permissions[i]" (onChange)="checkSingleColumn()"></p-checkbox>
+            <p-checkbox binary="true" [style]="{'background': '#204a63'}" [(ngModel)]="permissions[i]" (onChange)="checkSingleColumn()"></p-checkbox>
             {{column | titlecase}}
           </div>
+          <!-- border-color: #204a63 !important;
+  background: #204a63 !important -->
         </div>
         <mat-card-actions>
-          <p-button (click)="onApplyColumnsView()" type="button" class="pt-2" style=" 
-          float: right; margin-right: 30px;">Apply</p-button>
+          <!-- <p-button (click)="onApplyColumnsView()" type="button" class="pt-2" style=" 
+          float: right; margin-right: 30px;">Apply</p-button> -->
+
+<button (click)="onApplyColumnsView()" type="button" class="btn-apply advance-filter-button"> Apply
+</button>
         </mat-card-actions>
       </mat-card>
     </div>

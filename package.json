@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@angular-devkit/core": "^13.3.3",
+    "@angular-slider/ngx-slider": "^2.0.4",
     "@angular/animations": "13.3.3",
     "@angular/cdk": "^13.3.3",
     "@angular/cli": "^13.3.3",

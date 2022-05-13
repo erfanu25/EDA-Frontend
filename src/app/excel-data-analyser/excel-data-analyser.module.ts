@@ -56,6 +56,8 @@ import {DataAnalyserTableComponent} from "../data-analyser-table/data-analyser-t
 import { AdvanceFilterComponent } from './data-analysis/advance-filter/advance-filter.component';
 import { PaginationModule } from "../common/pagination/pagination.module";
 import { FiltersComponent } from './data-analysis/advance-filter/filters/filters.component';
+import { NgxSliderModule } from "@angular-slider/ngx-slider";
+import { EmployeeDefaultFiltersComponent } from './data-analysis/default-filters/employee-default-filters/employee-default-filters.component';
 
 @NgModule({
   imports: [
@@ -101,7 +103,8 @@ import { FiltersComponent } from './data-analysis/advance-filter/filters/filters
     TagModule,
     MatDialogModule,
     MatSnackBarModule,
-    PaginationModule
+    PaginationModule,
+    NgxSliderModule
     // AppModule,
 
 
@@ -120,7 +123,8 @@ import { FiltersComponent } from './data-analysis/advance-filter/filters/filters
     TopbarComponent,
     DataAnalyserTableComponent,
     AdvanceFilterComponent,
-    FiltersComponent
+    FiltersComponent,
+    EmployeeDefaultFiltersComponent
   ],
   providers: [
     DataMappingService,

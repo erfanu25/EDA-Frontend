@@ -8,6 +8,8 @@ import { DataMappingService } from '../data-mapping/services/data-mapping.servic
 // import * as XLSX from "xlsx";
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
+import { LabelType, Options } from '@angular-slider/ngx-slider';
+
 @Component({
   selector: 'app-data-analysis',
   templateUrl: './data-analysis.component.html',
@@ -44,6 +46,7 @@ export class DataAnalysisComponent implements OnInit {
   tableName: string;
   columnWithTypes: any = [];
   payloadFiltersList:any
+  
 
 
   path: string;
@@ -110,7 +113,7 @@ export class DataAnalysisComponent implements OnInit {
     this.displayCriteriaAddComponents = true;
   }
   onViewColumnsClick() {
-    this.displayViewColumnSection = true;
+    this.displayViewColumnSection = !this.displayViewColumnSection;
     this.displayAdvanceFiltersComponents = false;
     let queryParam = {};
     if (this.showableColumn == null) {
@@ -132,7 +135,7 @@ export class DataAnalysisComponent implements OnInit {
 
   onAdvanceFiltersClick() {
     this.displayAdvanceFiltersComponents = !this.displayAdvanceFiltersComponents;
-    this.displayViewColumnSection = false;
+    this.displayViewColumnSection = !this.displayViewColumnSection;
     this.GetColumnsWithTypes();
   }
   GetColumnsWithTypes() {

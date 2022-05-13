@@ -10,4 +10,22 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-
+.custom-slider .ngx-slider .ngx-slider-pointer {
+    cursor: pointer;
+    width: 20px !important;
+    height: 20px !important;
+    /* margin-left: 1px; */
+    top: -10px;
+    background-color: #204a63;
+    z-index: 3;
+  }
+.custom-slider .ngx-slider .ngx-slider-pointer:after {
+    display: none;
+  }
+.custom-slider .ngx-slider .ngx-slider-selection {
+    background: #204a63 !important;
+}
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: #204a63 !important;
+  background: #204a63 !important;
+}
