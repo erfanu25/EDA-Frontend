@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { EmployeeDto } from "../../dto/employee.dto";
 import employeeModel, { IEmployee } from "../../model/employee.model";
 
@@ -17,13 +18,13 @@ class EmployeeListRepo {
         return await employeeModel.find({}, { _id: 0, __v: 0 });
     }
 
-    public async getSortedList(sortBy, sortType, pageSize, pageIndex,payload): Promise<EmployeeDto[]> {
+    public async getSortedList(modelName,sortBy, sortType, pageSize, pageIndex,payload): Promise<EmployeeDto[]> {
         console.log(":::payload:::");
         console.log(payload);
         var sort = this.getSortClause(sortBy, sortType);
         const take = parseInt(pageSize, 10);
         const skip = (parseInt(pageIndex, 10) - 1) * take;
-        const data = employeeModel.find(payload, { _id: 0, __v: 0 }).sort(sort);
+        const data = mongoose.models[modelName].find(payload, { _id: 0, __v: 0 }).sort(sort);
         const result = pageSize === -1
             ? await data.lean().exec()
             : await data.skip(skip).limit(take).lean().exec();
@@ -75,8 +76,10 @@ class EmployeeListRepo {
         // }},{ $text: { $search: searchedText } }).lean().exec();
         return dt;
     }
-    public async countEmployees(): Promise<Number> {
-        const data = employeeModel.find({}, { _id: 0, __v: 0 }).count();
+    public async countEmployees(modelName,payload): Promise<Number> {
+        // const data = employeeModel.find({}, { _id: 0, __v: 0 }).count();
+        const data = mongoose.models[modelName].find(payload, { _id: 0, __v: 0 }).count();
+
         return data;
     }
     private getSortClause = (sortColumn, orderBy) => {

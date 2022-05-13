@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/getSortedEmployeeData/index.js"
+  "scriptFile": "../dist/getList/index.js"
 }

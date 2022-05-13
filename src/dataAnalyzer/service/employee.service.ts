@@ -34,17 +34,18 @@ class EmployeeOperationService {
     public async GetList(){
         return await this.employeeListleHandler.getList();
     }
-    public async GetSortedList(sortBy, sortType, pageSize, pageIndex,payload){
+    public async GetSortedList(modelName,sortBy, sortType, pageSize, pageIndex,payload){
         let query=await this.queryBuildHandler.build(payload);
-        return await this.employeeListleHandler.getSortedList(sortBy, sortType, pageSize, pageIndex,query);
+        return await this.employeeListleHandler.getSortedList(modelName,sortBy, sortType, pageSize, pageIndex,query);
     }
 
     public async GetSearchedEmployeeList( minRange, maxRange, searchedText){
 
         return await this.employeeListleHandler.getSearchedEmployeeList(minRange, maxRange, searchedText);
     }
-    public async CountEmployees(){
-        return await this.employeeListleHandler.countEmployees();
+    public async CountEmployees(modelName,payload){
+        let query=await this.queryBuildHandler.build(payload);
+        return await this.employeeListleHandler.countEmployees(modelName,query);
     }
 }
 
