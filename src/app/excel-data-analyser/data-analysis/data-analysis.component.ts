@@ -81,6 +81,7 @@ export class DataAnalysisComponent implements OnInit {
 
 
     this.displayCriteriaAddComponents = false;
+    this.GetColumnsWithTypes();
   }
   fetchList(event) {
     let queryParam = {};
@@ -132,6 +133,9 @@ export class DataAnalysisComponent implements OnInit {
   onAdvanceFiltersClick() {
     this.displayAdvanceFiltersComponents = !this.displayAdvanceFiltersComponents;
     this.displayViewColumnSection = false;
+    this.GetColumnsWithTypes();
+  }
+  GetColumnsWithTypes() {
     let queryParam = {};
     if (this.tableName === 'EMPLOYEE') {
       queryParam = { "collectionName": 'Employee' };
@@ -143,7 +147,7 @@ export class DataAnalysisComponent implements OnInit {
       .subscribe(columns => {
         console.log(columns);
         this.columnWithTypes=columns;
-      });
+    });
   }
 
   checkAllValue() {
@@ -187,7 +191,7 @@ export class DataAnalysisComponent implements OnInit {
 
     var query = ``;
     if (this.tableName === "EMPLOYEE") {
-      query = `getSortedEmployeeData?sortBy=name&sortType=-1&pageIndex=1&pageSize=1000000`;
+      query = `getList?modelName=Employee&sortBy=name&sortType=-1&pageIndex=1&pageSize=1000000`;
     }
     this.dataAnalysisService.getList(query,{})
       .subscribe(data => {
@@ -195,7 +199,6 @@ export class DataAnalysisComponent implements OnInit {
         this.details = data.data;
         this.exportExel();
       });
-
   }
   exportExel() {
     var Header = this.showableColumn.map((name) => {

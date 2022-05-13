@@ -31,10 +31,10 @@ export class AdvanceFilterComponent implements OnInit {
   updatedFilter(obj) {
     console.log(obj);
 
-    if (this.advanceFilterList.some(item => item.key.trim() === obj.key.trim() )) {
+    if (this.advanceFilterList.some(item => item.field.trim() === obj.field.trim() )) {
       console.log("exist:update");
-      let itemIndex = this.advanceFilterList.findIndex(item => item.key.trim() === obj.key.trim());
-      if(obj.inputValue== undefined || obj.inputValue == "" ){
+      let itemIndex = this.advanceFilterList.findIndex(item => item.field.trim() === obj.field.trim());
+      if(obj.value== undefined || obj.value == "" ){
         this.advanceFilterList.splice(itemIndex,1);
       }else{
         this.advanceFilterList[itemIndex] = obj;
@@ -42,7 +42,7 @@ export class AdvanceFilterComponent implements OnInit {
 
     } else {
       console.log("not exist:insert");
-      if(obj.inputValue!==""){
+      if(obj.value!==""){
         this.advanceFilterList.push(obj);
       }
     }

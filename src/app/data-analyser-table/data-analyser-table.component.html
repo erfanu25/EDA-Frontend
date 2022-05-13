@@ -1,15 +1,15 @@
 <form>
-  <div class="col-md-12 col-sm-12 col-lg-12" *ngIf="headerElements.length>0" style="overflow-y: auto;" >
+  <div class="col-md-12 col-sm-12 col-lg-12" *ngIf="showableColumnWithTypes.length>0" style="overflow-y: auto;" >
     <table class="table table-hover">
       <thead>
       <tr>
-        <th *ngFor="let head of headerElements"  class="txt" scope="col"  (click)="sort(head)">
-          {{head | uppercase}}
-          <ng-container *ngIf="head">
+        <th *ngFor="let head of showableColumnWithTypes"  class="txt" scope="col"  (click)="sort(head.key)">
+          {{head.key | uppercase}}
+          <ng-container *ngIf="head.key">
             <i class="fa text-warning" [ngClass]="{
-              'fa-sort-asc': (this.sortBy === head && sortType===1),
-              'fa-sort-desc': (this.sortBy === head && sortType===-1),
-              'fa-sort text-muted': this.sortBy !== head
+              'fa-sort-asc': (this.sortBy === head.key && sortType===1),
+              'fa-sort-desc': (this.sortBy === head.key && sortType===-1),
+              'fa-sort text-muted': this.sortBy !== head.key
             }"></i>
           </ng-container>
   
@@ -18,8 +18,10 @@
       </thead>
       <tbody>
       <tr *ngFor="let employee of tableDetails">
-        <td *ngFor="let head of headerElements">
-          {{employee[head]}}
+        <td *ngFor="let head of showableColumnWithTypes">
+          <span *ngIf="head.type=='Date'">{{employee[head.key] | date}}</span>
+          <span *ngIf="head.type!='Date'" >{{employee[head.key]}}</span>
+          
         </td>
       </tr>
       </tbody>

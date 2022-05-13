@@ -18,7 +18,7 @@
           float: right;">View Columns</p-button>
         <p-button (click)="onAdvanceFiltersClick()" type="button" class="pt-2 advance-filter-button">Advance Filters
         </p-button>
-        <app-data-analyser-table [payloadFilters]="payloadFiltersList"  [tableName]="tableName" [showableColumn]="showableColumn"></app-data-analyser-table>
+        <app-data-analyser-table [payloadFilters]="payloadFiltersList"  [tableName]="tableName" [columnWithTypes]="columnWithTypes" [showableColumn]="showableColumn" ></app-data-analyser-table>
 
       </p-card>
     </div>

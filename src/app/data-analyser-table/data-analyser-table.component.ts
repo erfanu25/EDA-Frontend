@@ -33,11 +33,30 @@ export class DataAnalyserTableComponent implements OnInit {
   sortType: Number;
   tableName:string;
   payload:string;
-  @Input('showableColumn') set showableColumn(data) {
+  columnWithTypeList:any;
+  showableColumnWithTypes:any;
+
+  @Input('columnWithTypes') set columnWithTypes(data) {
     if (data) {
-      this.headerElements = data;
+      this.columnWithTypeList = data;
     }
   }
+  @Input('showableColumn') set showableColumn(data) {
+    if (data) {
+      this.showableColumnWithTypes=[];
+      this.headerElements = data;
+      console.log(this.headerElements);
+      this.columnWithTypeList.forEach((element, index) => {
+        let item = this.headerElements.find(item => item.trim() === element.key.trim());
+        if(item){
+         this.showableColumnWithTypes.push(element);
+        }
+      });
+      console.log(this.showableColumnWithTypes);
+    }
+  }
+
+  
   
   @Input('tableName') set setTableName(data) {
     if (data) {
@@ -68,7 +87,15 @@ export class DataAnalyserTableComponent implements OnInit {
     this.pageSize = 10;
     this.page = 1
     this.total = 0;
+    this.showableColumnWithTypes=this.columnWithTypeList;
     this.getList();
+
+    // this.headerElements.forEach((value, index) => {
+    //   let itemIndex = this.columnWithTypeList.findIndex(item => item.key.trim() === value.trim());
+    //   if(itemIndex<0){
+    //     this.columnWithTypeList.splice(index,1);
+    //   }
+    // });
   }
 
   gotoPage({ page, size }) {
@@ -86,7 +113,7 @@ export class DataAnalyserTableComponent implements OnInit {
   getList() {
     var query = ``;
     if(this.tableName==="EMPLOYEE"){
-      query = `getSortedEmployeeData?sortBy=${this.sortBy}&sortType=${this.sortType}&pageIndex=${this.page}&pageSize=${this.pageSize}`;
+      query = `getList?modelName=Employee&sortBy=${this.sortBy}&sortType=${this.sortType}&pageIndex=${this.page}&pageSize=${this.pageSize}`;
     }
     this.dataAnalysisService.search(query,this.payload)
       .subscribe(data => {
