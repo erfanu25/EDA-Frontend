@@ -15,14 +15,13 @@ class FileContentService {
         return this.fileContentService;
     }
 
-    public async getList(): Promise<IFileContent[]> {
-        return await this.fileContentListHandler.getList();
+    public async getList(page: number,size : number) {
+        return await this.fileContentListHandler.getList(page,size);
         //console.log("testing..........hello get list")
         //return null;
     }
 
-    public async create(fContent:IFileContent[]): Promise<IFileContent[]> {
-        console.log("this is service")
+    public async create(fContent:IFileContent): Promise<IFileContent[]> {
         return await this.fileContentListHandler.create(fContent);
     
     }
