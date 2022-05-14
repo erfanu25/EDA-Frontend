@@ -80,6 +80,27 @@ class MapperRepo {
 
         })
     }
+    public getTableColumnsWithTypes(collectionName): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let fieldNames = [];
+                const schema = mongoose.model(collectionName).schema;
+                console.log(schema);
+
+                Object.entries(schema.paths)
+                    .filter(([key, value]) => key != "__v" && key != "_id")
+                    .forEach(([key, value]) => fieldNames.push({key:key,type:value.instance}));
+
+
+                resolve(fieldNames);
+            } catch (e) {
+                console.log(e);
+                reject(e);
+            }
+
+        })
+    }
+
 
 
 

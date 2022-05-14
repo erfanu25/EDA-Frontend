@@ -20,4 +20,4 @@ const CompanySchema: Schema = new Schema({
     revenue: { type: Number, required: false },
 })
 
-export const Company = mongoose.model("Company", CompanySchema)
+export default mongoose.model<ICompany>("Company", CompanySchema)

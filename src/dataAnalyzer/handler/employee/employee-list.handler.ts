@@ -20,15 +20,15 @@ class EmployeeListHandler {
     public async getList(): Promise<EmployeeDto[]> {
         return await this.employeeListRepo.getList();
     }
-    public async getSortedList(sortBy, sortType, pageSize, pageIndex): Promise<EmployeeDto[]> {
-        return await this.employeeListRepo.getSortedList(sortBy, sortType, pageSize, pageIndex);
+    public async getSortedList(modelName,sortBy, sortType, pageSize, pageIndex,payload): Promise<EmployeeDto[]> {
+        return await this.employeeListRepo.getSortedList(modelName,sortBy, sortType, pageSize, pageIndex,payload);
     }
 
     public async getSearchedEmployeeList(minRange, maxRange, searchedText): Promise<EmployeeDto[]> {
         return await this.employeeListRepo.getSearchedEmployeeList(minRange, maxRange, searchedText);
     }
-    public async countEmployees(): Promise<Number> {
-        return await this.employeeListRepo.countEmployees();
+    public async countEmployees(modelName,payload): Promise<Number> {
+        return await this.employeeListRepo.countEmployees(modelName,payload);
     }
 }
 

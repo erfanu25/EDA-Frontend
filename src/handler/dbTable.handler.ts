@@ -32,6 +32,11 @@ class DbTableHandler {
         return this.mapperRepo.getTableColumns(collectionName);
     }
 
+    public async getTableColumnsWithTypes(collectionName): Promise<any> {
+        return this.mapperRepo.getTableColumnsWithTypes(collectionName);
+    }
+    
+
 }
 
 

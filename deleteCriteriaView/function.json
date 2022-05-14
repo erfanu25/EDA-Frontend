@@ -1,7 +1,7 @@
 {
   "bindings": [
     {
-      "authLevel": "function",
+      "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/getSortedEmployeeData/index.js"
+  "scriptFile": "../dist/deleteCriteriaView/index.js"
 }

@@ -3,9 +3,12 @@ import  { Schema, Document } from "mongoose"
 
  
 export interface ICompanyDto {
-    title: string;
-    type: string;
+    name: string;
     address: string;
-    status: string;
+    telephone: string;
+    contactPerson: string;
+    email: string;
+    taxNumber: string;
+    revenue: number;
 
 }

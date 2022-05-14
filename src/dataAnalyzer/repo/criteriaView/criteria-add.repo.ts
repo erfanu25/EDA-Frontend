@@ -17,6 +17,8 @@ class CriteriaAddRepo {
         const criteriaModel = new CriteriaViewModel({
             name: criteria.name,
             content: criteria.content,
+            tableName: criteria.tableName,
+
         });
         var result= await criteriaModel.save();
         console.log("resutl:");

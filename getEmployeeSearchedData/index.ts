@@ -6,8 +6,8 @@ const getSearchedEmployeeData: AzureFunction = async function (context: Context,
     let response = null;
     try {
         await db.init();
-        let total=await EmployeeOperationService.getServiceInstance()
-        .CountEmployees();
+        // let total=await EmployeeOperationService.getServiceInstance()
+        // .CountEmployees();
         response=await EmployeeOperationService.getServiceInstance()
         .GetSearchedEmployeeList(req.query.minRange,req.query.maxRange,req.query.searchedText);
         context.res = { status: 200, body: {data:response} }; ;
