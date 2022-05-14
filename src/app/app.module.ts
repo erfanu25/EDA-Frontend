@@ -13,6 +13,8 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import { PaginationModule } from './common/pagination/pagination.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { TabViewModule } from "primeng/tabview";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,8 @@ import { DatePipe } from '@angular/common';
     RouterModule,
     HttpClientModule,
     PaginationModule,
-    NgbModule
+    NgbModule,
+    TabViewModule
 
   ],
   providers: [

@@ -78,7 +78,7 @@ export class FiltersComponent implements OnInit {
     }
     console.log(inputValue);
     console.log(Date.parse(inputValue));
-    if(!Number.isNaN(Date.parse(inputValue))){
+    if(criteriaValue=="Date_is" || criteriaValue=="Date_is_NOT" || criteriaValue=="Date_is_BEFORE" || criteriaValue=="Date_is_AFTER"){
       let latest_date_string =this.datepipe.transform(Date.parse(inputValue), 'yyyy-MM-dd');
       inputValue=latest_date_string;
     }

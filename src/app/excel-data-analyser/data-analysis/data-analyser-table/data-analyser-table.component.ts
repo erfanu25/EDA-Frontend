@@ -8,12 +8,12 @@ import {
   OnChanges 
 } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from "rxjs";
-import { EmpDetails } from "../excel-data-analyser/data-analysis/domain/data-analysis.domain";
+import { EmpDetails } from "../domain/data-analysis.domain";
 import { DecimalPipe } from "@angular/common";
 import { debounceTime, delay, switchMap, tap } from "rxjs/operators";
 // import {TableService} from "./service/data-analyser-table.service";
 import { HttpParams } from "@angular/common/http";
-import { DataAnalysisService } from "../excel-data-analyser/data-analysis/service-api/data-analysis.service";
+import { DataAnalysisService } from '../service-api/data-analysis.service';
 
 @Component({
   selector: 'app-data-analyser-table',
@@ -32,17 +32,20 @@ export class DataAnalyserTableComponent implements OnInit {
   sortBy: string;
   sortType: Number;
   tableName:string;
-  payload:string;
+  payload:any;
   columnWithTypeList:any;
   showableColumnWithTypes:any;
 
   @Input('columnWithTypes') set columnWithTypes(data) {
     if (data) {
       this.columnWithTypeList = data;
+    }else{
+      this.columnWithTypeList=[];
     }
   }
   @Input('showableColumn') set showableColumn(data) {
     if (data) {
+      debugger;
       this.showableColumnWithTypes=[];
       this.headerElements = data;
       console.log(this.headerElements);
@@ -53,7 +56,10 @@ export class DataAnalyserTableComponent implements OnInit {
         }
       });
       console.log(this.showableColumnWithTypes);
+    }else{
+      this.showableColumnWithTypes=[];
     }
+
   }
 
   
@@ -68,6 +74,35 @@ export class DataAnalyserTableComponent implements OnInit {
     if (data) {
       console.log("this is in input table components.");
       this.payload = data;
+    }else{
+      this.payload = [];
+    }
+  }
+  @Input('payloadCriteriaView') set setPayloadCriteriaView(data) {
+    debugger;
+    if (data) {
+      console.log("setPayloadCriteriaView.");
+      this.payload = data;
+    }else{
+      this.payload = [];
+    }
+  }
+  @Input('queryCriteriaView') set setQueryCriteriaView(data) {
+    debugger;
+    if (data) {
+      console.log("setQueryCriteriaView.");
+      const urlParams = new URLSearchParams(data);
+      console.log(urlParams);
+      this.sortBy=urlParams.get('sortBy');
+      this.sortType=parseInt(urlParams.get('sortType'));
+      this.page=parseInt(urlParams.get('pageIndex'));
+      this.pageSize=parseInt(urlParams.get('pageSize'));
+    }else{
+      this.sortBy = "name";
+      this.sortType = -1;
+      this.pageSize = 10;
+      this.page = 1
+      this.total = 0;
     }
   }
   ngOnChanges() {
@@ -75,7 +110,6 @@ export class DataAnalyserTableComponent implements OnInit {
      console.log("Changes Trigger payload:");
      console.log(this.payload);
      this.getList();
-
     } 
 
   constructor(
@@ -111,10 +145,15 @@ export class DataAnalyserTableComponent implements OnInit {
 
   }
   getList() {
-    var query = ``;
+    var query = ``;var tableName="";
     if(this.tableName==="EMPLOYEE"){
-      query = `getList?modelName=Employee&sortBy=${this.sortBy}&sortType=${this.sortType}&pageIndex=${this.page}&pageSize=${this.pageSize}`;
+      tableName="Employee";
     }
+    if(this.tableName==="COMPANY"){
+      tableName="Company";
+    }
+    query = `getList?modelName=${tableName}&sortBy=${this.sortBy}&sortType=${this.sortType}&pageIndex=${this.page}&pageSize=${this.pageSize}`;
+
     this.dataAnalysisService.search(query,this.payload)
       .subscribe(data => {
         this.tableDetails = data.data;

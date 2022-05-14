@@ -51,13 +51,15 @@ import { DataMappingService } from "./data-mapping/services/data-mapping.service
 import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapper.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import {DataAnalysisService} from "./data-analysis/service-api/data-analysis.service";
-import {DataAnalyserTableComponent} from "../data-analyser-table/data-analyser-table.component";
+import {DataAnalyserTableComponent} from "./data-analysis/data-analyser-table/data-analyser-table.component";
 
 import { AdvanceFilterComponent } from './data-analysis/advance-filter/advance-filter.component';
 import { PaginationModule } from "../common/pagination/pagination.module";
 import { FiltersComponent } from './data-analysis/advance-filter/filters/filters.component';
 import { NgxSliderModule } from "@angular-slider/ngx-slider";
 import { EmployeeDefaultFiltersComponent } from './data-analysis/default-filters/employee-default-filters/employee-default-filters.component';
+import { GridviewAnalysisComponent } from './data-analysis/gridview-analysis/gridview-analysis.component';
+import { TabViewModule } from "primeng/tabview";
 
 @NgModule({
   imports: [
@@ -104,7 +106,8 @@ import { EmployeeDefaultFiltersComponent } from './data-analysis/default-filters
     MatDialogModule,
     MatSnackBarModule,
     PaginationModule,
-    NgxSliderModule
+    NgxSliderModule,
+    TabViewModule
     // AppModule,
 
 
@@ -124,7 +127,8 @@ import { EmployeeDefaultFiltersComponent } from './data-analysis/default-filters
     DataAnalyserTableComponent,
     AdvanceFilterComponent,
     FiltersComponent,
-    EmployeeDefaultFiltersComponent
+    EmployeeDefaultFiltersComponent,
+    GridviewAnalysisComponent
   ],
   providers: [
     DataMappingService,

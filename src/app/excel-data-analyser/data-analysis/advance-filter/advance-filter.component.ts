@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
+import { Criteria } from '../criteria/models/criteria.model';
+import { CriteriaAddService } from '../criteria/services/criteria-add.service';
+import { AnalysisHttpHandler } from '../service-api/analysis-http.handler';
 import { DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria } from "./../domain/data-analysis.domain";
 
 @Component({
@@ -16,17 +20,42 @@ export class AdvanceFilterComponent implements OnInit {
   details: EmpDetails[];
   filterDropDownCriteria: "";
   advanceFilterList = [];
-
+  tableName:any;
+  displayCriteriaAddComponents: boolean;
+  criteriaForm: FormGroup;
+  public submitted = false;
+  query:string;
   @Input('columnWithTypes') set columnWithTypes(data) {
     if (data) {
       this.headers = data;
       console.log(this.headers);
     }
   }
+  @Input('tableName') set setTableName(data) {
+    if (data) {
+      if(data=="EMPLOYEE"){
+        this.tableName ="Employee";
+      } 
+      if(data=="COMPANY"){
+        this.tableName ="Company";
+      }
+    }
+  }
   @Output() filterListChange = new EventEmitter<any>();
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,private criteriaAddService:CriteriaAddService,
+    private analysisHttpService: AnalysisHttpHandler
+  ) {
+    
+    this.criteriaForm = this.formBuilder.group({
+      name: ["", [Validators.required]]
+    });
+   }
 
   ngOnInit(): void {
+    this.displayCriteriaAddComponents = false;
+  }
+  onCriteriaViewClick() {
+    this.displayCriteriaAddComponents = true;
   }
   updatedFilter(obj) {
     console.log(obj);
@@ -52,4 +81,26 @@ export class AdvanceFilterComponent implements OnInit {
     this.filterListChange.emit(this.advanceFilterList);
 
   }
+  saveAsView() {
+    console.log(this.advanceFilterList);
+    this.displayCriteriaAddComponents = true;
+    // this.filterListChange.emit(this.advanceFilterList);
+  }
+  onAdd(): void{
+    this.submitted = true;
+    if (this.criteriaForm.valid) {
+      this.query="sortBy=name&sortType=-1&pageIndex=1&pageSize=10";
+      var contentObj={query:this.query,payload:this.advanceFilterList};
+      let content=JSON.stringify(contentObj); 
+      var criteria: Criteria = {name: this.criteriaForm.controls['name'].value,tableName:this.tableName,content: content};
+      this.analysisHttpService.post("SaveCriteria", criteria).subscribe(result => {
+        alert("Successfully saved");
+        this.submitted = false;
+        this.criteriaForm.reset();
+      }, err => {
+        
+      });
+    }
+  }
+  
 }

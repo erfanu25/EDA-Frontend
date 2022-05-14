@@ -11,4 +11,27 @@
   <!-- <p-button type="button" (click)="onApply()" class="pt-2" style=" 
         float: right; margin-right: 30px;">Apply</p-button> -->
         <button  (click)="onApply()" type="button" class="btn-apply"> Apply </button>
+        <button  (click)="saveAsView()" type="button" class="btn-apply"> Save As Views </button>
+
 </mat-card-actions>
+
+<p-dialog header="Criteria View Name" [(visible)]="displayCriteriaAddComponents" [modal]="true" [draggable]="true"
+[resizable]="true">
+<form [formGroup]="criteriaForm" (ngSubmit)="onAdd()">
+  <div class="grid p-fluid">
+      <div class="col-12 md:col-4">
+          <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+              <input type="text" pInputText id="name" formControlName="name" placeholder="Enter view name...">
+              <div *ngIf="submitted && criteriaForm.controls['name'].errors" class="text-danger">
+                  <div *ngIf="criteriaForm.controls['name'].hasError('required')">Name is required.</div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-12">
+      <p-button   type="submit" class="pt-2">Save</p-button>
+  </div>
+</form>
+
+</p-dialog>
