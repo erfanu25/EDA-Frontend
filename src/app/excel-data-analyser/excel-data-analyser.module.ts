@@ -1,4 +1,5 @@
-import {RouterModule} from "@angular/router";
+import { FileUploadService } from './data-ingestion/file-upload/file-upload.service';
+import {RouterModule, Routes} from "@angular/router";
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
 import { MatCardModule } from '@angular/material/card';
 import {TableModule} from "primeng/table";
@@ -14,7 +15,6 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {SharedModule} from "primeng/api";
 import {AutoCompleteModule} from "primeng/autocomplete";
-import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
 import { DataAnalysisComponent } from './data-analysis/data-analysis.component';
 import {routes} from "./excel-data-analyser.routes";
 import {ButtonModule} from "primeng/button";
@@ -37,6 +37,9 @@ import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import {TabMenuModule} from "primeng/tabmenu";
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
+import { FileUploadComponent } from './data-ingestion/file-upload/file-upload.component';
+import { FileContentListComponent } from './data-ingestion/file-content/file-content-list/file-content-list.component';
 import { CriteriaAddComponent } from "./data-analysis/criteria/components/criteria-add/criteria-add.component";
 import { CriteriaComponent } from "./data-analysis/criteria/components/criteria-view/criteria.component";
 import {CheckboxModule} from "primeng/checkbox";
@@ -105,6 +108,11 @@ import { PaginationModule } from "../common/pagination/pagination.module";
 
   ],
   declarations: [
+    FileUploadComponent,
+    DataMappingComponent,
+    DataAnalysisComponent,
+    DataIngestionComponent,
+    FileContentListComponent,
     DataIngestionComponent,
     DataMappingComponent,
     ViewDataMapperComponent,
@@ -116,13 +124,15 @@ import { PaginationModule } from "../common/pagination/pagination.module";
     TableMapperComponent,
     DataAnalysisComponent,
     TopbarComponent,
-    DataAnalyserTableComponent,
+    DataAnalyserTableComponent
   ],
   providers: [
     DataMappingService,
     DataAnalysisService,
-    DecimalPipe
+    DecimalPipe,
+    FileUploadService
   ],
+
   exports: [
     RouterModule,
     
