@@ -37,6 +37,9 @@ class CriteriaOperationService {
     public async GetList(){
         return await this.criteriaListHandler.getList();
     }
+    public async Delete(id):Promise<any>{
+        return await this.criteriaOperationHandler.Delete(id);
+    }
 }
 
 export default CriteriaOperationService;

@@ -9,6 +9,7 @@ const SaveCriteria: AzureFunction = async function (context: Context, req: HttpR
         var criteria: CriteriaViewDto = {
             name: req.body.name,
             content: req.body.content,
+            tableName:req.body.tableName,
         };
         await db.init();
         response = {

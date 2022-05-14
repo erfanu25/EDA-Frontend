@@ -1,6 +1,3 @@
-import { CriteriaViewDto } from "../../dto/criteriaView.dto";
-import { ICriteriaView } from "../../model/criteria-view.model";
-import CriteriaAddRepo from "../../repo/criteriaView/criteria-add.repo";
 
 class QueryBuilderHandler {
     private static queryBuilderHandler: QueryBuilderHandler;

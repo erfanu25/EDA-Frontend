@@ -23,4 +23,4 @@ const CompanySchema: Schema = new Schema({
 
 })
 
-export const Company = mongoose.model("Company", CompanySchema)
+export default mongoose.model<ICompany>("Company", CompanySchema)
