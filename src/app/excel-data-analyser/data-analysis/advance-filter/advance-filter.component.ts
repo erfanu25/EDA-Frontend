@@ -30,7 +30,6 @@ export class AdvanceFilterComponent implements OnInit {
   @Input('columnWithTypes') set columnWithTypes(data) {
     if (data) {
       this.headers = data;
-      console.log(this.headers);
     }
   }
   @Input('tableName') set setTableName(data) {
@@ -60,10 +59,7 @@ export class AdvanceFilterComponent implements OnInit {
     this.displayCriteriaAddComponents = true;
   }
   updatedFilter(obj) {
-    console.log(obj);
-
     if (this.advanceFilterList.some(item => item.field.trim() === obj.field.trim() )) {
-      console.log("exist:update");
       let itemIndex = this.advanceFilterList.findIndex(item => item.field.trim() === obj.field.trim());
       if(obj.value== undefined || obj.value == "" ){
         this.advanceFilterList.splice(itemIndex,1);
@@ -72,21 +68,17 @@ export class AdvanceFilterComponent implements OnInit {
       }
 
     } else {
-      console.log("not exist:insert");
       if(obj.value!==""){
         this.advanceFilterList.push(obj);
       }
     }
   }
   onApply() {
-    console.log(this.advanceFilterList);
     this.filterListChange.emit(this.advanceFilterList);
 
   }
   saveAsView() {
-    console.log(this.advanceFilterList);
     this.displayCriteriaAddComponents = true;
-    // this.filterListChange.emit(this.advanceFilterList);
   }
   onAdd(): void{
     this.submitted = true;

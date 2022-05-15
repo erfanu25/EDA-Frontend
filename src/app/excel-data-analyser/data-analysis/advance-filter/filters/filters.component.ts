@@ -41,13 +41,9 @@ export class FiltersComponent implements OnInit {
     }
   };
   @Output() filterChange = new EventEmitter<any>();
-
-  
-
   @Input('column') set column(data) {
     if (data) {
       this.columnInfo = data;
-      console.log(this.columnInfo);
     }
   }
   constructor(public datepipe: DatePipe) { }
@@ -64,7 +60,7 @@ export class FiltersComponent implements OnInit {
     if(criteriaValue==undefined || criteriaValue==""){
       alert("Please select criteria condition");
       return;
-    }//getting some error sometime while inputValue has same name like  criteriaValue
+    } 
     if(criteriaValue=="Number_Range"){
       this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value1:this.minValue,value2:this.maxValue});
     }else{
@@ -76,8 +72,6 @@ export class FiltersComponent implements OnInit {
       alert("Please select criteria condition");
       return;
     }
-    console.log(inputValue);
-    console.log(Date.parse(inputValue));
     if(criteriaValue=="Date_is" || criteriaValue=="Date_is_NOT" || criteriaValue=="Date_is_BEFORE" || criteriaValue=="Date_is_AFTER"){
       let latest_date_string =this.datepipe.transform(Date.parse(inputValue), 'yyyy-MM-dd');
       inputValue=latest_date_string;
@@ -89,7 +83,6 @@ export class FiltersComponent implements OnInit {
       alert("Please select criteria condition");
       return;
     }
-    console.log(event);
     let value1=event.value;
     let value2=event.highValue;
     this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value1:value1,value2:value2});

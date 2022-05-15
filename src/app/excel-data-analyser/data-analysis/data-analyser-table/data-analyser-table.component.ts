@@ -45,17 +45,14 @@ export class DataAnalyserTableComponent implements OnInit {
   }
   @Input('showableColumn') set showableColumn(data) {
     if (data) {
-      debugger;
       this.showableColumnWithTypes=[];
       this.headerElements = data;
-      console.log(this.headerElements);
       this.columnWithTypeList.forEach((element, index) => {
         let item = this.headerElements.find(item => item.trim() === element.key.trim());
         if(item){
          this.showableColumnWithTypes.push(element);
         }
       });
-      console.log(this.showableColumnWithTypes);
     }else{
       this.showableColumnWithTypes=[];
     }
@@ -72,16 +69,13 @@ export class DataAnalyserTableComponent implements OnInit {
   @Input('payloadFilters') set setPayloadFilters(data) {
     debugger;
     if (data) {
-      console.log("this is in input table components.");
       this.payload = data;
     }else{
       this.payload = [];
     }
   }
   @Input('payloadCriteriaView') set setPayloadCriteriaView(data) {
-    debugger;
     if (data) {
-      console.log("setPayloadCriteriaView.");
       this.payload = data;
     }else{
       this.payload = [];
@@ -90,9 +84,7 @@ export class DataAnalyserTableComponent implements OnInit {
   @Input('queryCriteriaView') set setQueryCriteriaView(data) {
     debugger;
     if (data) {
-      console.log("setQueryCriteriaView.");
       const urlParams = new URLSearchParams(data);
-      console.log(urlParams);
       this.sortBy=urlParams.get('sortBy');
       this.sortType=parseInt(urlParams.get('sortType'));
       this.page=parseInt(urlParams.get('pageIndex'));
@@ -107,8 +99,6 @@ export class DataAnalyserTableComponent implements OnInit {
   }
   ngOnChanges() {
     /**********THIS FUNCTION WILL TRIGGER WHEN PARENT COMPONENT UPDATES 'someInput'**************/
-     console.log("Changes Trigger payload:");
-     console.log(this.payload);
      this.getList();
     } 
 
@@ -123,13 +113,6 @@ export class DataAnalyserTableComponent implements OnInit {
     this.total = 0;
     this.showableColumnWithTypes=this.columnWithTypeList;
     this.getList();
-
-    // this.headerElements.forEach((value, index) => {
-    //   let itemIndex = this.columnWithTypeList.findIndex(item => item.key.trim() === value.trim());
-    //   if(itemIndex<0){
-    //     this.columnWithTypeList.splice(index,1);
-    //   }
-    // });
   }
 
   gotoPage({ page, size }) {

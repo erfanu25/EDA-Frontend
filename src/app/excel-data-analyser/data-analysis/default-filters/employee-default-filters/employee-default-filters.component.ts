@@ -15,13 +15,10 @@ export class EmployeeDefaultFiltersComponent implements OnInit {
   @Input('expand') set expandValue(data) {
     if (data) {
       this.expand = data;
-      console.log("expand");
-      console.log(this.expand);
     }
   }
   ngOnChanges() {
     /**********THIS FUNCTION WILL TRIGGER WHEN PARENT COMPONENT UPDATES 'someInput'**************/
-     console.log("Changes:expand");
      this.expand=!this.expand;
 
     } 
@@ -56,8 +53,6 @@ export class EmployeeDefaultFiltersComponent implements OnInit {
     advanceFilterList.push(objEmail);
     advanceFilterList.push(objAge);
     this.filterListChange.emit(advanceFilterList);
-    
-    
   }
   
 

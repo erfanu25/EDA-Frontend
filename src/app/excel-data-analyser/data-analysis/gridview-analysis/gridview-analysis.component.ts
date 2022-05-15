@@ -56,28 +56,17 @@ export class GridviewAnalysisComponent implements OnInit {
  
   ngOnChanges() {
     /**********THIS FUNCTION WILL TRIGGER WHEN PARENT COMPONENT UPDATES 'someInput'**************/
-     console.log("Changes Trigger payload: GridView:");
-     debugger;
      this.fetchList();
-     console.log(this.tableName);
      this.GetColumnsWithTypes();
 
   } 
      
   @Input('criteriaContent') set setCriteriaContentAndPayload(data) {
     if (data) {
-      debugger;
       var content=JSON.parse(data);
-      console.log(content);
       this.criteriaPayload=content.payload;
       this.criteriaQuery=content.query;
-      console.log(this.criteriaPayload);
-      console.log(this.criteriaQuery);
       this.payloadFiltersList=this.criteriaPayload;
-
-      //set payload
-      //set sorting & sortBy
-      //set page & page size
     }
   }
 
@@ -110,7 +99,6 @@ export class GridviewAnalysisComponent implements OnInit {
   }
 
   selectedCriteria(criteriaViews) {
-    console.log(criteriaViews);
   }
   onCriteriaViewClick() {
     this.displayCriteriaAddComponents = true;
@@ -151,7 +139,6 @@ export class GridviewAnalysisComponent implements OnInit {
     }
     this.mappingService.GetColumnsWithTypes(queryParam)
       .subscribe(columns => {
-        console.log(columns);
         this.columnWithTypes=columns;
     });
   }
@@ -181,16 +168,10 @@ export class GridviewAnalysisComponent implements OnInit {
     })
 
     this.showableColumn = this.columnToShow;
-    // this.columnHeaders=this.showableColumn;
   }
   updatedFilterList(obj) {
     this.payloadFiltersList=[];
-    console.log(obj);
-    console.log("This Is data analysis Page.");
-    console.log(this.payloadFiltersList);
     this.payloadFiltersList = [...obj];
-
-    console.log(this.payloadFiltersList);
   }
 
   onExportDataClick() {
@@ -201,7 +182,6 @@ export class GridviewAnalysisComponent implements OnInit {
     }
     this.dataAnalysisService.getList(query,{})
       .subscribe(data => {
-        console.log(data);
         this.details = data.data;
         this.exportExel();
       });
