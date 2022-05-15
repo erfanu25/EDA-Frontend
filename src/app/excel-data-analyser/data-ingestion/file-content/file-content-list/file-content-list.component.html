@@ -36,12 +36,13 @@
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef>Action</th>
     <td mat-cell *matCellDef="let row; ">
+     
       <div *ngIf="row.status.name === 'MAPPED'">
-      <button mat-raised-button>Inject Now</button>
+      <button mat-raised-button (click)="injectFile(row.path)">Inject Now</button>
       </div>
       <div *ngIf="row.status.name === 'UNMAPPED'">
-        <button mat-raised-button>Map</button>
-        </div>
+        <button mat-raised-button (click)="navigateToDataMapping(row._id)">Map</button>
+      </div>
     </td>
   </ng-container>
  

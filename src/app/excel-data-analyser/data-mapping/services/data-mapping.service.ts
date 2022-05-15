@@ -37,6 +37,7 @@ export class DataMappingService {
   }
 
   public getExcelHeaders(queryParam): Observable<any> {
+    console.log(queryParam);
     const httpParams = new HttpParams({
       fromObject: queryParam
     });

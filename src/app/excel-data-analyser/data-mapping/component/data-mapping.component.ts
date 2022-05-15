@@ -46,8 +46,18 @@ export class DataMappingComponent implements OnInit {
   tableName: string;
   mapperName: string;
   mappedContent: string;
+  fileId: string;
 
   ngOnInit(): void {
+
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params); // { category: "fiction" }
+        this.fileId = params["fileId"];
+        console.log("File Id "+this.fileId);
+      }
+    );
+
     this.getTableList();
     this.path = this.route.snapshot.routeConfig.path;
   }
@@ -76,15 +86,16 @@ export class DataMappingComponent implements OnInit {
         this.showTable = true;
         this.dbColumnList = columns;
         this.getMapperNames(event.value);
-        this.getExcelHeaderList(0);
+        this.getExcelHeaderList();
       });
 
     this.modelName = schema;
     this.tableName = tableName;
   }
 
-  getExcelHeaderList(fileId) {
-    this.mappingService.getExcelHeaders(fileId)
+  getExcelHeaderList() {
+    let queryParam = { "fileId": this.fileId };
+    this.mappingService.getExcelHeaders(queryParam)
       .subscribe(headers => {
         this.excelHeaderList = headers.data;
       });
@@ -123,6 +134,7 @@ export class DataMappingComponent implements OnInit {
       diaLogRef.afterClosed().subscribe(result => {
         if (result) {
           this.mapperName = result;
+          mapperContent["fileId"] = this.fileId;
           this.saveMapping(mapperContent);
         }
       })
@@ -169,7 +181,8 @@ export class DataMappingComponent implements OnInit {
       modelName: this.modelName,
       tableName : this.tableName,
       mapperName: this.mapperName,
-      modelContent: JSON.stringify(Object.fromEntries(mapperContent.entries()))
+      modelContent: JSON.stringify(Object.fromEntries(mapperContent.entries())),
+      fileId : this.fileId
     }
 
     this.mappingService.saveMapping(mapper)

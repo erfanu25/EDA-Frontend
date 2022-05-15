@@ -24,6 +24,7 @@ export class FileContentDatasource implements DataSource<FileContent> {
             .subscribe(res => {
                 this.contentTotal.next(res['total']);
                 this.fileContentSubject.next(res['data']);
+                console.log(res['data']);
                 //console.log(res['totalElements'])
             });
     }

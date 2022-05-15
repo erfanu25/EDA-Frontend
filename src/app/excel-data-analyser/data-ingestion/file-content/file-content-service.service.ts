@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FileContentServiceService {
 
+
   constructor(private http: HttpClient) { }
 
   public getAllFileContent(reqParam: FileContentListApiReqParam):
@@ -37,6 +38,16 @@ export class FileContentServiceService {
   //     })
   //   }
   // }
+
+
+  public injectFile(fileId): Observable<any> {
+    let file_injection_url = `https://localhost:8000/api/file2/${fileId}`;
+    console.log(file_injection_url);
+    return this.http.get<any>(file_injection_url);
+  }
+
+
+
 
 
 }
