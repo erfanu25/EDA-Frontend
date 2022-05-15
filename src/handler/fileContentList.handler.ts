@@ -5,7 +5,7 @@ import FileContentRepo from "../repo/fileContent.repo";
 
 class FileContentListHandler {
     private static fileContentListHandler: FileContentListHandler;
-    private fileContentRepo:FileContentRepo = FileContentRepo.getRepoInstance();
+    private fileContentRepo: FileContentRepo = FileContentRepo.getRepoInstance();
 
     private constructor() {
     }
@@ -18,25 +18,27 @@ class FileContentListHandler {
         return this.fileContentListHandler;
     }
 
-    public async getList(page : number,size : number) {
+    public async getList(page: number, size: number) {
         let totalContents = 0;
         totalContents = await this.fileContentRepo.getTotalContents();
-        let contents = await this.fileContentRepo.getList(page,size);
+        let contents = await this.fileContentRepo.getList(page, size);
+        console.log("contents");
+        console.log(contents);
         return {
-            data : contents,
-            total : totalContents
+            data: contents,
+            total: totalContents
         }
 
     }
 
-    public async create(fContent:IFileContent): Promise<IFileContent[]> {
-        let dbStatus : IStatus  = await statusModel.findOne({'name' : 'UNMAPPED'});
+    public async create(fContent: IFileContent): Promise<IFileContent[]> {
+        let dbStatus: IStatus = await statusModel.findOne({ 'name': 'UNMAPPED' });
         fContent.createdAt = Date.now();
         fContent.status = dbStatus;
         return await this.fileContentRepo.create(fContent);
     }
 
-    
+
 }
 
 export default FileContentListHandler;

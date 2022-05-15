@@ -16,17 +16,19 @@ class ExcelDataHandler {
     }
 
     public async getMappedExcelData(modelContent): Promise<any> {
-        return await getBlobFlie().then(data => {
+        // return await getBlobFlie().then(data => {
 
-            const ws = this.processExcelDataToJson(data, "A1:ZZ4");
-            const excelData = xlsx.utils.sheet_to_json(ws);
+        //     const ws = this.processExcelDataToJson(data, "A1:ZZ4");
+        //     const excelData = xlsx.utils.sheet_to_json(ws);
 
-            return this.processTableMap(excelData, modelContent);
-        });
+        //     return this.processTableMap(excelData, modelContent);
+        // });
+        return null;
     }
 
-    public async getExcelHeaders(fileId): Promise<any> {
-        return await getBlobFlie().then(data => {
+    public async getExcelHeaders(filePath): Promise<any> {
+        console.log(filePath);
+        return await getBlobFlie(filePath).then(data => {
 
             const ws = this.processExcelDataToJson(data, "A1:ZZ1");
             const excelHeaders = xlsx.utils.sheet_to_json(ws, { header: 1 })[0];
@@ -37,10 +39,10 @@ class ExcelDataHandler {
 
     public processExcelDataToJson(data, range) {
         let wb = xlsx.read(data, { type: "buffer" });
-            const wsname = wb.SheetNames[0];
-            const ws = wb.Sheets[wsname];
-            ws['!ref'] = range;
-            return ws;
+        const wsname = wb.SheetNames[0];
+        const ws = wb.Sheets[wsname];
+        ws['!ref'] = range;
+        return ws;
     }
 
     public processTableMap(excelData, modelContent) {

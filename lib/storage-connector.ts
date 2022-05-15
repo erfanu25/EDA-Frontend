@@ -16,10 +16,10 @@ export const listBlobs = async (containerName) => {
     });
 };
 
-export const getBlobFlie = async () => {
+export const getBlobFlie = async (filePath) => {
     const storageAccountConnectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
     const blobService = storage.createBlobService(storageAccountConnectionString);
-    var blobName = 'Employee Data2.xlsx';
+    var blobName = filePath;
     
 
     var writable = fs.createWriteStream(process.env.localFileName);

@@ -4,11 +4,13 @@ import MapperDto from "../dto/mapper.dto";
 import DbTableHandler from "../handler/dbTable.handler";
 import ExcelDataHandler from "../handler/excel-data.handler";
 import DbTableDto from "../dto/dbTable.dto";
+import FileContentHandler from "../handler/fileContent.handler";
 
 
 class MapperService {
     private static mapperService: MapperService;
     private mappingHandler: MapperHandler = MapperHandler.getHandlerInstance();
+    private fileContentHandler: FileContentHandler = FileContentHandler.getHandlerInstance();
     private dbTable: DbTableHandler = DbTableHandler.getHandlerInstance();
     private excelDataHandler: ExcelDataHandler = ExcelDataHandler.getHandlerInstance();
 
@@ -48,7 +50,10 @@ class MapperService {
     }
 
     public async getExcelHeaders(fileId): Promise<String[]> {
-        return this.excelDataHandler.getExcelHeaders(fileId);
+        const fileContent = await this.fileContentHandler.getFileContentById(fileId);
+        console.log("FIle Content");
+        console.log(fileContent);
+        return this.excelDataHandler.getExcelHeaders(fileContent["name"]);
     }
 
     public async getMapper(searchParam): Promise<MapperDto> {

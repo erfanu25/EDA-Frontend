@@ -11,8 +11,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         switch (req.method) {
           case "GET":
             if (req?.query) {
+              console.log("queryyy");
+              console.log(req.query);
               response = {
-                data: await mapperService.getExcelHeaders(req?.query)
+                data: await mapperService.getExcelHeaders(req.query.fileId)
               };
             } else {
               throw Error("No document found");
