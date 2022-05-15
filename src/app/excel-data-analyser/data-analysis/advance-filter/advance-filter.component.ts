@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
 import { Criteria } from '../criteria/models/criteria.model';
 import { CriteriaAddService } from '../criteria/services/criteria-add.service';
@@ -43,7 +45,7 @@ export class AdvanceFilterComponent implements OnInit {
   }
   @Output() filterListChange = new EventEmitter<any>();
   constructor(private formBuilder: FormBuilder,private criteriaAddService:CriteriaAddService,
-    private analysisHttpService: AnalysisHttpHandler
+    private analysisHttpService: AnalysisHttpHandler,private _snackBar: MatSnackBar,private router:Router
   ) {
     
     this.criteriaForm = this.formBuilder.group({
@@ -94,13 +96,26 @@ export class AdvanceFilterComponent implements OnInit {
       let content=JSON.stringify(contentObj); 
       var criteria: Criteria = {name: this.criteriaForm.controls['name'].value,tableName:this.tableName,content: content};
       this.analysisHttpService.post("SaveCriteria", criteria).subscribe(result => {
-        alert("Successfully saved");
+        this._snackBar.open('Search Result has been saved successfully', 'Ok', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          panelClass: 'my-custom-snackbar'
+        })
         this.submitted = false;
         this.criteriaForm.reset();
+        this.displayCriteriaAddComponents=false;
+        this.reloadCurrentRoute();
       }, err => {
         
       });
     }
   }
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+}
   
 }

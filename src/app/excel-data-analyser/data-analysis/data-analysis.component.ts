@@ -11,6 +11,7 @@ import * as fs from 'file-saver';
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { AnalysisHttpHandler } from './service-api/analysis-http.handler';
 import {TabViewModule} from 'primeng/tabview';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-data-analysis',
@@ -54,7 +55,7 @@ export class DataAnalysisComponent implements OnInit {
   path: string;
   constructor(
     private analysisHttpService: AnalysisHttpHandler,
-    private router: Router,
+    private _snackBar: MatSnackBar,private router:Router,
     private route: ActivatedRoute,
     private cd: ChangeDetectorRef,
     private mappingService: DataMappingService,
@@ -112,10 +113,23 @@ export class DataAnalysisComponent implements OnInit {
   handleClose(e) {
     var obj=this.criteriaViews[e.index-1];
     this.analysisHttpService.get(`deleteCriteriaView?id=`+obj._id).subscribe(data => {
-      alert("Delete Successfully");
+      this._snackBar.open('Tab View has been deleted successfully', 'Ok', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        panelClass: 'my-custom-snackbar'
+      });
+      this.reloadCurrentRoute();
       e.close();
     }, err => {
       console.log(err);
     })
   }
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+}
+  
 }
