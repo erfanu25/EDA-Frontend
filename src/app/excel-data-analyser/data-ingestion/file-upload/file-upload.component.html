@@ -1,0 +1,53 @@
+<div>
+	<div id="block_container">
+		<div id="bloc1">
+			<label for="file" id="label_file">&nbsp;</label>
+			<input class="form-control" type="file" id="input_file" #fileInput multiple (change)="addToQueue()" />
+		</div>
+		<!-- <div id="bloc2">
+			<label>&nbsp;</label>
+			<button type="button" class="btn btn-primary btn-block" id="btn-process" (click)="addToQueue()">Upload and Process</button>
+		</div> -->
+	</div>
+	<!-- <div>
+		<input type="file" #fileInput multiple (change)="addToQueue()" />
+	</div> -->
+
+	<div>
+		<h3>Upload queue</h3>
+		<table >
+			<thead>
+				<tr>
+					<th >Name</th>
+					<th >Size</th>
+					<th >Status</th>
+					<th >Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of queue | async">
+					<td>{{ item?.file?.name }}</td>
+					<td>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+					<td>
+						<span *ngIf="item.isPending()" style="color: bl;">Pending</span>
+						<span *ngIf="item.isSuccess()" style="color: green;">Success</span>
+						<span *ngIf="item.inProgress()" style="color: darkblue;">Processing</span>
+						<span *ngIf="item.isError()" style="color: red;">Fail</span>
+					</td>
+					<td>
+						<!-- <button mat-button color="primary" (click)="item.upload()" *ngIf="item.isUploadable()">upload</button>
+						<button mat-button color="primary" (click)="item.cancel()" *ngIf="item.inProgress()">cancel</button> -->
+						<button mat-button color="primary" (click)="item.remove()" *ngIf="!item.inProgress()">remove</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<!-- <button style="text-align: left;" mat-button color="primary" (click)="uploader.clearQueue()">Clear</button> -->
+			<button mat-stroked-button  color="primary" (click)="uploader.uploadAll()">Upload</button>
+			<!-- <a (click)="uploader.clearQueue()">Clear queue</a> -->
+			<!-- <a  (click)="uploader.uploadAll()">Upload all</a> -->
+		</div>
+	</div>
+
+</div>
