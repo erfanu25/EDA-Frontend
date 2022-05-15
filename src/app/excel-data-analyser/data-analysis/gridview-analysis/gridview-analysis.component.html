@@ -22,8 +22,10 @@
           <span class="custom-text" *ngFor="let filter of payloadFiltersList; let i = index">
             <span class="badge badge-pill badge-primary" *ngIf="filter.operator!='Number_Range' && filter.value!=''">
               <strong>{{filter.field | uppercase}}: </strong>
-              <strong *ngIf="filter.operator=='Starts_with' || filter.operator=='Ends_with' || filter.operator=='Equals' || filter.operator=='Equals' || filter.operator=='Date_is'  || filter.operator=='Number_Range'">:</strong>
+              <strong *ngIf="filter.operator=='Ends_with' || filter.operator=='Equals'  || filter.operator=='Date_is'  || filter.operator=='Number_Range'">:</strong>
               <strong *ngIf="filter.operator=='Not_Equals'">!=</strong>
+              <strong *ngIf="filter.operator=='Starts_with'">^=</strong>
+              <strong *ngIf="filter.operator=='Ends_with'">&=</strong>
               <strong *ngIf="filter.operator=='Less_than_or_equal_to'"> <= </strong>
               <strong *ngIf="filter.operator=='Greater_than'">></strong>
               <strong *ngIf="filter.operator=='Greater_than_or_equal_to'">>=</strong>
