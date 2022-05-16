@@ -47,6 +47,7 @@ export class DataMappingComponent implements OnInit {
   mapperName: string;
   mappedContent: string;
   fileId: string;
+  fileName: string;
 
   ngOnInit(): void {
 
@@ -54,6 +55,7 @@ export class DataMappingComponent implements OnInit {
       .subscribe(params => {
         console.log(params); // { category: "fiction" }
         this.fileId = params["fileId"];
+        this.fileName = params["fileName"];
         console.log("File Id "+this.fileId);
       }
     );
@@ -145,8 +147,9 @@ export class DataMappingComponent implements OnInit {
   }
 
   onViewMapping(mapperContent) {
+    let queryParam = { "fileName": this.fileName };
     const dataMap = JSON.stringify(Object.fromEntries(mapperContent.entries()));
-    this.mappingService.getExcelDataWithMapping(dataMap)
+    this.mappingService.getExcelDataWithMapping(dataMap, queryParam)
       .subscribe(mappedData => {
         this.showMapperView = true;
         this.tabledata = mappedData.data;

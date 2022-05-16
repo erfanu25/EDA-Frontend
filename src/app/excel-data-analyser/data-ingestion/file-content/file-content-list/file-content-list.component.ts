@@ -57,9 +57,9 @@ export class FileContentListComponent implements OnInit {
       .subscribe(data => console.log(data));
   }
 
-  navigateToDataMapping(fileId) {
+  navigateToDataMapping(fileId, fileName) {
     //this.router.navigate(['../dataMapping'], { relativeTo: this.route });
-    this.router.navigate(['../dataMapping'], { queryParams: { fileId: fileId } })
+    this.router.navigate(['../dataMapping'], { queryParams: { fileId: fileId, fileName: fileName } })
   }
 
 
