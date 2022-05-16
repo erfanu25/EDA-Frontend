@@ -45,8 +45,8 @@ class MapperService {
         return this.mappingHandler.getMapperNames(searchParams);
     }
 
-    public async getMappedExcelData(modelContent): Promise<String[]> {
-        return this.excelDataHandler.getMappedExcelData(modelContent);
+    public async getMappedExcelData(modelContent, filePath): Promise<String[]> {
+        return this.excelDataHandler.getMappedExcelData(modelContent, filePath);
     }
 
     public async getExcelHeaders(fileId): Promise<String[]> {
