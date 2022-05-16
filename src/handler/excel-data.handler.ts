@@ -15,14 +15,14 @@ class ExcelDataHandler {
         return this.excelDataHandler;
     }
 
-    public async getMappedExcelData(modelContent): Promise<any> {
-        // return await getBlobFlie().then(data => {
+    public async getMappedExcelData(modelContent, filePath): Promise<any> {
+        return await getBlobFlie(filePath).then(data => {
 
-        //     const ws = this.processExcelDataToJson(data, "A1:ZZ4");
-        //     const excelData = xlsx.utils.sheet_to_json(ws);
+            const ws = this.processExcelDataToJson(data, "A1:ZZ4");
+            const excelData = xlsx.utils.sheet_to_json(ws);
 
-        //     return this.processTableMap(excelData, modelContent);
-        // });
+            return this.processTableMap(excelData, modelContent);
+        });
         return null;
     }
 
