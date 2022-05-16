@@ -87,7 +87,7 @@ export class DataMappingComponent implements OnInit {
       .subscribe(columns => {
         this.showTable = true;
         this.dbColumnList = columns;
-        this.getMapperNames(event.value);
+        this.getMapperNames(schema);
         this.getExcelHeaderList();
       });
 
@@ -167,7 +167,10 @@ export class DataMappingComponent implements OnInit {
     }
 
     this.mappingService.updateMapping(updatedMapper)
-      .subscribe((updatedMapper) => this.showSuccesMessage());
+      .subscribe((updatedMapper) => {
+        this.showSuccesMessage();
+        this.navigateToDataIngestion();
+      });
   }
 
   showSuccesMessage() {
@@ -192,6 +195,7 @@ export class DataMappingComponent implements OnInit {
       .subscribe((response) => {
         this.showSuccesMessage();
         this.setMapperSelectedAfterSave(response["mapResponse"]);
+        this.navigateToDataIngestion();
       });
   }
 
@@ -199,6 +203,10 @@ export class DataMappingComponent implements OnInit {
     let option = { _id: mapper["_id"], mapperName: mapper["mapperName"] };
     this.mapperNameList.push(option);
     this.selectedMapperId = mapper["_id"];
+  }
+
+  navigateToDataIngestion() {
+    this.router.navigate(['']);
   }
 
 }
