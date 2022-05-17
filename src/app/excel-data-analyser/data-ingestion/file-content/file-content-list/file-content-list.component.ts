@@ -7,7 +7,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, Observable, merge, fromEvent } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 
+export class Message {
+  constructor(
+      public sender: string,
+      public content: string,
+      public isBroadcast = false,
+  ) { }
+}
 @Component({
   selector: 'file-content-list',
   templateUrl: './file-content-list.component.html',
@@ -22,6 +30,7 @@ export class FileContentListComponent implements OnInit {
   isLoadingResults = false;
   isRateLimitReached = false;
   requestParam: FileContentListApiReqParam = {} as FileContentListApiReqParam;
+  private socket$: WebSocketSubject<Message>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -35,6 +44,15 @@ export class FileContentListComponent implements OnInit {
   constructor(private _httpClient: HttpClient, private router: Router,
     private fileContentService: FileContentServiceService,
     private route: ActivatedRoute) {
+
+      this.socket$ = new WebSocketSubject('ws://localhost:8999');
+
+        this.socket$
+            .subscribe(
+            (message) => console.log(message),
+            (err) => console.error(err),
+            () => console.warn('Completed!')
+            );
   }
   ngAfterViewInit() {
     this.paginator.page
