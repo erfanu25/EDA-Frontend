@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
 import { Criteria } from '../criteria/models/criteria.model';
 import { CriteriaAddService } from '../criteria/services/criteria-add.service';
 import { AnalysisHttpHandler } from '../service-api/analysis-http.handler';
 import { DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria } from "./../domain/data-analysis.domain";
-
 @Component({
   selector: 'app-advance-filter',
   templateUrl: './advance-filter.component.html',
@@ -27,6 +26,7 @@ export class AdvanceFilterComponent implements OnInit {
   criteriaForm: FormGroup;
   public submitted = false;
   query:string;
+
   @Input('columnWithTypes') set columnWithTypes(data) {
     if (data) {
       this.headers = data;
@@ -43,7 +43,7 @@ export class AdvanceFilterComponent implements OnInit {
     }
   }
   @Output() filterListChange = new EventEmitter<any>();
-  constructor(private formBuilder: FormBuilder,private criteriaAddService:CriteriaAddService,
+  constructor(private activatedRouter: ActivatedRoute,private formBuilder: FormBuilder,private criteriaAddService:CriteriaAddService,
     private analysisHttpService: AnalysisHttpHandler,private _snackBar: MatSnackBar,private router:Router
   ) {
     
@@ -54,18 +54,29 @@ export class AdvanceFilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.displayCriteriaAddComponents = false;
+
   }
   onCriteriaViewClick() {
     this.displayCriteriaAddComponents = true;
   }
   updatedFilter(obj) {
+    debugger
     if (this.advanceFilterList.some(item => item.field.trim() === obj.field.trim() )) {
       let itemIndex = this.advanceFilterList.findIndex(item => item.field.trim() === obj.field.trim());
-      if(obj.value== undefined || obj.value == "" ){
-        this.advanceFilterList.splice(itemIndex,1);
+      if(obj.operator=="Number_Range"){
+        if(obj.value1== undefined || obj.value1 == "" ){
+          this.advanceFilterList.splice(itemIndex,1);
+        }else{
+          this.advanceFilterList[itemIndex] = obj;
+        }
       }else{
-        this.advanceFilterList[itemIndex] = obj;
+        if(obj.value== undefined || obj.value == "" ){
+          this.advanceFilterList.splice(itemIndex,1);
+        }else{
+          this.advanceFilterList[itemIndex] = obj;
+        }
       }
+
 
     } else {
       if(obj.value!==""){
@@ -104,10 +115,17 @@ export class AdvanceFilterComponent implements OnInit {
     }
   }
   reloadCurrentRoute() {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
+    const random = Math.random().toFixed(5);
+    this.router.navigate([], {
+      relativeTo: this.activatedRouter,
+      queryParams: {tableName: this.tableName,random},
+      queryParamsHandling: 'merge',
     });
+    // const currentUrl = this.router.url;
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //     this.router.navigate([currentUrl]);
+    // });
+
 }
   
 }

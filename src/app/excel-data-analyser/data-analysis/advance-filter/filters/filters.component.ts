@@ -86,7 +86,14 @@ export class FiltersComponent implements OnInit {
     let value1=event.value;
     let value2=event.highValue;
     this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value1:value1,value2:value2});
-
+  }
+  onChangeRangeInput(key,criteriaValue,value1,value2){
+    if(criteriaValue==undefined || criteriaValue==""){
+      alert("Please select criteria condition");
+      return;
+    }
+    debugger;
+    this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value1:value1,value2:value2});
   }
  
 }

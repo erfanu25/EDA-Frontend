@@ -17,7 +17,7 @@ export let TextCriteria = [
 export let DateCriteria = [
 
   { label: 'Date is', value: 'Date_is' },
-  { label: 'Date is NOT', value: 'Date_is_NOT' }  ,
+  // { label: 'Date is NOT', value: 'Date_is_NOT' }  ,
   { label: 'Date is BEFORE', value: 'Date_is_BEFORE' },
   { label: 'Date is AFTER', value: 'Date_is_AFTER' }
 ];

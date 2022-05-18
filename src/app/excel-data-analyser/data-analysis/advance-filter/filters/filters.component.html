@@ -20,8 +20,8 @@
   <!-- {{numberCriteriaModel}} -->
 <div *ngIf="columnInfo.type==='Number' && numberCriteriaModel=='Number_Range'"  >
   <div>
-    <p>Min value: <input type="number" [(ngModel)]="minValue"></p>
-<p>Max value: <input type="number" [(ngModel)]="maxValue"></p>
+    <p>Min value: <input type="number" [(ngModel)]="minValue" (keyup)="onChangeRangeInput(columnInfo.key,numberCriteriaModel,minValue,maxValue)"></p>
+<p>Max value: <input type="number" [(ngModel)]="maxValue" (keyup)="onChangeRangeInput(columnInfo.key,numberCriteriaModel,minValue,maxValue)"></p>
   </div>
   <div class="custom-slider" >
     <ngx-slider (userChangeEnd)="onChangeRange(columnInfo.key,numberCriteriaModel,$event)" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>

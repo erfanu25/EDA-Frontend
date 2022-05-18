@@ -13,10 +13,10 @@
         <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
         <br>
         <p-tabView  scrollable="true" [controlClose]="true" (onClose)="handleClose($event)" >
-          <p-tabPanel header="Default">
+          <p-tabPanel header="Default" leftIcon="pi pi-calendar">
             <app-gridview-analysis [tableName]="tableName"></app-gridview-analysis>
           </p-tabPanel>
-          <p-tabPanel   closable="true"   *ngFor="let view of criteriaViews;let i = index;" [header]="view.name">
+          <p-tabPanel   leftIcon="pi pi-user"   closable="true"   *ngFor="let view of criteriaViews;let i = index;" [header]="view.name">
             <ng-template pTemplate="content" >
               <div>
                 <!-- Content {{i}} -->

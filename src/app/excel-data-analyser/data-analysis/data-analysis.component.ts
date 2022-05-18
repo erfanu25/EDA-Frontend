@@ -12,6 +12,7 @@ import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { AnalysisHttpHandler } from './service-api/analysis-http.handler';
 import {TabViewModule} from 'primeng/tabview';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-data-analysis',
@@ -50,7 +51,7 @@ export class DataAnalysisComponent implements OnInit {
   columnWithTypes: any = [];
   payloadFiltersList:any
   activeIndex:Number;
-
+  subs = new SubSink();
 
   path: string;
   constructor(
@@ -60,6 +61,7 @@ export class DataAnalysisComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private mappingService: DataMappingService,
     private dataAnalysisService: DataAnalysisService,
+    private activatedRouter: ActivatedRoute,
   ) {
    }
   ngOnInit(): void {
@@ -90,6 +92,17 @@ export class DataAnalysisComponent implements OnInit {
 
     this.displayCriteriaAddComponents = false;
     this.activeIndex=0;
+    this.subs.sink = this.activatedRouter.queryParams.subscribe((params:any) => {
+      const newParam = { ...params };
+      let tableName= newParam.tableName;
+      debugger;
+      if(tableName){
+        this.tableName =tableName.toString();
+        this.value=tableName.toString();
+        // this.fetchList(this.tableName.toUpperCase());
+
+      }
+    });
 
     
   }
@@ -126,10 +139,16 @@ export class DataAnalysisComponent implements OnInit {
     })
   }
   reloadCurrentRoute() {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
+    const random = Math.random().toFixed(5);
+    this.router.navigate([], {
+      relativeTo: this.activatedRouter,
+      queryParams: {tableName: this.tableName,random},
+      queryParamsHandling: 'merge',
     });
+    // const currentUrl = this.router.url;
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //     this.router.navigate([currentUrl]);
+    // });
 }
   
 }

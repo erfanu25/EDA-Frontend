@@ -31,8 +31,6 @@
               <strong *ngIf="filter.operator=='Greater_than_or_equal_to'">>=</strong>
               <strong *ngIf="filter.operator=='Date_is_BEFORE'"><</strong>
               <strong *ngIf="filter.operator=='Date_is_AFTER'">></strong>
-
-
               <span *ngIf="filter.operator!='Number_Range'"> {{filter.value}} </span>
             </span>
             <span class="badge badge-pill badge-primary" *ngIf="filter.operator=='Number_Range'">
