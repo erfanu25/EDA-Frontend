@@ -100,6 +100,7 @@ export class DataMappingComponent implements OnInit {
     this.mappingService.getExcelHeaders(queryParam)
       .subscribe(headers => {
         this.excelHeaderList = headers.data;
+        this.excelHeaderList.push("");
       });
   }
 
