@@ -64,7 +64,7 @@
         </div>
         <div class="ui-g" style="margin-bottom:10px;" *ngFor="let column of columnHeaders; let i = index">
           <div class="ui-g-2">
-            <p-checkbox binary="true" [style]="{'background': '#204a63'}" [(ngModel)]="permissions[i]"
+            <p-checkbox binary="true" [style]="{'background': '#333333'}" [(ngModel)]="permissions[i]"
               (onChange)="checkSingleColumn()"></p-checkbox>
             {{column | titlecase}}
           </div>
