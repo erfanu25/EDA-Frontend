@@ -41,7 +41,7 @@
       <button mat-raised-button (click)="injectFile(row.path)">Inject Now</button>
       </div>
       <div *ngIf="row.status.name === 'UNMAPPED'">
-        <button mat-raised-button (click)="navigateToDataMapping(row._id)">Map</button>
+        <button mat-raised-button (click)="navigateToDataMapping(row._id, row.name)">Map</button>
       </div>
     </td>
   </ng-container>

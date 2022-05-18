@@ -47,6 +47,7 @@ export class DataMappingComponent implements OnInit {
   mapperName: string;
   mappedContent: string;
   fileId: string;
+  fileName: string;
 
   ngOnInit(): void {
 
@@ -54,6 +55,7 @@ export class DataMappingComponent implements OnInit {
       .subscribe(params => {
         console.log(params); // { category: "fiction" }
         this.fileId = params["fileId"];
+        this.fileName = params["fileName"];
         console.log("File Id "+this.fileId);
       }
     );
@@ -85,7 +87,7 @@ export class DataMappingComponent implements OnInit {
       .subscribe(columns => {
         this.showTable = true;
         this.dbColumnList = columns;
-        this.getMapperNames(event.value);
+        this.getMapperNames(schema);
         this.getExcelHeaderList();
       });
 
@@ -145,8 +147,9 @@ export class DataMappingComponent implements OnInit {
   }
 
   onViewMapping(mapperContent) {
+    let queryParam = { "fileName": this.fileName };
     const dataMap = JSON.stringify(Object.fromEntries(mapperContent.entries()));
-    this.mappingService.getExcelDataWithMapping(dataMap)
+    this.mappingService.getExcelDataWithMapping(dataMap, queryParam)
       .subscribe(mappedData => {
         this.showMapperView = true;
         this.tabledata = mappedData.data;
@@ -164,7 +167,10 @@ export class DataMappingComponent implements OnInit {
     }
 
     this.mappingService.updateMapping(updatedMapper)
-      .subscribe((updatedMapper) => this.showSuccesMessage());
+      .subscribe((updatedMapper) => {
+        this.showSuccesMessage();
+        this.navigateToDataIngestion();
+      });
   }
 
   showSuccesMessage() {
@@ -189,6 +195,7 @@ export class DataMappingComponent implements OnInit {
       .subscribe((response) => {
         this.showSuccesMessage();
         this.setMapperSelectedAfterSave(response["mapResponse"]);
+        this.navigateToDataIngestion();
       });
   }
 
@@ -196,6 +203,10 @@ export class DataMappingComponent implements OnInit {
     let option = { _id: mapper["_id"], mapperName: mapper["mapperName"] };
     this.mapperNameList.push(option);
     this.selectedMapperId = mapper["_id"];
+  }
+
+  navigateToDataIngestion() {
+    this.router.navigate(['']);
   }
 
 }

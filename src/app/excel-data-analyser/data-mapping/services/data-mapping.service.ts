@@ -32,8 +32,11 @@ export class DataMappingService {
     return this.http.post<IMapper>(endpoints.update_mapper_url, mapper);
   }
 
-  public getExcelDataWithMapping(dataMap): Observable<any> {
-    return this.http.post<IMapper>(endpoints.get_data_with_mapping, dataMap);
+  public getExcelDataWithMapping(dataMap, queryParam): Observable<any> {
+    const httpParams = new HttpParams({
+      fromObject: queryParam
+    });
+    return this.http.post<IMapper>(endpoints.get_data_with_mapping, dataMap, { params: httpParams });
   }
 
   public getExcelHeaders(queryParam): Observable<any> {
