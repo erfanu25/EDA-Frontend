@@ -7,9 +7,11 @@
   <div>
     <!-- <button mat-button [hidden]="isDataMapping" style="background-color:green;margin-left: 2px;
         color:white" (click)="navigateToDataMapping()">Data Mapping</button> -->
-    <button mat-button   [hidden]="isDataIngestion" style="background-color:green;margin-left: 2px;
+    <button mat-button *ngIf="isDataAnalysis"  style="background-color:green;margin-left: 2px;
+        color:white" >Data Definition</button>
+    <button mat-button   [disabled]="isDataIngestion" [ngStyle]="{'background-color': (isDataIngestion == true) ? 'grey' : 'green' }" style="margin-left: 2px;
         color:white" (click)="navigateToDataIngestion()">Data Ingestion</button>
-    <button mat-button [hidden]="isDataAnalysis"  style="background-color:green;margin-left: 2px;
+    <button mat-button [disabled]="isDataAnalysis" [ngStyle]="{'background-color': (isDataAnalysis == true) ? 'grey' : 'green' }" style="margin-left: 2px;
         color:white" (click)="navigateToDataAnalysis()">Data Analysis</button>
   </div>
 
