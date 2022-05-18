@@ -67,6 +67,10 @@ export class TableMapperComponent implements OnInit, OnChanges {
           event.container.data,
           event.previousIndex,
           event.currentIndex);
+
+          if (!event.container.data[event.currentIndex]) {
+            this.excelHeaderList.push('');
+          }
       }
       this.populateColumnHeaderMaping(event);
     } else {
@@ -85,8 +89,11 @@ export class TableMapperComponent implements OnInit, OnChanges {
   }
 
   populateColumnHeaderMaping(event: CdkDragDrop<string[]>) {
+    this.mappedContent = new Map<string, string>();
     event.container.data.forEach(((element, indx) => {
-      this.mappedContent.set(this.dbColumns[indx], element);
+      if (element) {
+        this.mappedContent.set(this.dbColumns[indx], element);
+      }
     }));
 
   }
@@ -114,7 +121,7 @@ export class TableMapperComponent implements OnInit, OnChanges {
 
   placeInDbColumn(column) {
     let columnIndx = this.excelHeaderList.indexOf(column);
-    if (columnIndx == -1) {
+    if (columnIndx == -1 && column) {
       this.excelHeaderList.push(column);
     }
   }
