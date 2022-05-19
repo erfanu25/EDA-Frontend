@@ -45,14 +45,14 @@ export class FileContentListComponent implements OnInit {
     private fileContentService: FileContentServiceService,
     private route: ActivatedRoute) {
 
-      this.socket$ = new WebSocketSubject('ws://localhost:8999');
+      // this.socket$ = new WebSocketSubject('ws://localhost:8999');
 
-        this.socket$
-            .subscribe(
-            (message) => console.log(message),
-            (err) => console.error(err),
-            () => console.warn('Completed!')
-            );
+      //   this.socket$
+      //       .subscribe(
+      //       (message) => console.log(message),
+      //       (err) => console.error(err),
+      //       () => console.warn('Completed!')
+      //       );
   }
   ngAfterViewInit() {
     this.paginator.page
