@@ -25,7 +25,7 @@ export class TopbarComponent implements OnInit {
   }
 
   constructor(
-    private router: Router,
+    public router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {

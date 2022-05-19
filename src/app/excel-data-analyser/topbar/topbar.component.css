@@ -1,4 +1,25 @@
-.toolbar {
+/*.toolbar {*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  right: 0;*/
+/*  height: 60px;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  !* background-color: #1976d2; *!*/
+/*  background-color: #333333;*/
+/*  color: white;*/
+/*  font-weight: 600;*/
+/*}*/
+.spacer {
+  flex: 15;
+}
+
+.navbar img {
+  margin: 0 16px;
+}
+
+.navbar{
   position: absolute;
   top: 0;
   left: 0;
@@ -10,12 +31,6 @@
   background-color: #333333;
   color: white;
   font-weight: 600;
-}
-.spacer {
-  flex: 1;
-}
-.toolbar img {
-  margin: 0 16px;
 }
 
 .toolbar #twitter-logo {
@@ -39,10 +54,27 @@ svg.material-icons {
   width: auto;
 }
 
+/*.active-link {*/
+/*  color: black;*/
+/*  background-color: white;*/
+/*}*/
+.nav-link.disabled{
+  color: grey;
+}
+.nav-link{
+  color: yellow;
+}
+
+.nav-link.active-link{
+  color: black;
+  background-color: white;
+}
 svg.material-icons:not(:last-child) {
   margin-right: 8px;
 }
-
+.disabled {
+  pointer-events: all !important;
+}
 .card {
   all: unset;
   border-radius: 4px;
