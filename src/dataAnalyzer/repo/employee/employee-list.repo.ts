@@ -33,7 +33,7 @@ class EmployeeListRepo {
 
 
 
-    public async getSearchedEmployeeList( minRange, maxRange, searchedText): Promise<EmployeeDto[]> {
+    public async getSearchedEmployeeList( minRange, maxRange, searchedText): Promise<any[]> {
         employeeModel.createIndexes({
             name: "text"
 

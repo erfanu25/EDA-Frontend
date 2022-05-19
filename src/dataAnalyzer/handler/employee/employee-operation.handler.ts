@@ -18,10 +18,11 @@ class EmployeeOperationHandler {
     public async add(employeeDto:EmployeeDto){
         var employee: IEmployee = {
             email: employeeDto.email, name: employeeDto.name, age: employeeDto.age, salary: employeeDto.salary,
-            gender: "",
-            mobileNo: "",
-            emergencyContactNo: "",
-            birthDate: undefined
+            gender: employeeDto.gender,
+            mobileNo: employeeDto.mobileNo,
+            emergencyContactNo:employeeDto.emergencyContactNo,
+            birthDate: undefined,
+            address: employeeDto.address
         };
         return await this.EmployeeAddRepo.Add(employee);
     }
