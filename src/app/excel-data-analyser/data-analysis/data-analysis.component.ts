@@ -99,7 +99,7 @@ export class DataAnalysisComponent implements OnInit {
       if(tableName){
         this.tableName =tableName.toString();
         this.value=tableName.toString();
-        // this.fetchList(this.tableName.toUpperCase());
+        this.fetchList(this.tableName.toUpperCase());
 
       }
     });
@@ -150,5 +150,15 @@ export class DataAnalysisComponent implements OnInit {
     //     this.router.navigate([currentUrl]);
     // });
 }
+// handleChange(e) {
+//   var index = e.index;
+//   var obj=this.criteriaViews[e.index-1];
+//   const random = Math.random().toFixed(5);
+//   this.router.navigate([], {
+//     relativeTo: this.activatedRouter,
+//     queryParams: {tabView: obj.name},
+//     queryParamsHandling: 'merge',
+//   });
+// }
   
 }

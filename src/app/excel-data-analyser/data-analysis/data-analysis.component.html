@@ -12,7 +12,7 @@
       <p-card>
         <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
         <br>
-        <p-tabView  scrollable="true" [controlClose]="true" (onClose)="handleClose($event)" >
+        <p-tabView   scrollable="true" [controlClose]="true" (onClose)="handleClose($event)" >
           <p-tabPanel header="Default" leftIcon="pi pi-calendar">
             <app-gridview-analysis [tableName]="tableName"></app-gridview-analysis>
           </p-tabPanel>
