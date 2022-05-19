@@ -10,7 +10,8 @@ export interface IEmployee {
     gender:string;
     mobileNo:string;
     emergencyContactNo:string,
-    birthDate:Date
+    birthDate:Date,
+    address:string
 }
 
 const EmployeeSchema: Schema = new Schema({
@@ -22,6 +23,7 @@ const EmployeeSchema: Schema = new Schema({
     mobileNo: { type: String, required: false },
     emergencyContactNo: { type: String, required: false },
     birthDate: { type: Date, required: false },
+    address: { type: String, required: false },
 })
 // const empl= mongoose.model("Employee", EmployeeSchema)
 
