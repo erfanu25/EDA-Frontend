@@ -32,9 +32,9 @@ export class FiltersComponent implements OnInit {
     translate: (value: number, label: LabelType): string => {
       switch (label) {
         case LabelType.Low:
-          return "<b style='font-size:8px'>Min Age:" + value+"</b>";
+          return "<b style='font-size:8px'>Min :" + value+"</b>";
         case LabelType.High:
-          return "<b style='font-size:8px'>Max Age:" + value+"</b>";
+          return "<b style='font-size:8px'>Max :" + value+"</b>";
         default:
           return "<span style='font-size:8px'>" + value+"</span>";;
       }
@@ -56,43 +56,43 @@ export class FiltersComponent implements OnInit {
     this.inputNumberValueModel="";
     this.inputTextValueModel="";
   }
-  onSelect(key,criteriaValue,inputValue){
-    if(criteriaValue==undefined || criteriaValue==""){
+  onSelect(field,operator,inputValue){
+    if(operator==undefined || operator==""){
       alert("Please select criteria condition");
       return;
     } 
-    if(criteriaValue=="Number_Range"){
-      this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value1:this.minValue,value2:this.maxValue});
+    if(operator=="Number_Range"){
+      this.filterChange.emit({field:field.trim(),operator:operator.trim(),value1:this.minValue,value2:this.maxValue});
     }else{
-      this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value:inputValue==undefined?"":inputValue});
+      this.filterChange.emit({field:field.trim(),operator:operator.trim(),value:inputValue==undefined?"":inputValue});
     }
   }
-  inputChanges(key,criteriaValue,inputValue){
-    if(criteriaValue==undefined || criteriaValue==""){
+  inputChanges(field,operator,inputValue){
+    if(operator==undefined || operator==""){
       alert("Please select criteria condition");
       return;
     }
-    if(criteriaValue=="Date_is" || criteriaValue=="Date_is_NOT" || criteriaValue=="Date_is_BEFORE" || criteriaValue=="Date_is_AFTER"){
+    if(operator=="Date_is" || operator=="Date_is_NOT" || operator=="Date_is_BEFORE" || operator=="Date_is_AFTER"){
       let latest_date_string =this.datepipe.transform(Date.parse(inputValue), 'yyyy-MM-dd');
       inputValue=latest_date_string;
     }
-    this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value:inputValue==undefined?"":inputValue});
+    this.filterChange.emit({field:field.trim(),operator:operator.trim(),value:inputValue==undefined?"":inputValue});
   }
-  onChangeRange(key,criteriaValue,event){
-    if(criteriaValue==undefined || criteriaValue==""){
+  onChangeRange(field,operator,event){
+    if(operator==undefined || operator==""){
       alert("Please select criteria condition");
       return;
     }
     let value1=event.value;
     let value2=event.highValue;
-    this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value1:value1,value2:value2});
+    this.filterChange.emit({field:field.trim(),operator:operator.trim(),value1:value1,value2:value2});
   }
-  onChangeRangeInput(key,criteriaValue,value1,value2){
-    if(criteriaValue==undefined || criteriaValue==""){
+  onChangeRangeInput(field,operator,value1,value2){
+    if(operator==undefined || operator==""){
       alert("Please select criteria condition");
       return;
     }
-    this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value1:value1,value2:value2});
+    this.filterChange.emit({field:field.trim(),operator:operator.trim(),value1:value1,value2:value2});
   }
  
 }
