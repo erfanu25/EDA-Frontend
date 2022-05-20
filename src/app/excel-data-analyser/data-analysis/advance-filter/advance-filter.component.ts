@@ -34,12 +34,7 @@ export class AdvanceFilterComponent implements OnInit {
   }
   @Input('tableName') set setTableName(data) {
     if (data) {
-      if(data=="EMPLOYEE"){
-        this.tableName ="Employee";
-      } 
-      if(data=="COMPANY"){
-        this.tableName ="Company";
-      }
+      this.tableName =data;
     }
   }
   @Output() filterListChange = new EventEmitter<any>();

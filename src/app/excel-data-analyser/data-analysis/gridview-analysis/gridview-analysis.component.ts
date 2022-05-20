@@ -6,8 +6,6 @@ import { DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria } fro
 import { DataAnalysisService } from '../service-api/data-analysis.service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
-import { LabelType, Options } from '@angular-slider/ngx-slider';
-
 @Component({
   selector: 'app-gridview-analysis',
   templateUrl: './gridview-analysis.component.html',
@@ -48,9 +46,7 @@ export class GridviewAnalysisComponent implements OnInit {
   @Input('tableName') set setTableName(data) {
     if (data) {
       this.tableName = data;
-      debugger;
       this.fetchList();
-      console.log(this.tableName);
     }
   }
  
@@ -71,8 +67,6 @@ export class GridviewAnalysisComponent implements OnInit {
   }
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
-    private cd: ChangeDetectorRef,
     private mappingService: DataMappingService,
     private dataAnalysisService: DataAnalysisService,) { }
 
@@ -82,12 +76,7 @@ export class GridviewAnalysisComponent implements OnInit {
   }
   fetchList() {
     let queryParam = {};
-    if (this.tableName == 'EMPLOYEE') {
-      queryParam = { "collectionName": 'Employee' };
-    }
-    if (this.tableName === 'COMPANY') {
-      queryParam = { "collectionName": 'Company' };
-    }
+    queryParam = { "collectionName": this.tableName };
     this.mappingService.getTableColumns(queryParam)
       .subscribe(columns => {
         this.columnHeaders = columns;
@@ -108,12 +97,7 @@ export class GridviewAnalysisComponent implements OnInit {
     this.displayAdvanceFiltersComponents = false;
     let queryParam = {};
     if (this.showableColumn == null) {
-      if (this.tableName === 'EMPLOYEE') {
-        queryParam = { "collectionName": 'Employee' };
-      }
-      if (this.tableName === 'COMPANY') {
-        queryParam = { "collectionName": 'Company' };
-      }
+      queryParam = { "collectionName": this.tableName };
       this.mappingService.getTableColumns(queryParam).subscribe(columns => {
         this.columnHeaders = columns;
         this.columnToShow = columns;
@@ -131,12 +115,7 @@ export class GridviewAnalysisComponent implements OnInit {
   }
   GetColumnsWithTypes() {
     let queryParam = {};
-    if (this.tableName === 'EMPLOYEE') {
-      queryParam = { "collectionName": 'Employee' };
-    }
-    if (this.tableName === 'COMPANY') {
-      queryParam = { "collectionName": 'Company' };
-    }
+    queryParam = { "collectionName": this.tableName };
     this.mappingService.GetColumnsWithTypes(queryParam)
       .subscribe(columns => {
         this.columnWithTypes=columns;
@@ -177,9 +156,7 @@ export class GridviewAnalysisComponent implements OnInit {
   onExportDataClick() {
 
     var query = ``;
-    if (this.tableName === "EMPLOYEE") {
-      query = `getList?modelName=Employee&sortBy=name&sortType=-1&pageIndex=1&pageSize=1000000`;
-    }
+    query = `getList?modelName=${this.tableName}&sortBy=name&sortType=-1&pageIndex=1&pageSize=1000000`;
     this.dataAnalysisService.getList(query,{})
       .subscribe(data => {
         this.details = data.data;

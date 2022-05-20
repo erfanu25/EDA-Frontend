@@ -1,7 +1,7 @@
 export let TableType = [
 
-  { label: 'Employee', value: 'EMPLOYEE' },
-  { label: 'Company', value: 'COMPANY' }
+  { label: 'Employee', value: 'Employee' },
+  { label: 'Company', value: 'Company' }
 ];
 
 export let TextCriteria = [

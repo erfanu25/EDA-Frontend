@@ -10,7 +10,7 @@ import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { AnalysisHttpHandler } from './service-api/analysis-http.handler';
-import {TabViewModule} from 'primeng/tabview';
+import { TabViewModule } from 'primeng/tabview';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SubSink } from 'subsink';
 
@@ -49,31 +49,29 @@ export class DataAnalysisComponent implements OnInit {
   columnToShow: Array<any> = [];
   tableName: string;
   columnWithTypes: any = [];
-  payloadFiltersList:any
-  activeIndex:Number;
+  payloadFiltersList: any
+  activeIndex: Number;
   subs = new SubSink();
 
   path: string;
   constructor(
     private analysisHttpService: AnalysisHttpHandler,
-    private _snackBar: MatSnackBar,private router:Router,
+    private _snackBar: MatSnackBar, private router: Router,
     private route: ActivatedRoute,
     private cd: ChangeDetectorRef,
     private mappingService: DataMappingService,
     private dataAnalysisService: DataAnalysisService,
     private activatedRouter: ActivatedRoute,
   ) {
-   }
+  }
   ngOnInit(): void {
     this.loading = false;
     this.tableName = "";
-
     this.users = [
       { id: 1, name: 'Sam', permission: [] },
       { id: 2, name: 'Adam', permission: [] },
       { id: 3, name: 'Chris', permission: [] }
     ]
-
     this.items = [
       { label: 'Grid Views', icon: 'pi pi-fw pi-th-large' },
 
@@ -82,50 +80,35 @@ export class DataAnalysisComponent implements OnInit {
       // {label: 'Custom Queries', icon: 'pi pi-fw pi-key'}
     ];
     this.activeItem = this.items[0];
-
-
     this.path = this.route.snapshot.routeConfig.path;
-
-
     this.path = this.route.snapshot.routeConfig.path;
-
-
     this.displayCriteriaAddComponents = false;
-    this.activeIndex=0;
-    this.subs.sink = this.activatedRouter.queryParams.subscribe((params:any) => {
+    this.activeIndex = 0;
+    this.subs.sink = this.activatedRouter.queryParams.subscribe((params: any) => {
       const newParam = { ...params };
-      let tableName= newParam.tableName;
+      let tableName = newParam.tableName;
       debugger;
-      if(tableName){
-        this.tableName =tableName.toString();
-        this.value=tableName.toString();
-        this.fetchList(this.tableName.toUpperCase());
-
+      if (tableName) {
+        this.tableName = tableName.toString();
+        this.value = tableName.toString();
+        this.fetchList(this.tableName);
       }
     });
-
-    
   }
   fetchList(event) {
-    if (event === 'EMPLOYEE') {
-      this.tableName = 'EMPLOYEE';
-    }
-    if (event === 'COMPANY') {
-      this.tableName = 'COMPANY';
-    }
+    this.tableName = event;
     this.GetCriteriaList();
-
   }
   GetCriteriaList() {
     this.analysisHttpService.get(`GetCriteriaView`).subscribe(data => {
-      this.criteriaViews=data;
+      this.criteriaViews = data;
     }, err => {
       console.log(err);
     })
   }
   handleClose(e) {
-    var obj=this.criteriaViews[e.index-1];
-    this.analysisHttpService.get(`deleteCriteriaView?id=`+obj._id).subscribe(data => {
+    var obj = this.criteriaViews[e.index - 1];
+    this.analysisHttpService.get(`deleteCriteriaView?id=` + obj._id).subscribe(data => {
       this._snackBar.open('Tab View has been deleted successfully', 'Ok', {
         duration: 3000,
         verticalPosition: 'top',
@@ -142,23 +125,8 @@ export class DataAnalysisComponent implements OnInit {
     const random = Math.random().toFixed(5);
     this.router.navigate([], {
       relativeTo: this.activatedRouter,
-      queryParams: {tableName: this.tableName,random},
+      queryParams: { tableName: this.tableName, random },
       queryParamsHandling: 'merge',
     });
-    // const currentUrl = this.router.url;
-    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    //     this.router.navigate([currentUrl]);
-    // });
-}
-// handleChange(e) {
-//   var index = e.index;
-//   var obj=this.criteriaViews[e.index-1];
-//   const random = Math.random().toFixed(5);
-//   this.router.navigate([], {
-//     relativeTo: this.activatedRouter,
-//     queryParams: {tabView: obj.name},
-//     queryParamsHandling: 'merge',
-//   });
-// }
-  
+  }
 }

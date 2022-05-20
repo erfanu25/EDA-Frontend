@@ -2,16 +2,11 @@ import {
   ChangeDetectorRef,
   Component, Input,
   OnInit,
-  PipeTransform,
-  QueryList,
-  ViewChildren,
-  OnChanges 
 } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from "rxjs";
 import { EmpDetails } from "../domain/data-analysis.domain";
 import { DecimalPipe } from "@angular/common";
 import { debounceTime, delay, switchMap, tap } from "rxjs/operators";
-// import {TableService} from "./service/data-analyser-table.service";
 import { HttpParams } from "@angular/common/http";
 import { DataAnalysisService } from '../service-api/data-analysis.service';
 
@@ -58,9 +53,6 @@ export class DataAnalyserTableComponent implements OnInit {
     }
 
   }
-
-  
-  
   @Input('tableName') set setTableName(data) {
     if (data) {
       this.tableName = data;
@@ -129,14 +121,7 @@ export class DataAnalyserTableComponent implements OnInit {
   }
   getList() {
     var query = ``;var tableName="";
-    if(this.tableName==="EMPLOYEE"){
-      tableName="Employee";
-    }
-    if(this.tableName==="COMPANY"){
-      tableName="Company";
-    }
-    query = `getList?modelName=${tableName}&sortBy=${this.sortBy}&sortType=${this.sortType}&pageIndex=${this.page}&pageSize=${this.pageSize}`;
-
+    query = `getList?modelName=${this.tableName}&sortBy=${this.sortBy}&sortType=${this.sortType}&pageIndex=${this.page}&pageSize=${this.pageSize}`;
     this.dataAnalysisService.search(query,this.payload)
       .subscribe(data => {
         this.tableDetails = data.data;

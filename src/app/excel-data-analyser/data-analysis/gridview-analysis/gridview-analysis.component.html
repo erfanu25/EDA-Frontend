@@ -2,7 +2,7 @@
     <div  class="{{displayViewColumnSection || displayAdvanceFiltersComponents ? 'col-md-8' : 'col-md-12'}}">
       <div class=" row">
         <div class="col-lg-7">
-          <app-employee-default-filters *ngIf="tableName=='EMPLOYEE'"   (filterListChange)="updatedFilterList($event)"
+          <app-employee-default-filters *ngIf="tableName=='Employee'"   (filterListChange)="updatedFilterList($event)"
             [expand]="displayViewColumnSection"></app-employee-default-filters>
         </div>
         <div class="col-lg-5">

@@ -92,7 +92,6 @@ export class FiltersComponent implements OnInit {
       alert("Please select criteria condition");
       return;
     }
-    debugger;
     this.filterChange.emit({field:key.trim(),operator:criteriaValue.trim(),value1:value1,value2:value2});
   }
  

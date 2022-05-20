@@ -22,8 +22,6 @@ export class CriteriaAddComponent implements OnInit {
     });
   }
   @Input('tableName') set setTableName(data) {
-    debugger;
-    console.log("Criteria Add: tableName");
     if (data) {
       this.tableName = data;
     }else{
@@ -31,9 +29,6 @@ export class CriteriaAddComponent implements OnInit {
     }
   }
   @Input('payload') set setPayload(data) {
-    console.log("Criteria Add: tableName");
-
-    debugger;
     if (data) {
       this.payload = data;
     }else{
@@ -41,11 +36,7 @@ export class CriteriaAddComponent implements OnInit {
     }
   }
   @Input('query') set setQuery(data) {
-    console.log("Criteria Add: tableName");
-
-    debugger;
     if (data) {
-      console.log("query.");
       this.query = data;
     }else{
     }
@@ -59,11 +50,9 @@ export class CriteriaAddComponent implements OnInit {
     if (this.criteriaForm.valid) {
       var contentObj={query:this.query,payload:this.payload};
       let content=JSON.stringify(contentObj); 
-      console.log(content);
       var criteria: Criteria = {name: this.criteriaForm.controls['name'].value,tableName:this.tableName,content: content};
       this.analysisHttpService.post("SaveCriteria", criteria).subscribe(result => {
         alert("Successfully saved");
-        console.log(result);
         this.submitted = false;
         this.criteriaForm.reset();
       }, err => {
@@ -72,9 +61,6 @@ export class CriteriaAddComponent implements OnInit {
     }
   }
   ngOnChanges() {
-    /**********THIS FUNCTION WILL TRIGGER WHEN PARENT COMPONENT UPDATES 'someInput'**************/
-     console.log("Changes Trigger payload Criteria Add:");
-     console.log(this.payload);
   } 
 
   get formControl() {
