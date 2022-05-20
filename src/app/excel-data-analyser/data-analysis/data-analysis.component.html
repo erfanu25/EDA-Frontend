@@ -14,13 +14,12 @@
         <br>
         <p-tabView   scrollable="true" [controlClose]="true" (onClose)="handleClose($event)" >
           <p-tabPanel header="Default" leftIcon="pi pi-calendar">
-            <app-gridview-analysis [tableName]="tableName"></app-gridview-analysis>
+            <app-gridview-analysis [tableName]="tableName" [tabName]="'Default'"></app-gridview-analysis>
           </p-tabPanel>
           <p-tabPanel   leftIcon="pi pi-user"   closable="true"   *ngFor="let view of criteriaViews;let i = index;" [header]="view.name">
             <ng-template pTemplate="content" >
               <div>
-                <!-- Content {{i}} -->
-                <app-gridview-analysis [tableName]="tableName" [criteriaContent]="view.content"></app-gridview-analysis>
+                <app-gridview-analysis [tableName]="tableName" [tabName]="view.name" [criteriaContent]="view.content"></app-gridview-analysis>
               </div>
             </ng-template>
 

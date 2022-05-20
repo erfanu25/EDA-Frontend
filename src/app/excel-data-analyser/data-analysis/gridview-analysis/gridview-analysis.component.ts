@@ -41,12 +41,19 @@ export class GridviewAnalysisComponent implements OnInit {
   payloadFiltersList:any
   criteriaPayload:any;
   criteriaQuery:any;
-
+  tabName:any;
   
   @Input('tableName') set setTableName(data) {
     if (data) {
       this.tableName = data;
       this.fetchList();
+    }
+  }
+  @Input('tabName') set setTabName(data) {
+    debugger;
+    console.log(data);
+    if (data) {
+      this.tabName = data;
     }
   }
  

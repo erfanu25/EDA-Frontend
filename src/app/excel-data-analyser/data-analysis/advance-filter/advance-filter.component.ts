@@ -26,6 +26,7 @@ export class AdvanceFilterComponent implements OnInit {
   criteriaForm: FormGroup;
   public submitted = false;
   query:string;
+  canUpdateView:boolean=false;
 
   @Input('columnWithTypes') set columnWithTypes(data) {
     if (data) {
@@ -35,6 +36,11 @@ export class AdvanceFilterComponent implements OnInit {
   @Input('tableName') set setTableName(data) {
     if (data) {
       this.tableName =data;
+    }
+  }
+  @Input('canUpdateView') set setCanUpdateView(data) {
+    if (data) {
+      this.canUpdateView =data;
     }
   }
   @Output() filterListChange = new EventEmitter<any>();
@@ -55,7 +61,6 @@ export class AdvanceFilterComponent implements OnInit {
     this.displayCriteriaAddComponents = true;
   }
   updatedFilter(obj) {
-    debugger
     if (this.advanceFilterList.some(item => item.field.trim() === obj.field.trim() )) {
       let itemIndex = this.advanceFilterList.findIndex(item => item.field.trim() === obj.field.trim());
       if(obj.operator=="Number_Range"){
@@ -71,8 +76,6 @@ export class AdvanceFilterComponent implements OnInit {
           this.advanceFilterList[itemIndex] = obj;
         }
       }
-
-
     } else {
       if(obj.value!==""){
         this.advanceFilterList.push(obj);
@@ -116,11 +119,6 @@ export class AdvanceFilterComponent implements OnInit {
       queryParams: {tableName: this.tableName,random},
       queryParamsHandling: 'merge',
     });
-    // const currentUrl = this.router.url;
-    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    //     this.router.navigate([currentUrl]);
-    // });
-
 }
   
 }
