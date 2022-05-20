@@ -6,6 +6,7 @@ import { DateCriteria, EmpDetails, NumberCriteria, TableType, TextCriteria } fro
 import { DataAnalysisService } from '../service-api/data-analysis.service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
+import { SearchCriteria } from '../criteria/models/search-criteria.model';
 @Component({
   selector: 'app-gridview-analysis',
   templateUrl: './gridview-analysis.component.html',
@@ -38,7 +39,7 @@ export class GridviewAnalysisComponent implements OnInit {
   columnToShow: Array<any> = [];
   tableName: string;
   columnWithTypes: any = [];
-  payloadFiltersList:any
+  payloadFiltersList: SearchCriteria[];
   criteriaPayload:any;
   criteriaQuery:any;
   tabName:any;
@@ -161,7 +162,6 @@ export class GridviewAnalysisComponent implements OnInit {
   }
 
   onExportDataClick() {
-
     var query = ``;
     query = `getList?modelName=${this.tableName}&sortBy=name&sortType=-1&pageIndex=1&pageSize=1000000`;
     this.dataAnalysisService.getList(query,{})

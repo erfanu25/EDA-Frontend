@@ -1,33 +1,13 @@
 
  
-export interface SearchCriteria {
-    column: string;
-    operator: string;
-    value: string;
+export class SearchCriteria {
+    public field: string = ""
+    public operator: string = ""
+    public value: string = ""
+    public minValue: string = ""
+    public maxValue:string = ""
+    public searchType: string = ""
+    public constructor(init?:Partial<SearchCriteria>) {
+        Object.assign(this, init);
+    }
 }
-
-// select name,age,address,salary from employee where month=3 and salary>5000
-
-// month=3&salary>5000
-
-// [
-// 	{
-// 		"column":"month",
-// 		"operator":"eq",
-// 		"value":3,
-	
-// 	},
-// 	{
-// 		"column":"salary",
-// 		"operator":"gt",
-// 		"value":5000
-	
-// 	}
-// ]
-
-
-
-// CriteriaName:"ABC"
-// Content:JsonObject
-
-

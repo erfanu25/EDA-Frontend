@@ -1,5 +1,7 @@
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { arrow } from '@popperjs/core';
+import { SearchCriteria } from '../../criteria/models/search-criteria.model';
 
 @Component({
   selector: 'app-employee-default-filters',
@@ -47,13 +49,11 @@ export class EmployeeDefaultFiltersComponent implements OnInit {
   }
 
   onClick(){
-    let advanceFilterList=[];
-    let objEmail={field:"email",operator:"Contains",value:this.email.trim()};
-    let objAge={field:"age",operator:"Number_Range",value1:this.minValue,value2:this.maxValue};
+    let advanceFilterList: SearchCriteria[]=[];
+    let objEmail=new SearchCriteria({field:"email",operator:"Contains",value:this.email.trim()});
+    let objAge=new SearchCriteria({field:"age",operator:"Number_Range",minValue:this.minValue.toString(),maxValue:this.maxValue.toString()});
     advanceFilterList.push(objEmail);
     advanceFilterList.push(objAge);
     this.filterListChange.emit(advanceFilterList);
   }
-  
-
 }

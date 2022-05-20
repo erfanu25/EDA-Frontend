@@ -35,7 +35,7 @@
             </span>
             <span class="badge badge-pill badge-primary" *ngIf="filter.operator=='Number_Range'">
               <strong>{{filter.field | uppercase}}: </strong>
-              <span *ngIf="filter.operator=='Number_Range'"> {{filter.value1}} To {{filter.value2}} </span>
+              <span *ngIf="filter.operator=='Number_Range'"> {{filter.minValue}} To {{filter.maxValue}} </span>
             </span>
           </span>
         </div>

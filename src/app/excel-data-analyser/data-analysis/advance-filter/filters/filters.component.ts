@@ -5,6 +5,7 @@ import { EventEmitter } from '@angular/core';
 import { DateCriteria, NumberCriteria, TextCriteria } from '../../domain/data-analysis.domain';
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { DatePipe } from '@angular/common'
+import { SearchCriteria } from '../../criteria/models/search-criteria.model';
 
 @Component({
   selector: 'app-filters',
@@ -62,9 +63,9 @@ export class FiltersComponent implements OnInit {
       return;
     } 
     if(operator=="Number_Range"){
-      this.filterChange.emit({field:field.trim(),operator:operator.trim(),value1:this.minValue,value2:this.maxValue});
+      this.filterChange.emit(new SearchCriteria({field:field.trim(),operator:operator.trim(),minValue:this.minValue.toString(),maxValue:this.maxValue.toString()}));
     }else{
-      this.filterChange.emit({field:field.trim(),operator:operator.trim(),value:inputValue==undefined?"":inputValue});
+      this.filterChange.emit(new SearchCriteria({field:field.trim(),operator:operator.trim(),value:inputValue==undefined?"":inputValue}));
     }
   }
   inputChanges(field,operator,inputValue){
@@ -73,26 +74,22 @@ export class FiltersComponent implements OnInit {
       return;
     }
     if(operator=="Date_is" || operator=="Date_is_NOT" || operator=="Date_is_BEFORE" || operator=="Date_is_AFTER"){
-      let latest_date_string =this.datepipe.transform(Date.parse(inputValue), 'yyyy-MM-dd');
-      inputValue=latest_date_string;
+      inputValue =this.datepipe.transform(Date.parse(inputValue), 'yyyy-MM-dd');
     }
-    this.filterChange.emit({field:field.trim(),operator:operator.trim(),value:inputValue==undefined?"":inputValue});
+    this.filterChange.emit(new SearchCriteria({field:field.trim(),operator:operator.trim(),value:inputValue==undefined?"":inputValue}));
   }
   onChangeRange(field,operator,event){
     if(operator==undefined || operator==""){
       alert("Please select criteria condition");
       return;
     }
-    let value1=event.value;
-    let value2=event.highValue;
-    this.filterChange.emit({field:field.trim(),operator:operator.trim(),value1:value1,value2:value2});
+    this.filterChange.emit(new SearchCriteria({field:field.trim(),operator:operator.trim(),minValue:event.value,maxValue:event.highValue}));
   }
   onChangeRangeInput(field,operator,value1,value2){
     if(operator==undefined || operator==""){
       alert("Please select criteria condition");
       return;
     }
-    this.filterChange.emit({field:field.trim(),operator:operator.trim(),value1:value1,value2:value2});
-  }
- 
+    this.filterChange.emit(new SearchCriteria({field:field.trim(),operator:operator.trim(),minValue:value1,maxValue:value2}));
+  } 
 }
