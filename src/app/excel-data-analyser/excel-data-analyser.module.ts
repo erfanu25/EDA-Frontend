@@ -40,8 +40,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
 import { FileUploadComponent } from './data-ingestion/file-upload/file-upload.component';
 import { FileContentListComponent } from './data-ingestion/file-content/file-content-list/file-content-list.component';
-import { CriteriaAddComponent } from "./data-analysis/criteria/components/criteria-add/criteria-add.component";
-import { CriteriaComponent } from "./data-analysis/criteria/components/criteria-view/criteria.component";
 import {CheckboxModule} from "primeng/checkbox";
 import {TagModule} from "primeng/tag";
 import {AppModule} from "../app.module";
@@ -125,8 +123,6 @@ import { TabViewModule } from "primeng/tabview";
     DataMappingComponent,
     ViewDataMapperComponent,
     DataAnalysisComponent,
-    CriteriaAddComponent,
-    CriteriaComponent,
     TopbarComponent,
     DialogComponent,
     TableMapperComponent,

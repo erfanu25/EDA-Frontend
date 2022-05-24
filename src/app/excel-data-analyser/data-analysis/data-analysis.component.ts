@@ -100,7 +100,7 @@ export class DataAnalysisComponent implements OnInit {
     this.GetCriteriaList();
   }
   GetCriteriaList() {
-    this.analysisHttpService.get(`GetCriteriaView`).subscribe(data => {
+    this.analysisHttpService.get(`GetCriteriaView?tableName=${this.tableName}`).subscribe(data => {
       this.criteriaViews = data;
     }, err => {
       console.log(err);
