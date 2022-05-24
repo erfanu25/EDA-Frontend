@@ -34,8 +34,8 @@ class CriteriaOperationService {
         }
         return "Criteria Already Existed";
     }
-    public async GetList(){
-        return await this.criteriaListHandler.getList();
+    public async GetList(tableName:string){
+        return await this.criteriaListHandler.getList(tableName);
     }
     public async Delete(id):Promise<any>{
         return await this.criteriaOperationHandler.Delete(id);

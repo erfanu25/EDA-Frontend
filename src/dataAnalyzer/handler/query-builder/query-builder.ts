@@ -49,10 +49,10 @@ class QueryBuilderHandler {
                     queries.push({ [element["field"]] : { $lt : new Date(element.value).toISOString()} });
                 }
                 if (element.operator=="Greater_than_and_less_than") {
-                    queries.push({ [element["field"]] : {$gt:element.value1, $lt:element.value2} });
+                    queries.push({ [element["field"]] : {$gt:element.minValue, $lt:element.maxValue} });
                 }
                 if (element.operator=="Number_Range") {
-                    queries.push({ [element["field"]] : {$gt:element.value1, $lt:element.value2} });
+                    queries.push({ [element["field"]] : {$gt:element.minValue, $lt:element.maxValue} });
                 }
             });
         }
