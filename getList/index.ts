@@ -7,6 +7,8 @@ const getList: AzureFunction = async function (context: Context, req: HttpReques
     try {
         await db.init();
         var body=req.body;
+        console.log("body");
+        console.log(body);
         let total=await EmployeeOperationService.getServiceInstance()
         .CountEmployees(req.query.modelName,body);
         response=await EmployeeOperationService.getServiceInstance().GetSortedList(req.query.modelName,req.query.sortBy,req.query.sortType,req.query.pageSize,req.query.pageIndex,body);

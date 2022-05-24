@@ -13,8 +13,8 @@ class CriteriaListRepo {
         return this.criteriaInfoRepo;
     }
 
-    public async getList(): Promise<CriteriaViewDto[]> {
-        return await CriteriaViewModel.find();
+    public async getList(tableName:string): Promise<CriteriaViewDto[]> {
+        return await CriteriaViewModel.find({ "tableName": tableName });
     }
     
 }

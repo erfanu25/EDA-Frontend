@@ -17,8 +17,8 @@ class CriteriaListHandler {
         return this.criteriaListHandler;
     }
 
-    public async getList(): Promise<ICriteriaView[]> {
-        return await this.criteriaListRepo.getList();
+    public async getList(tableName:string): Promise<ICriteriaView[]> {
+        return await this.criteriaListRepo.getList(tableName);
     }
 
     
