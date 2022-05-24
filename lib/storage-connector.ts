@@ -18,10 +18,10 @@ export const listBlobs = async (containerName) => {
 
 export const getBlobFlie = async (filePath) => {
     
-    if (process.env.destination === 'Azure') {
-         return readFromAzureStorage(filePath);
-    } else {
+    if (process.env.destination === 'local') {
         return readFromLocalStorage(filePath);
+    } else {
+        return readFromAzureStorage(filePath);
     }
 
 };
