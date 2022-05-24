@@ -2,12 +2,13 @@ import { FileContentServiceService } from './../file-content-service.service';
 import { FileContentListApiReqParam } from './../model/file-content-list-api-req-param';
 import { FileContentDatasource } from './../file-content-datasource';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, OnInit, Component, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, OnInit, Component, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, Observable, merge, fromEvent } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
+import { outputs } from '@syncfusion/ej2-angular-spreadsheet/src/spreadsheet/spreadsheet.component';
 
 export class Message {
   constructor(
@@ -33,7 +34,7 @@ export class FileContentListComponent implements OnInit {
   private socket$: WebSocketSubject<Message>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  @Output() isMappClick = new EventEmitter<boolean>();
 
   ngOnInit() {
     this.dataSource = new FileContentDatasource(this.fileContentService);
@@ -78,6 +79,7 @@ export class FileContentListComponent implements OnInit {
   navigateToDataMapping(fileId, fileName) {
     //this.router.navigate(['../dataMapping'], { relativeTo: this.route });
     this.router.navigate(['../dataMapping'], { queryParams: { fileId: fileId, fileName: fileName } })
+    this.isMappClick.emit(false);
   }
 
 

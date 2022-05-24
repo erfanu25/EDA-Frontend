@@ -27,6 +27,7 @@ export class DataMappingComponent implements OnInit {
   }
 
   path: string;
+  disableDataMapping = false;
   dataMaps: any;
   excelHeaderList: string[] = [];
   tabledata: any[] = [];

@@ -12,6 +12,11 @@ export class TopbarComponent implements OnInit {
   isDataAnalysis: boolean;
   isDataIngestion: boolean;
   isDataMapping: boolean;
+  disableDataMapping = true;
+
+  @Input('disableDataMapping') set setDisableDataMapping(data: boolean) {
+    this.disableDataMapping = data;
+  }
 
   @Input('topBarData') set topBarData(data: string) {
       this.topBardata = data;

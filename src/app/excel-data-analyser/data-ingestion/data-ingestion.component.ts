@@ -10,6 +10,7 @@ import { FileQueueObject } from './file-upload/file-upload.service';
 export class DataIngestionComponent implements OnInit {
   name = 'Angular 7 - Example file upload queue';
   path : string;
+  disableDataMapping = true;
   onCompleteItem($event) {
     console.log($event);
   }
@@ -20,5 +21,9 @@ export class DataIngestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.path = this.route.snapshot.routeConfig.path;
+  }
+
+  isMappClick(event) {
+    this.disableDataMapping = event;
   }
 }

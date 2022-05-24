@@ -42,8 +42,8 @@
 true}">Data Ingestion</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" routerLink="../dataMapping" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
-true}">Data Mapping</a>
+        <a class="nav-link" [routerLink]="disableDataMapping ? null : ['../dataMapping/']" [class.disabled]="disableDataMapping ? 'true' : 'false'" 
+        routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:false}">Data Mapping</a>
       </li>
       <li class="nav-item" >
         <a class="nav-link" routerLink="../dataAnalysis" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
