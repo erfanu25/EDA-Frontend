@@ -174,7 +174,19 @@ export class GridviewAnalysisComponent implements OnInit {
     var Header = this.showableColumn.map((name) => {
       return name[0].toUpperCase() + name.slice(1)
     });
-    var showableColumnData = JSON.parse(JSON.stringify(this.details, this.showableColumn));
+    var showableColumnData = new Array();
+
+    for (var key in this.details) {
+      
+      var newEntry = {};
+      var oldEntry = this.details[key]
+  
+      this.showableColumn.forEach(item=> {
+        newEntry[item]= oldEntry[item];
+      })          
+  
+      showableColumnData.push(newEntry);
+  }
 
     var dataForExcel = [];
     showableColumnData.forEach((row: any) => {
