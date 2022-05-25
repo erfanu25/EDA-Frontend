@@ -47,6 +47,7 @@
     "strictInputAccessModifiers": true,
     "strictPropertyInitialization": false,
     "strictTemplates": false,
-    "strictDomEventTypes": false
+    "strictDomEventTypes": false,
+    "disableTypeScriptVersionCheck": true,
   }
 }
