@@ -1,4 +1,4 @@
-import { FileUploadService } from './data-ingestion/file-upload/file-upload.service';
+
 import {RouterModule, Routes} from "@angular/router";
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
 import { MatCardModule } from '@angular/material/card';
@@ -16,8 +16,6 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {SharedModule} from "primeng/api";
 import {AutoCompleteModule} from "primeng/autocomplete";
-import { DataAnalysisComponent } from './data-analysis/data-analysis.component';
-import {routes} from "./excel-data-analyser.routes";
 import {ButtonModule} from "primeng/button";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -38,30 +36,26 @@ import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import {TabMenuModule} from "primeng/tabmenu";
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
-import { FileUploadComponent } from './data-ingestion/file-upload/file-upload.component';
-import { FileContentListComponent } from './data-ingestion/file-content/file-content-list/file-content-list.component';
 import {CheckboxModule} from "primeng/checkbox";
 import {TagModule} from "primeng/tag";
-import {AppModule} from "../app.module";
-import {TopbarComponent} from "./topbar/topbar.component";
-import { DataMappingComponent } from "./data-mapping/component/data-mapping.component";
-import { DialogComponent } from "./data-mapping/component/dialog.component";
-import { TableMapperComponent } from "./data-mapping/component/table-data-mapper.component";
 import { MatDialogModule } from "@angular/material/dialog";
-import { DataMappingService } from "./data-mapping/services/data-mapping.service";
-import { ViewDataMapperComponent } from "./data-mapping/component/view-data-mapper.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import {DataAnalysisService} from "./data-analysis/service-api/data-analysis.service";
-import {DataAnalyserTableComponent} from "./data-analysis/data-analyser-table/data-analyser-table.component";
-
-import { AdvanceFilterComponent } from './data-analysis/advance-filter/advance-filter.component';
-import { PaginationModule } from "../common/pagination/pagination.module";
-import { FiltersComponent } from './data-analysis/advance-filter/filters/filters.component';
 import { NgxSliderModule } from "@angular-slider/ngx-slider";
-import { EmployeeDefaultFiltersComponent } from './data-analysis/default-filters/employee-default-filters/employee-default-filters.component';
-import { GridviewAnalysisComponent } from './data-analysis/gridview-analysis/gridview-analysis.component';
 import { TabViewModule } from "primeng/tabview";
+import {
+  EmployeeDefaultFiltersComponent
+} from "./default-filters/employee-default-filters/employee-default-filters.component";
+import {DataAnalysisService} from "./service-api/data-analysis.service";
+import {AdvanceFilterComponent} from "./advance-filter/advance-filter.component";
+import {GridviewAnalysisComponent} from "./gridview-analysis/gridview-analysis.component";
+import {DataAnalyserTableComponent} from "./data-analyser-table/data-analyser-table.component";
+import {FiltersComponent} from "./advance-filter/filters/filters.component";
+import {PaginationModule} from "../../common/pagination/pagination.module";
+import {DataAnalysisComponent} from "./data-analysis.component";
+import { routes } from "./data-analysis.routes";
+import {TopbarComponent} from "../topbar/topbar.component";
+import {AppModule} from "../../app.module";
+import { DataMappingService } from "../data-mapping/services/data-mapping.service";
 
 @NgModule({
   imports: [
@@ -76,7 +70,6 @@ import { TabViewModule } from "primeng/tabview";
     CommonModule,
     DialogModule,
     SpreadsheetAllModule,
-    // DropDownButtonModule,
     PaginatorModule,
     MatToolbarModule,
     MatButtonModule,
@@ -109,46 +102,30 @@ import { TabViewModule } from "primeng/tabview";
     MatDialogModule,
     MatSnackBarModule,
     PaginationModule,
+    TabViewModule,
     NgxSliderModule,
-    TabViewModule
-    // AppModule,
+
 
 
   ],
   declarations: [
-    FileUploadComponent,
-    DataMappingComponent,
-    DataAnalysisComponent,
-    DataIngestionComponent,
-    FileContentListComponent,
-    DataIngestionComponent,
-    DataMappingComponent,
-    ViewDataMapperComponent,
-    DataAnalysisComponent,
-    TopbarComponent,
-    DialogComponent,
-    TableMapperComponent,
-    DataAnalysisComponent,
-    TopbarComponent,
-    DataAnalyserTableComponent,
-    AdvanceFilterComponent,
-    FiltersComponent,
+    GridviewAnalysisComponent,
     EmployeeDefaultFiltersComponent,
-    GridviewAnalysisComponent
-    // DataAnalyserTableComponent,
-
+    DataAnalyserTableComponent,
+    FiltersComponent,
+    AdvanceFilterComponent,
+    DataAnalysisComponent,
   ],
   providers: [
-    DataMappingService,
     DataAnalysisService,
     DecimalPipe,
-    FileUploadService
+    DataMappingService
   ],
 
   exports: [
     RouterModule,
-    
+
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export class ExcelDataAnalyserModule { }
+export class DataAnalysisModule { }

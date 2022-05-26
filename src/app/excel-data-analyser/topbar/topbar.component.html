@@ -1,30 +1,3 @@
-<!--<nav class="toolbar" role="banner" xmlns="http://www.w3.org/1999/html">-->
-<!--    <img src="../../assets/ey-logo.png">-->
-<!--    <span>-->
-<!--        <h3 style="padding-left: 10px;margin-bottom: 0px;">Excel Data Analyser</h3>-->
-<!--    </span>-->
-<!--  <div class="spacer"></div>-->
-
-<!--    &lt;!&ndash; <button mat-button [hidden]="isDataMapping" style="background-color:green;margin-left: 2px;-->
-<!--        color:white" (click)="navigateToDataMapping()">Data Mapping</button> &ndash;&gt;-->
-<!--&lt;!&ndash;    <button mat-button *ngIf="isDataAnalysis"  style="background-color:green;margin-left: 2px;&ndash;&gt;-->
-<!--&lt;!&ndash;        color:white" >Data Definition</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button mat-button   [disabled]="isDataIngestion" [ngStyle]="{'background-color': (isDataIngestion == true) ? 'grey' : 'green' }" style="margin-left: 2px;&ndash;&gt;-->
-<!--&lt;!&ndash;        color:white" (click)="navigateToDataIngestion()">Data Ingestion</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button mat-button [disabled]="isDataAnalysis" [ngStyle]="{'background-color': (isDataAnalysis == true) ? 'grey' : 'green' }" style="margin-left: 2px;&ndash;&gt;-->
-<!--&lt;!&ndash;        color:white" (click)="navigateToDataAnalysis()">Data Analysis</button>&ndash;&gt;-->
-
-<!--    <div class="navbar-nav">-->
-<!--      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>-->
-<!--      <a class="nav-item nav-link" href="#">Features</a>-->
-<!--      <a class="nav-item nav-link" href="#">Pricing</a>-->
-<!--      <a class="nav-item nav-link disabled" href="#">Disabled</a>-->
-<!--    </div>-->
-
-
-
-<!--</nav>-->
-
 
 <nav class="navbar navbar-expand-lg " role="banner" xmlns="http://www.w3.org/1999/html">
   <img src="../../assets/ey-logo.png">
@@ -42,11 +15,11 @@
 true}">Data Ingestion</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" [routerLink]="disableDataMapping ? null : ['../dataMapping/']" [class.disabled]="disableDataMapping ? 'true' : 'false'" 
+        <a class="nav-link" [routerLink]="disableDataMapping ? null : ['../dataMapping/']" [class.disabled]="disableDataMapping ? 'true' : 'false'"
         routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:false}">Data Mapping</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" routerLink="../dataAnalysis" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+        <a class="nav-link" [routerLink]="['/dataAnalysis']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
 true}">Data Analyser</a>
       </li>
 
