@@ -1,4 +1,4 @@
-import { MapperModel } from './../model/Mapper.model';
+import { MapperModel } from '../model/Mapper.model';
 import mongoose from 'mongoose';
 import { IMapper } from "../model/Mapper.model";
 

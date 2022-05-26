@@ -1,7 +1,7 @@
 import MapperRepo from "../repo/mapper.repo";
 import { IMapper } from "../model/Mapper.model";
 import MapperDto from "../dto/mapper.dto";
-import { MapperModel } from './../model/Mapper.model';
+import { MapperModel } from '../model/Mapper.model';
 import MapperNameDtoConverter from "../converter/mapperNameDto.converter";
 import MapperDtoConverter from "../converter/mapperDto.converter";
 

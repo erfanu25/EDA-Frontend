@@ -1,4 +1,4 @@
-import { IStatus } from './../model/status.model';
+import { IStatus } from '../model/status.model';
 import fileContentModel, { IFileContent } from "../model/fileContent.model";
 import statusModel from "../model/status.model";
 

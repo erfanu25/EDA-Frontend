@@ -1,4 +1,4 @@
-import { MapperModel, IMapper } from './../model/Mapper.model';
+import { MapperModel, IMapper } from '../model/Mapper.model';
 
 
 
