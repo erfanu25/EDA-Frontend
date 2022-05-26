@@ -15,11 +15,13 @@ import { PaginationModule } from './common/pagination/pagination.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { TabViewModule } from "primeng/tabview";
+import {TopbarComponent} from "./excel-data-analyser/topbar/topbar.component";
 
 
 @NgModule({
   declarations: [
     AppComponent,
+     TopbarComponent
   ],
   imports: [
     BrowserModule,
@@ -34,12 +36,13 @@ import { TabViewModule } from "primeng/tabview";
   ],
   providers: [
     AnalysisHttpHandler,
-    CriteriaAddService, 
+    CriteriaAddService,
     CriteriaViewService,
     HttpHandler,DatePipe,
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5500}}
   ],
   exports: [
+    TopbarComponent
 
   ],
   bootstrap: [AppComponent]
