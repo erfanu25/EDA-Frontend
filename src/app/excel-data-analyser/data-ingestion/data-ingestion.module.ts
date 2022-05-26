@@ -49,6 +49,7 @@ import {FileUploadService} from "./file-upload/file-upload.service";
 import {DataIngestionComponent} from "./data-ingestion.component";
 import {TopbarComponent} from "../topbar/topbar.component";
 import {AppModule} from "../../app.module";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   imports: [
@@ -96,7 +97,7 @@ import {AppModule} from "../../app.module";
     PaginationModule,
     TabViewModule,
     NgxSliderModule,
-
+    MatProgressSpinnerModule,
 
 
   ],
