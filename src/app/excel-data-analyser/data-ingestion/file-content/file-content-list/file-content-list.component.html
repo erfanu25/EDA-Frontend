@@ -1,53 +1,67 @@
 <br>
 <h2 style="text-align: center;"> File Contents </h2>
 <br>
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource">
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
 
-      <!-- Title Column -->
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef>Date</th>
-        <td mat-cell *matCellDef="let row; ">
-          <div>{{row.createdAt | date:'dd-MM-yyyy'}}</div>
-        </td>
+    <!-- Title Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let row; ">
+        <div>{{row.createdAt | date:'dd-MM-yyyy'}}</div>
+      </td>
     </ng-container>
-      <!-- Category  Column -->
-      <ng-container matColumnDef="fileName">
-          <th mat-header-cell *matHeaderCellDef>File Name</th>
-          <td mat-cell *matCellDef="let row; ">{{row.name}}
-          </td>
-      </ng-container>
+    <!-- Category  Column -->
+    <ng-container matColumnDef="fileName">
+      <th mat-header-cell *matHeaderCellDef>File Name</th>
+      <td mat-cell *matCellDef="let row; ">{{row.name}}
+      </td>
+    </ng-container>
 
-      <!-- Token Column -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let row; ">{{row.status.name}}
-        </td>
+    <!-- Token Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let row; ">{{row.status.name}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="schedule">
       <th mat-header-cell *matHeaderCellDef> Schedule </th>
-      <td mat-cell *matCellDef="let row"> 
-          <mat-hint>DD/MM/YYYY</mat-hint>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>    
+      <td mat-cell *matCellDef="let row">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </td>
     </ng-container>
-  <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef>Action</th>
-    <td mat-cell *matCellDef="let row; ">
-     
-      <div *ngIf="row.status.name === 'MAPPED'">
-      <button mat-raised-button (click)="injectFile(row.path)">Inject Now</button>
-      </div>
-      <div *ngIf="row.status.name === 'UNMAPPED'">
-        <button mat-raised-button (click)="navigateToDataMapping(row._id, row.name)">Map</button>
-      </div>
-    </td>
-  </ng-container>
- 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let row; ">
+
+        <div *ngIf="row.status.name === 'MAPPED'">
+          <button mat-raised-button disabled *ngIf="row.isLoading">Injection Pending
+            <mat-icon>
+              <mat-spinner diameter="20">
+              </mat-spinner>
+            </mat-icon>
+          </button>
+          <button mat-raised-button (click)="injectFile(row._id)" *ngIf="!row.isLoading">
+            Inject Now{{row.isLoading}}
+          </button>
+        </div>
+        <div *ngIf="row.status.name === 'UNMAPPED'">
+          <button mat-raised-button (click)="navigateToDataMapping(row._id)">Map{{row.isLoading}}</button>
+        </div>
+        <div *ngIf="row.status.name === 'INJECTED'">
+          <button mat-raised-button>Injected</button>
+        </div>
+        <div *ngIf="row.status.name === 'TRY_AGAIN'">
+          <button mat-raised-button (click)="injectFile(row._id)">Try Again</button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
 

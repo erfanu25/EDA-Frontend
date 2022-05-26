@@ -1,3 +1,4 @@
+import { WebSocketService } from './../websocket.service';
 import { FileContentServiceService } from './../file-content-service.service';
 import { FileContentListApiReqParam } from './../model/file-content-list-api-req-param';
 import { FileContentDatasource } from './../file-content-datasource';
@@ -7,14 +8,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, Observable, merge, fromEvent } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
-import { outputs } from '@syncfusion/ej2-angular-spreadsheet/src/spreadsheet/spreadsheet.component';
+
 
 export class Message {
   constructor(
-      public sender: string,
-      public content: string,
-      public isBroadcast = false,
+    public sender: string,
+    public content: string,
+    public isBroadcast = false,
   ) { }
 }
 @Component({
@@ -31,10 +31,10 @@ export class FileContentListComponent implements OnInit {
   isLoadingResults = false;
   isRateLimitReached = false;
   requestParam: FileContentListApiReqParam = {} as FileContentListApiReqParam;
-  private socket$: WebSocketSubject<Message>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Output() isMappClick = new EventEmitter<boolean>();
+  isInjectionLoading = false
 
   ngOnInit() {
     this.dataSource = new FileContentDatasource(this.fileContentService);
@@ -44,18 +44,12 @@ export class FileContentListComponent implements OnInit {
 
   constructor(private _httpClient: HttpClient, private router: Router,
     private fileContentService: FileContentServiceService,
-    private route: ActivatedRoute) {
+    private webSocketService: WebSocketService) {
 
-      // this.socket$ = new WebSocketSubject('ws://localhost:8999');
-
-      //   this.socket$
-      //       .subscribe(
-      //       (message) => console.log(message),
-      //       (err) => console.error(err),
-      //       () => console.warn('Completed!')
-      //       );
   }
+  
   ngAfterViewInit() {
+    this.webSocketService.connect();
     this.paginator.page
       .pipe(
         tap(() => this.loadListPage())
@@ -71,13 +65,34 @@ export class FileContentListComponent implements OnInit {
   }
 
   public injectFile(fileId) {
-    console.log(fileId);
+    this.dataSource.updateLoadingStatus(fileId);
     this.fileContentService.injectFile(fileId)
-      .subscribe(data => console.log(data));
+      .subscribe(taskObj => {
+        let fileTask = { "fileId": fileId, "taskId": taskObj["taskId"] }
+        this.webSocketService.sendMessage(fileTask);
+        this.webSocketService.socket$
+          .asObservable()
+          .subscribe(injectionStatus => {
+            console.log("socket data");
+            console.log(injectionStatus);
+            this.dataSource.filterDataSourceByFileId(fileId, injectionStatus);
+          })
+        //this.updateStatus(fileId);
+      });
+  }
+
+  private updateStatus(fileId, injectionStatus) {
+    this.webSocketService.socket$
+      .asObservable()
+      .subscribe(data => {
+        console.log("socket data");
+        console.log(data);
+        this.dataSource.filterDataSourceByFileId(fileId, injectionStatus);
+      })
+
   }
 
   navigateToDataMapping(fileId, fileName) {
-    //this.router.navigate(['../dataMapping'], { relativeTo: this.route });
     this.router.navigate(['../dataMapping'], { queryParams: { fileId: fileId, fileName: fileName } })
     this.isMappClick.emit(false);
   }

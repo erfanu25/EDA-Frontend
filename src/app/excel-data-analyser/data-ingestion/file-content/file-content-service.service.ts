@@ -41,7 +41,7 @@ export class FileContentServiceService {
 
 
   public injectFile(fileId): Observable<any> {
-    let file_injection_url = `https://localhost:8000/api/file2/${fileId}`;
+    let file_injection_url = `http://localhost:8000/api/file/${fileId}`;
     console.log(file_injection_url);
     return this.http.get<any>(file_injection_url);
   }

@@ -6,6 +6,7 @@ import {TableModule} from "primeng/table";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatRadioModule} from "@angular/material/radio";
 import {CommonModule, DecimalPipe} from "@angular/common";
 import {DialogModule} from "primeng/dialog";
@@ -80,6 +81,7 @@ import { TabViewModule } from "primeng/tabview";
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     SharedModule,
     AutoCompleteModule,
     ButtonModule,
