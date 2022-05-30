@@ -25,6 +25,7 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@ey-xd/ng-motif": "file:ng-motif-3.5.0.tgz",
     "@fullcalendar/core": "4.4.0",
     "@ng-bootstrap/ng-bootstrap": "^12.0.2",
     "@popperjs/core": "^2.11.5",

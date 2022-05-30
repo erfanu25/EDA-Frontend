@@ -5,6 +5,26 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+@use 'sass:meta';
+
+@forward '../node_modules/@ey-xd/ng-motif/styles/mixins';
+@forward '../node_modules/@ey-xd/ng-motif/styles/typography' with ($font-path: "/assets/fonts");
+@forward '../node_modules/@ey-xd/ng-motif/styles/grid';
+@forward '../node_modules/@ey-xd/ng-motif/styles/default';
+@forward '../node_modules/@ey-xd/ng-motif/styles/table/table';
+@forward '../node_modules/@ey-xd/ng-motif/styles/forms/forms';
+@forward '../node_modules/@ey-xd/ng-motif/styles/dropdown/dropdown';
+@forward '../node_modules/@ey-xd/ng-motif/styles/button/button';
+@forward '../node_modules/@ey-xd/ng-motif/styles/accordion/accordion';
+@forward '../node_modules/@ey-xd/ng-motif/styles/theme';
+@forward '../node_modules/@ey-xd/ng-motif/styles/dark-theme';
+@forward '../node_modules/@ey-xd/ng-motif/styles/skeleton/skeleton';
+@forward '../node_modules/@ey-xd/ng-motif/styles/typeahead/typeahead';
+@forward '../node_modules/@ey-xd/ng-motif/styles/tree/tree';
+
+
+@forward '../../../node_modules/@angular/cdk/a11y-prebuilt.css';
+@forward '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
